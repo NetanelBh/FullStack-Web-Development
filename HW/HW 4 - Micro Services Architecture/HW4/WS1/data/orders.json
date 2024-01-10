@@ -1,0 +1,14 @@
+{
+  "orders": [
+    {
+      "productId": 1,
+      "amount": 100,
+      "orderData": "11/11/2019"
+    },
+    {
+      "productId": 3,
+      "amount": 150,
+      "orderData": "10/05/2021"
+    }
+  ]
+}

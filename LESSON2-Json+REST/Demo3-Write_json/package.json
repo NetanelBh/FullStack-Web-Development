@@ -1,0 +1,16 @@
+{
+  "name": "demo3---write_json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Netanel",
+  "license": "ISC",
+  "dependencies": {
+    "jsonfile": "^6.1.0"
+  }
+}

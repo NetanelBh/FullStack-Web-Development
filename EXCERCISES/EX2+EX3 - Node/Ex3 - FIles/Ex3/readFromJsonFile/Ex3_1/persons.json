@@ -1,0 +1,24 @@
+{
+  "persons": [
+    {
+      "name": "Netanel",
+      "address": {
+        "city": "Holon",
+        "street": {
+          "name": "Refael Eitan",
+          "number": 5
+        }
+      }
+    },
+    {
+      "name": "Maor",
+      "address": {
+        "city": "Ramla",
+        "street": {
+          "name": "David Raziel",
+          "number": 32
+        }
+      }
+    }
+  ]
+}

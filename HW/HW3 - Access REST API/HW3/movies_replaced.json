@@ -1,0 +1,8 @@
+{
+  "movies": [
+    { "name": "Under the Dome", "premiered": "2013-06-24" },
+    { "name": "Bitten", "premiered": "2014-01-11" },
+    { "name": "True Detective", "premiered": "2014-01-12" },
+    { "name": "Homeland", "premiered": "2011-10-02" }
+  ]
+}
