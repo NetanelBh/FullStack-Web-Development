@@ -8,54 +8,46 @@ const persons = [
 // CRUD - Create, Read, Update, Delete
 
 // Get - Get all
-const getAllPersons = () => {
+export const getAllPersons = () => {
   return persons;
 };
 
 // Get = Get By ID - Read
-const getPersonById = (id) => {
-  const person = persons.find((per) => per.id === id);
+export const getPersonById = (id) => {
+  const person = persons.find((per) => per.id === +id);
 
   return person ? person : "Wrong ID entered";
 };
 
 // POST - Create
-const addPerson = (person) => {
+export const addPerson = (person) => {
   persons.push(person);
-
-  return " Successfully Created";
+  return person;
 };
 
 // PUT - Update
-const updatePerson = (id, person) => {
-  const index = persons.findIndex((per) => per.id === id);
+export const updatePerson = (id, person) => {
+  const index = persons.findIndex((per) => per.id === +id);
   if (index !== -1) {
     // Option1 - PUT
-    persons[index] = person;
+    // persons[index] = person;
+
     // Option2 - PATCH
     persons[index] = { ...persons[index], ...person };
 
-    return "Updated successfully";
+    return persons[index];
   } else {
     return "Wrong ID entered";
   }
 };
 
 // DELETE - Delete
-const deletePerson = (id) => {
-  const index = persons.findIndex((per) => per.id === id);
+export const deletePerson = (id) => {
+  const index = persons.findIndex((per) => per.id === +id);
   if (index !== -1) {
-    persons.splice(index, 1);
-    return "Deleted successfully";
+    const removedPerson = persons.splice(index, 1);
+    return removedPerson[0];
   } else {
     return "Wrong ID entered";
   }
-};
-
-module.exports = {
-  getAllPersons,
-  getPersonById,
-  addPerson,
-  updatePerson,
-  deletePerson,
 };
