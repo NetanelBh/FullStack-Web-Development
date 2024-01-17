@@ -7,7 +7,7 @@ import DBConnection from './server/db_configs/db.js';
 import ordersRouter from './server/controler/ordersControler.js';
 import personsRouter from './server/controler/personsControler.js';
 
-const port = 3000;
+const port = 3001;
 const app = express();
 
 app.use(cors());

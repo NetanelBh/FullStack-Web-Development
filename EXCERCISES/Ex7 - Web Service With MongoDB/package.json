@@ -1,0 +1,10 @@
+{
+  "name": "ex7---web-service-with-mongodb",
+  "version": "1.0.0",
+  "description": "Web Service with MongoDB",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [],
+  "author": "Netanel",
+  "license": "ISC"
+}
