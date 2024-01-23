@@ -1,0 +1,22 @@
+.request {
+  text-align: center;
+}
+
+.url {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+label {
+  margin-right: 0.5rem;
+}
+
+input {
+  margin-right: 0.5rem;
+  width: 30%;
+}
+
+.data {
+  margin-bottom: 0.2rem;
+}

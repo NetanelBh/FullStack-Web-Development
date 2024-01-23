@@ -1,0 +1,13 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.loading {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.content {
+  text-align: center;
+}

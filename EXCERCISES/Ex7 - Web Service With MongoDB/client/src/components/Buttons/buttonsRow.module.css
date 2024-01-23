@@ -1,0 +1,6 @@
+.row {
+  display: flex;
+  height: 5rem;
+  justify-content: space-evenly;
+  align-items: center;
+}

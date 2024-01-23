@@ -1,0 +1,38 @@
+.btn button{
+  width: 7rem;
+  height: 2.5rem;
+  border-radius: 7px;
+  background-color: rgb(117, 116, 116);
+  font-size: 1.2rem;
+  border: none;
+}
+
+.GET {
+  color: rgb(4, 219, 4);
+  box-shadow: 0.5px 0.5px 5px 2px rgb(4, 219, 4);
+}
+
+.POST {
+  color: rgb(252, 252, 92);
+  box-shadow: 0.5px 0.5px 5px 2px yellow;
+}
+
+.PUT {
+  color: rgb(40, 68, 226);
+  box-shadow: 0.5px 0.5px 5px 2px rgb(40, 68, 226);
+}
+
+.PATCH {
+  color: rgb(83, 0, 151);
+  box-shadow: 0.5px 0.5px 5px 2px rgb(83, 0, 151);
+}
+
+.DELETE {
+  color: red;
+  box-shadow: 0.5px 0.5px 5px 2px red;
+}
+
+button:hover,
+button:active {
+  background-color: rgb(165, 165, 165);;
+}

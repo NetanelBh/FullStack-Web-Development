@@ -1,0 +1,24 @@
+h1 {
+  margin-bottom: 0;
+}
+
+h2, h3 {
+  margin: 0.4rem auto 0.4rem auto;
+}
+
+li {
+  animation: movies-roll-down 2s linear;
+}
+
+@keyframes movies-roll-down {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.content {
+  color: rgb(65, 37, 37);
+}

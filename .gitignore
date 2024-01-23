@@ -45,8 +45,16 @@ jspm_packages/
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
+.pnp.js
+
+# testing
+/coverage
+
 # TypeScript cache
 *.tsbuildinfo
+
+# production
+/build
 
 # Optional npm cache directory
 .npm
@@ -73,6 +81,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
+.DS_Store
 .env
 .env.development.local
 .env.test.local
