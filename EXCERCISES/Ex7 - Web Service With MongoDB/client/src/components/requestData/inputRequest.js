@@ -40,7 +40,6 @@ const InputRequest = ({ reqType, onHttpSubmit }) => {
             ref={dataRef}
             id="data"
             type="text"
-            defaultValue={`{"name": "shnot ha 90", "director": "Shalom", "premieredYear": 2000}`}
           />
         </div>
       </>
