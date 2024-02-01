@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="loadProductData()">
+
+    <h1 id="name"></h1>
+    <input type="text" id="id" disabled> <br>
+    <input type="text" id="name" placeholder="name"> <br>
+    <input type="text" id="price" placeholder="price"> <br>
+
+    <button onclick="createProduct()">Add</button> <button onclick="updateProduct()">Update</button>
+
+    <script>
+
+
+        async function loadProductData() {
+            const name = sessionStorage.getItem("name")
+
+            document.getElementById("name").innerText = name
+
+
+            const prodData = JSON.parse(sessionStorage.getItem("prodData"))
+            if (!prodData) {
+                return
+            }
+            document.getElementById("id").value = prodData._id
+            document.getElementById("name").value = prodData.name
+            document.getElementById("price").value = prodData.price
+
+        }
+
+
+        async function createProduct() {
+            const name = document.getElementById("name").value
+            const price = +document.getElementById("price").value
+
+            const token = sessionStorage.getItem("token")
+            if (!token) {
+                window.location.href = "./login.html"
+            }
+
+
+            try {
+                const resp = await fetch("http://localhost:8000/products", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-access-token": token
+                    },
+                    body: JSON.stringify({
+                        name, price
+                    })
+                })
+                window.location.href = "./products.html"
+            } catch (e) {
+                alert(e.message)
+            }
+
+        }
+
+        async function updateProduct() {
+            const id = document.getElementById("id").value
+            const name = document.getElementById("name").value
+            const price = +document.getElementById("price").value
+
+            const token = sessionStorage.getItem("token")
+            if (!token) {
+                window.location.href = "./login.html"
+            }
+            const resp = await fetch("http://localhost:8000/products/" + id, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": token
+                },
+                body: JSON.stringify({
+                    name, price
+                })
+            })
+            const status = await resp.json()
+            window.location.href = "./products.html"
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
