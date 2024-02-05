@@ -1,0 +1,35 @@
+<html>
+  <body>
+    <button onclick="getPersons()">Get Persons</button>
+
+    <script>
+      const url = 'http://localhost:4000/graphql';
+
+      async function getPersons() {
+        const q = `
+          query {
+            allPersons {
+              name
+              age
+            }
+          }
+        `;
+
+        // const v = {
+
+        // }
+
+        const resp = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: q }),
+          // body: JSON.stringify({ query: q, variables: v }),
+        });
+
+        const data = await resp.json();
+
+        console.log(data);
+      }
+    </script>
+  </body>
+</html>

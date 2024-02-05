@@ -1,0 +1,75 @@
+# allPersons
+query {
+  allPersons {
+    name
+    age
+  }
+}
+
+
+# getPerson
+query ($perId: Int) {
+  getPerson(id: $perId) {
+    name
+    age
+  }
+}
+
+QUERY VARIABLES:
+{
+  "perId": 2
+}
+
+
+# getPersonOlderThan
+query ($age: Int) {
+  getPersonOlderThan(age: $age) {
+    name
+    age
+  }
+}
+
+QUERY VARIABLES:
+{
+  "age": 25
+}
+
+
+# addPerson
+mutation ($person: PersonInput) {
+  addPerson(per: $person)
+}
+
+QUERY VARIABLES:
+{
+  "person": {
+    "id": 4,
+    "name": "Lian",
+    "age": 23
+  }
+}
+
+
+# updatePerson
+mutation ($person: PersonInput) {
+  updatePerson(per: $person)
+}
+
+QUERY VARIABLES:
+{
+  "person": {
+    "id": 2,
+    "name": "Danale"
+  }
+}
+
+
+# deletePerson
+mutation ($perId: Int) {
+  deletePerson(id: $perId)
+}
+
+QUERY VARIABLES:
+{
+  "perId": 3
+}
