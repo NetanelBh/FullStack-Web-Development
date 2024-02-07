@@ -19,8 +19,8 @@ const login = async () => {
       console.log(data);
     }
 	
-	sessionStorage.setItem('token', data);
-	sessionStorage.setItem('name', username);
+    sessionStorage.setItem('token', data);
+    sessionStorage.setItem('name', username);
 
     location.href = './products.html';
   } catch (error) {
