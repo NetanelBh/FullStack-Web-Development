@@ -10,7 +10,7 @@ export const addEmployee = async (employee) => {
   return newEmployee.save();
 };
 
-export const editEmployee = (id, updatedEmployee) => {
+export const updateEmployee = (id, updatedEmployee) => {
   return EmployeeModel.findByIdAndUpdate(id, updatedEmployee);
 };
 
