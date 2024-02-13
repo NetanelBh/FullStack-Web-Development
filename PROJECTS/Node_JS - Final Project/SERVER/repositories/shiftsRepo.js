@@ -4,8 +4,11 @@ export const getShifts = () => {
   return ShiftModel.find();
 };
 
-export const addShift = (shift) => {};
+export const addShift = (shift) => {
+  const newShift = ShiftModel(shift);
+  return newShift.save();
+};
 
-export const updateShift = (id, shift) => {};
-
-export const addEmployeeToShift = (shiftId, employeeId) => {};
+export const updateShift = (shiftId, shift) => {
+  return ShiftModel.findByIdAndUpdate(shiftId, shift);
+};

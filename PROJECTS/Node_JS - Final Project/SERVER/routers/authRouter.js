@@ -20,9 +20,11 @@ router.post("/login", async (req, res) => {
   // Let the user log in only if he is out of the system
   if (!req.session.user) {
     // Not let the user login, if he exceeded his dayly limit
-    if(req.session.requests && req.session.requests >= 5)
+    const isAccess = await authService.checkUserLimitActions(user);
+    if(!isAccess)
     {
-      return res.send({ success: false, data: "Can't login, you exceeded your limit"});
+      req.session.data = { success: false, data: "Can't login, you exceeded your limit"};
+      return res.send('/logout');
     }
 
     try {
@@ -34,13 +36,9 @@ router.post("/login", async (req, res) => {
       // Enter the user name to session to check for logged in at other pages
       req.session.user = user;
 
-      // Generate new token if it's the first time in a day that the user logged
-      if (!req.session.requests) {
-        const token = jwt.sign({ username: user }, process.env.KEY);
-        return res.json({ success: true, token });
-      } else {
-        return res.send({ success: true, data: "Successfully logged in" });
-      }
+      // Generate token to user
+      const token = jwt.sign({ username: user }, process.env.KEY);
+      return res.send({ success: true, data: token });
     } catch (error) {
       return res.status(401).json({ success: false, data: "Can't login" });
     }
@@ -50,14 +48,19 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  // When logout, remove the user from the session to let him login later
-  delete req.session.user;
-  if(req.session.requests >= 5)
-  {
-    res.send({ success: true, data: "You exceeded your daily actions limit" });
+  const updatedData = {};
+  if(req.session.data) {
+    const reqContent = {...req.session.data}
+    updatedData.success = reqContent.success;
+    updatedData.data =  reqContent.data + ",  logging out";
   } else {
-    res.send({ success: true, data: "Successfully logged out" });
+    updatedData.success = true;
+    updatedData.data =  "Succesfully logged out";
   }
+  // When logout, remove the user from the session to let him login later
+  req.session.destroy();
+
+  res.send(updatedData);
 });
 
 export default router;

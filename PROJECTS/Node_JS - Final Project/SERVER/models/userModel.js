@@ -4,6 +4,7 @@ const schema = new Schema(
   {
     fullName: { type: String, required: true },
     numOfActions: { type: Number, required: true },
+    remainingActions: {type: Number, required: true}
   },
   { versionKey: false }
 );

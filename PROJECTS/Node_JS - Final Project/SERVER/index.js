@@ -7,12 +7,13 @@ import session from 'express-session';
 
 import DbConnection from './configs/dbConnection.js';
 
-import endOfDay from './calculateEndOfDayTime.js';
+import endOfDay from './utils/calculateEndOfDayTime.js';
 import userRouter from './routers/usersRouter.js';
 import authRouter from './routers/authRouter.js';
 import shiftsRouter from './routers/shiftsRouter.js';
 import depsRouter from './routers/departmentsRouter.js';
 import employeesRouter from './routers/employeesRouter.js';
+import {checkLimitActions, addActionToUser} from './services/usersService.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -28,14 +29,15 @@ app.use(cors());
 app.use(session({
   secret: process.env.KEY,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: true, 
   cookie: {maxAge: endOfDay()}
 }));
 
 app.use('/auth', authRouter);
 
 // Before route any path, check the input token from the client with meddleware
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
+  console.log(req.session.user);
   // First check if the user logged in to system
   if (req.session && req.session.user) {
     const token = req.headers['x-access-token'];
@@ -43,16 +45,21 @@ app.use((req, res, next) => {
 
     try {
       jwt.verify(token, process.env.KEY);
-      // If token successfully verified, check the requests counter(20 per day)
-      if(!req.session.requests) {
-        req.session.requests = 1;
-        next();
-      } else if(req.session.requests < 5) {
-        req.session.requests++;
-        next();
-      } else {
-        return res.redirect('/auth/logout');
+      // Each request, will check if there is free actions to do per this user
+
+      const isAccess = await checkLimitActions(req.session.user)
+      if (!isAccess) {
+        req.session.data = {success: false, data: "exceeded your daily limit"};
+        return res.redirect('/auth/logout'); 
       }
+
+      // Add actions in DB to this user
+      const resp = await addActionToUser(req.session.user);
+      if(!resp.success) {
+        return res.send(resp);
+      }
+
+      next();
     } catch (error) {
       // If token verification failed, return error to the user
       return res.status(401).json("Invalid token");

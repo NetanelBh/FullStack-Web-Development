@@ -10,6 +10,11 @@ export const addEmployee = async (employee) => {
   return newEmployee.save();
 };
 
+// This function using by departmentsService.js file
+export const allocateEmployeeToDepartment = (empId, depId) => {
+  return EmployeeModel.findByIdAndUpdate(empId, {departmentId: depId});
+};
+
 export const updateEmployee = (id, updatedEmployee) => {
   return EmployeeModel.findByIdAndUpdate(id, updatedEmployee);
 };
