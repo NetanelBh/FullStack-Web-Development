@@ -33,39 +33,53 @@ app.use(session({
   cookie: {maxAge: endOfDay()}
 }));
 
+// Route for user login
 app.use('/auth', authRouter);
 
-// Before route any path, check the input token from the client with meddleware
+// middleware for token authentication and update actions in DB and json file
 app.use(async (req, res, next) => {
-  console.log(req.session.user);
   // First check if the user logged in to system
   if (req.session && req.session.user) {
-    const token = req.headers['x-access-token'];
+    // extract the user and the generated token from req.session.user to verify
+    const {userName, token} = req.session.user;
+    //Extract the token from the user current request
+    const requestToken = req.headers['x-access-token'];
+    // Check if the user request contains token
     if(!token) return res.status(401).json("No token provided by the user");
+    // Check if token from the user request equals to generated token from login
+    if(token !== requestToken) return res.status(401).json("Invalid token");
 
+    // Try catch block for token authentication
     try {
       jwt.verify(token, process.env.KEY);
-      // Each request, will check if there is free actions to do per this user
+    } catch (error) {
+      return res.status(401).json("Invalid token");
+    }
 
-      const isAccess = await checkLimitActions(req.session.user)
-      if (!isAccess) {
-        req.session.data = {success: false, data: "exceeded your daily limit"};
-        return res.redirect('/auth/logout'); 
+    // try catch block for checking the user's daily actions limit
+    try {
+      const isAccess = await checkLimitActions(userName)
+      if(!isAccess) {
+        req.session.resp = {success: false, data: "exceeded your daily limit"};
+        return res.redirect('/auth/logout');
       }
+    } catch (error) {
+      return res.send(error);
+    }
 
-      // Add actions in DB to this user
-      const resp = await addActionToUser(req.session.user);
+    // try catch block to write the user's action to json file and DB
+    try {
+      const resp = await addActionToUser(userName);
       if(!resp.success) {
         return res.send(resp);
       }
-
-      next();
     } catch (error) {
-      // If token verification failed, return error to the user
-      return res.status(401).json("Invalid token");
+      return res.send(error);
     }
+
+    next();
   } else {
-    return res.status(401).json("Please log in first");
+    return res.status(401).json("Please login first");
   }
 });
 

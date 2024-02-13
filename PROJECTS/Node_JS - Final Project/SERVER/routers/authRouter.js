@@ -23,8 +23,8 @@ router.post("/login", async (req, res) => {
     const isAccess = await authService.checkUserLimitActions(user);
     if(!isAccess)
     {
-      req.session.data = { success: false, data: "Can't login, you exceeded your limit"};
-      return res.send('/logout');
+      req.session.resp = { success: false, data: "Can't login, you exceeded your daily limit"};
+      return res.redirect('logout');
     }
 
     try {
@@ -33,11 +33,11 @@ router.post("/login", async (req, res) => {
         return res.status(401).json({ success: false, data: resp.data });
       }
 
-      // Enter the user name to session to check for logged in at other pages
-      req.session.user = user;
-
       // Generate token to user
       const token = jwt.sign({ username: user }, process.env.KEY);
+      // Save the user and the token in the session for validate in other pages
+      req.session.user = {userName: user, token};
+
       return res.send({ success: true, data: token });
     } catch (error) {
       return res.status(401).json({ success: false, data: "Can't login" });
@@ -49,10 +49,16 @@ router.post("/login", async (req, res) => {
 
 router.get("/logout", (req, res) => {
   const updatedData = {};
-  if(req.session.data) {
-    const reqContent = {...req.session.data}
+  if(req.session.resp) {
+    const reqContent = {...req.session.resp}
     updatedData.success = reqContent.success;
-    updatedData.data =  reqContent.data + ",  logging out";
+    // If before the login we know that we exceeded the daily limit
+    if(reqContent.data.includes("Can't login")) {
+      updatedData.data = reqContent.data;
+    } else {
+      // This message happens during users requests when he is logged in
+      updatedData.data = reqContent.data + ",  logging out";
+    }
   } else {
     updatedData.success = true;
     updatedData.data =  "Succesfully logged out";

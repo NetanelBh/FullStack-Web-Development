@@ -55,7 +55,6 @@ router.patch('/allocate/:id', async (req, res) => {
   const depId = req.params.id;
   const empId = req.body.id;
 
-  console.log(empId);
   try {
     const resp = await depsService.allocateEmployeeToDepartment(empId, depId);
     if(resp) {
