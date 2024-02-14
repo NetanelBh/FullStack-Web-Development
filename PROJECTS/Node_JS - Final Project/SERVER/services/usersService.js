@@ -70,3 +70,19 @@ export const checkLimitActions = async (user) => {
   
   return remainingActions > 0 ? true : false;
 };
+
+export const resetUsersDailyActions = async() => {
+  const allUsers = await usersRepo.getUsers();
+  allUsers.forEach( async (user) => {
+    try {
+      const updatedUser = {...user._doc, remainingActions: user.numOfActions};
+      console.log("updatedUser \n");
+      console.log(updatedUser)
+      await usersRepo.updateUser(user.id, updatedUser);
+    } catch (error) {
+      return false;
+    }
+  });
+
+  return true;
+};
