@@ -22,8 +22,6 @@ router.post("/login", async (req, res) => {
     // Check authentication for username and email
     try {
       const resp = await authService.login(user, email);
-      console.log("In autorouter");
-      console.log(resp);
       if (!resp.success) {
         return res.send({ success: false, data: resp.data });
       }
