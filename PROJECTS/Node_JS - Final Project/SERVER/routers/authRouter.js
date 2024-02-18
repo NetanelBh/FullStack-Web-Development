@@ -8,7 +8,6 @@ import * as authService from "../services/authService.js";
 const router = express.Router();
 
 router.post("/login", async (req, res) => {
-  console.log(req.session.id);
   const { user, email } = req.body;
   if (!user) {
     return res.status(401).json({ success: false, data: "Enter username" });
