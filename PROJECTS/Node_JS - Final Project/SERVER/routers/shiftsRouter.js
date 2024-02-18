@@ -7,7 +7,7 @@ const router = express.Router();
 // GET all shifts
 router.get('/', async (req, res) => {
   const shifts = await shiftsService.getShifts();
-  res.send(shifts);
+  res.send({success: true, data: shifts});
 });
 
 // ADD new shift

@@ -25,9 +25,9 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const deps = await depsService.getDepartments();
-    res.send(deps);
+    res.send({success: true, data: deps});
   } catch (error) {
-    res.send(error);
+    res.send({success: false, data: error});
   }
 });
 
@@ -91,9 +91,9 @@ router.patch("/:id", async (req, res) => {
 router.delete("/", async (req, res) => {
   try {
     const resp = await depsService.deleteAllDepartments();
-    return res.send(resp);
+    return res.send({success: true, data: resp});
   } catch (error) {
-    return res.send({ seccess: false, data: "Ecountered with some problem" });
+    return res.send({ success: false, data: "Ecountered with some problem" });
   }
 });
 

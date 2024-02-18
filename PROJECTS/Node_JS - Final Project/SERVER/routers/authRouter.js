@@ -8,9 +8,10 @@ import * as authService from "../services/authService.js";
 const router = express.Router();
 
 router.post("/login", async (req, res) => {
+  console.log(req.session.id);
   const { user, email } = req.body;
   if (!user) {
-    return res.status(401).json({ success: false, data: "Enter user name" });
+    return res.status(401).json({ success: false, data: "Enter username" });
   }
 
   if (!email) {
@@ -19,7 +20,7 @@ router.post("/login", async (req, res) => {
 
   // Let the user log in only if he is out of the system
   if (!req.session.user) {
-    // Not let the user login, if he exceeded his dayly limit
+    // Not let the user login, if he exceeded his daily limit
     const isAccess = await authService.checkUserLimitActions(user);
     if(!isAccess)
     {
@@ -35,7 +36,7 @@ router.post("/login", async (req, res) => {
 
       // Generate token to user
       const token = jwt.sign({ username: user }, process.env.KEY);
-      // Save the user and the token in the session for validate in other pages
+      // Save the user and token in the session for authenticate in other pages
       req.session.user = {userName: user, token};
 
       return res.send({ success: true, data: token });

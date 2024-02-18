@@ -8,9 +8,9 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const employees = await empsService.getEmployeesData();
-    res.send(employees);
+    res.send({success: true, data: employees});
   } catch (error) {
-    res.send(error);
+    res.send({success: false, data: error});
   }
 });
 
