@@ -3,12 +3,14 @@ import {checkLimitActions} from "../services/usersService.js";
 
 export const login =  async (user, email) => {
   try {
-    const returnedUser = await authRepo.getUserFromWeb(user);
-    if(!returnedUser) {
+    // Check if the user exist in DB
+    const webUser = (await authRepo.getUserFromWeb(user)).data;
+    if(webUser.length === 0) {
       return {success: false, data: 'User not found'};
     }
-    
-    if(returnedUser.data[0].email !== email) {
+
+    // Authenticate the email address
+    if(webUser[0].email !== email) {
       return {success: false, data: 'Wrong email'};
     } else {
       return {success: true, data: 'Successfully logged in'};

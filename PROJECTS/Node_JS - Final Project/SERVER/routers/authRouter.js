@@ -19,24 +19,29 @@ router.post("/login", async (req, res) => {
 
   // Let the user log in only if he is out of the system
   if (!req.session.user) {
-    // Not let the user login, if he exceeded his daily limit
-    const isAccess = await authService.checkUserLimitActions(user);
-    if(!isAccess)
-    {
-      req.session.resp = { success: false, data: "Can't login, you exceeded your daily limit"};
-      return res.redirect('logout');
-    }
-
+    // Check authentication for username and email
     try {
       const resp = await authService.login(user, email);
+      console.log("In autorouter");
+      console.log(resp);
       if (!resp.success) {
-        return res.status(401).json({ success: false, data: resp.data });
+        return res.send({ success: false, data: resp.data });
+      }
+
+      // Not let the user login, if he exceeded his daily limit
+      const isAccess = await authService.checkUserLimitActions(user);
+      if (!isAccess) {
+        req.session.resp = {
+          success: false,
+          data: "Can't login, you exceeded your daily limit",
+        };
+        return res.redirect("logout");
       }
 
       // Generate token to user
       const token = jwt.sign({ username: user }, process.env.KEY);
       // Save the user and token in the session for authenticate in other pages
-      req.session.user = {userName: user, token};
+      req.session.user = { userName: user, token };
 
       return res.send({ success: true, data: token });
     } catch (error) {
@@ -49,11 +54,11 @@ router.post("/login", async (req, res) => {
 
 router.get("/logout", (req, res) => {
   const updatedData = {};
-  if(req.session.resp) {
-    const reqContent = {...req.session.resp}
+  if (req.session.resp) {
+    const reqContent = { ...req.session.resp };
     updatedData.success = reqContent.success;
     // If before the login we know that we exceeded the daily limit
-    if(reqContent.data.includes("Can't login")) {
+    if (reqContent.data.includes("Can't login")) {
       updatedData.data = reqContent.data;
     } else {
       // This message happens during users requests when he is logged in
@@ -61,7 +66,7 @@ router.get("/logout", (req, res) => {
     }
   } else {
     updatedData.success = true;
-    updatedData.data =  "Succesfully logged out";
+    updatedData.data = "Succesfully logged out";
   }
   // When logout, remove the user from the session to let him login later
   req.session.destroy();
