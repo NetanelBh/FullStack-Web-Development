@@ -1,0 +1,22 @@
+.input {
+  display: flex;
+  width: 13.5rem;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+}
+
+.action {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.btn {
+  border-radius: 4px;
+  border: solid 1px black;
+}
+
+.btn:hover {
+  background-color: blue;
+  color: white;
+  border-color: blue;
+}

@@ -38,7 +38,7 @@ router.post("/login", async (req, res) => {
 
       // Generate token to user
       const token = jwt.sign({ username: user }, process.env.KEY);
-      // Save the user and token in the session for authenticate in other pages
+      // Save the user and token in the session for authentication in pages
       req.session.user = { userName: user, token };
 
       return res.send({ success: true, data: token });

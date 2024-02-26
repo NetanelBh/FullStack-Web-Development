@@ -32,12 +32,13 @@ export const getEmployeesData = async () => {
 
       const fullNameHelper = employee.firstName + " " + employee.lastName;
       const shortShiftsData = shiftsData.map((shift) => {
-        const hours = shift.startingHour + ":00 - " + shift.endingHour + ":00";
+        const hours = shift.startingHour + ":00-" + shift.endingHour + ":00";
         return { date: shift.date, hours: hours };
       });
 
       // Per each employee, will return to map the following object with data
       return {
+        id: employee.id,
         fullName: fullNameHelper,
         department: empDep.name,
         shifts: shortShiftsData,

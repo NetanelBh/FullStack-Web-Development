@@ -76,8 +76,6 @@ export const resetUsersDailyActions = async() => {
   allUsers.forEach( async (user) => {
     try {
       const updatedUser = {...user._doc, remainingActions: user.numOfActions};
-      console.log("updatedUser \n");
-      console.log(updatedUser)
       await usersRepo.updateUser(user.id, updatedUser);
     } catch (error) {
       return false;
