@@ -1,0 +1,13 @@
+.a {
+  background-color: red;
+  width: 25rem;
+}
+
+.a h1 {
+  margin: 0
+}
+
+.a input {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+}

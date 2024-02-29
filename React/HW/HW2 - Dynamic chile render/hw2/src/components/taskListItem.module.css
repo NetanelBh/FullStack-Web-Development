@@ -1,0 +1,9 @@
+.container {
+  border: 8px solid blue;
+  width: 70%;
+}
+
+p {
+  font-size: 1.2rem;
+  margin: 0;
+}

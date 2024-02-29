@@ -1,0 +1,14 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th{
+  border: 1px solid black;
+  color: blue;
+}
+
+td {
+  border: 1px solid black;
+  color: black;
+}

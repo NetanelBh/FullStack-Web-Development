@@ -1,0 +1,50 @@
+.container {
+  text-align: center;
+}
+
+.parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.input {
+  display: flex;
+  justify-content: space-between;
+  width: 14rem;  
+  margin-bottom: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.input input:focus {
+  background-color: rgb(255, 180, 172);
+}
+
+.actions {
+  display: flex;
+  width: 9rem;
+  margin-top: 1rem;
+  justify-content: space-between;
+}
+
+.actions button {
+  font-size: 1.2rem;
+  border-radius: 4px;
+  width: 4rem;
+}
+
+.show:hover {
+  background-color: #F5DD61;
+  border-color: #F5DD61;
+}
+
+.hide:hover {
+  background-color: #F4538A;
+  border-color: #F4538A;
+}
+
+.save:hover {
+  background-color: #59D5E0;
+  border-color: #59D5E0;
+}
