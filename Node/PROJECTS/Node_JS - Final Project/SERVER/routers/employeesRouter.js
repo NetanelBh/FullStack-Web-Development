@@ -1,6 +1,7 @@
 import express from "express";
 
 import * as empsService from "../services/epmloyeesService.js";
+import {getWorkSchedule} from '../services/shiftsService.js';
 
 const router = express.Router();
 
@@ -13,6 +14,15 @@ router.get("/", async (req, res) => {
     res.send({success: false, data: error});
   }
 });
+
+router.get('/schedule', async (req, res) => {
+  try {
+    const schedule = await getWorkSchedule();
+    res.send({success: true, data: schedule});
+  } catch (error) {
+    res.send({success: false, data: error});
+  }
+})
 
 // CREATE EMPLOYEE
 router.post("/", async (req, res) => {

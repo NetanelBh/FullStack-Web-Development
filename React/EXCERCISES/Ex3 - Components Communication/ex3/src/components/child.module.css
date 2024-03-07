@@ -1,0 +1,34 @@
+.container {
+  width: 50%;
+  background-color: rgb(190, 190, 190);
+}
+
+h2 {
+  margin: 0;
+}
+
+label {
+  font-size: 1.1rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.input {
+  width: 35%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+}
+
+input,
+select {
+  width: 68%;
+}
+
+.checkbox {
+  display: flex;
+  width: 20%;
+}
+
+button {
+  font-size: 1.1rem;
+}

@@ -1,0 +1,16 @@
+.container {
+  width: 50%;
+  background-color: yellow;
+}
+
+ul {
+  margin: 1rem 0 0 0;
+}
+
+li {
+  font-size: 1.2rem;
+}
+
+h1 {
+  margin: 2rem 0 0 0;
+}
