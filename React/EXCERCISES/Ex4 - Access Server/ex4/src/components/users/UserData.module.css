@@ -1,0 +1,32 @@
+.container {
+  width: 50%;
+  margin: auto;
+  background-color: rgb(204, 221, 252);
+}
+
+.size {
+  font-size: 1.2rem;
+}
+
+.size > p {
+  text-align: center;
+}
+
+.size > .special {
+  padding-top: 0.5rem;
+}
+
+ol {
+  margin: 0 auto 0 0.8rem;
+}
+
+li {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  margin-left: 0.8rem;
+  margin-bottom: 0.3rem;
+  text-decoration: underline;
+}
