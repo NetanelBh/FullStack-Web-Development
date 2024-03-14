@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: fit-content;
+  text-align: center;
+  background-color: rgb(254, 255, 210);
+}
