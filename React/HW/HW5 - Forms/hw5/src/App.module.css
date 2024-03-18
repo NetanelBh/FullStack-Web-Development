@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.user_id {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.text {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.btn {
+  width: fit-content;
+  font-size: 1.5rem;
+}
+
+.name {
+  margin-left: 0.35rem;
+}
+
+.email {
+  margin-left: 0.3rem;
+}
