@@ -4,12 +4,12 @@ import Card from "../UI/Card";
 import Button from "../UI/Button";
 import { useState } from "react";
 
-const UserListItem = ({ user, onUpdate, onDelete }) => {
+const UserListItem = ({ user, onUpdate, onDelete, onSelectUser }) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
 
   const nameChangeHandler = (event) => {
-    setName(event.target.value)
+    setName(event.target.value);
   };
 
   const emailChangeHandler = (event) => {
@@ -17,7 +17,7 @@ const UserListItem = ({ user, onUpdate, onDelete }) => {
   };
 
   const updateHandler = () => {
-    const data = {name, email, id: user.id};
+    const data = { name, email, id: user.id };
     onUpdate(data);
   };
 
@@ -26,7 +26,9 @@ const UserListItem = ({ user, onUpdate, onDelete }) => {
       <div className={styles.container}>
         <div>
           <p>
-            <span className={styles.underline}>ID:</span>
+            <span onClick={() => onSelectUser(user.id)} className={styles.underline}>
+              ID:
+            </span>
             {user.id}
           </p>
         </div>
@@ -37,7 +39,7 @@ const UserListItem = ({ user, onUpdate, onDelete }) => {
             type="text"
             name="fullName"
             className={styles.input}
-            value={user.name}
+            value={name}
             onChange={nameChangeHandler}
           />
         </div>
@@ -48,7 +50,7 @@ const UserListItem = ({ user, onUpdate, onDelete }) => {
             type="text"
             name="mail"
             className={styles.input}
-            value={user.email}
+            value={email}
             onChange={emailChangeHandler}
           />
         </div>

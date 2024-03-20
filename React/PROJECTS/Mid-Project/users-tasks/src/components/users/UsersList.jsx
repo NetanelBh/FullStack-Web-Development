@@ -1,13 +1,27 @@
 import styles from "./UsersList.module.css";
 
+import { useState } from "react";
+
 import Card from "../UI/Card";
 import UserListItem from "./UserListItem";
 
 const UsersList = ({ users, todos, onUpdate, onDelete }) => {
+  const [selectedUserId, setSelectedUserId] = useState(0);
+
+  const selectedUserHandler = (id) => {
+    setSelectedUserId(id);
+  };
+
   return (
     <ul>
       {users.map((user) => {
-        let style = "completed_border";
+        let style = 'completed_border';
+        let backgnd = '';
+        // Check if user id label pressed, to change the background color
+        if (user.id === selectedUserId) {
+          backgnd = 'orange_background';
+        }
+        
         todos.forEach((todo) => {
           if (user.id === todo.userId && todo.completed === false) {
             style = "uncompleted_border";
@@ -15,11 +29,12 @@ const UsersList = ({ users, todos, onUpdate, onDelete }) => {
         });
 
         return (
-          <Card className={`${styles[style]}`} key={user.id}>
+          <Card className={`${styles[style]} ${styles[backgnd]}`} key={user.id}>
             <UserListItem
               user={user}
               onUpdate={(updatedUser) => onUpdate(updatedUser)}
               onDelete={(id) => onDelete(id)}
+              onSelectUser={selectedUserHandler}
             />
           </Card>
         );
