@@ -1,0 +1,15 @@
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 1.5rem 1rem 1.5rem;
+}
+
+.completed_border {
+  border: 2px solid green;
+  margin-bottom: 1rem;
+}
+
+.uncompleted_border {
+  border: 2px solid red;
+  margin-bottom: 1rem;
+}
