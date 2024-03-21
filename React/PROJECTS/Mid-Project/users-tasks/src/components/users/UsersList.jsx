@@ -5,11 +5,18 @@ import { useState } from "react";
 import Card from "../UI/Card";
 import UserListItem from "./UserListItem";
 
-const UsersList = ({ users, todos, onUpdate, onDelete }) => {
+const UsersList = ({ users, todos, onUpdate, onDelete, onIdSelect }) => {
   const [selectedUserId, setSelectedUserId] = useState(0);
 
   const selectedUserHandler = (id) => {
-    setSelectedUserId(id);
+    // If the same id pressed, will remove the user choice
+    if (id === selectedUserId) {
+      setSelectedUserId(0);
+    } else {
+      setSelectedUserId(id);
+    }
+    // Tell the parent that specific id selected, and want to show posts & todos
+    onIdSelect(id);
   };
 
   return (
@@ -21,7 +28,7 @@ const UsersList = ({ users, todos, onUpdate, onDelete }) => {
         if (user.id === selectedUserId) {
           backgnd = 'orange_background';
         }
-        
+
         todos.forEach((todo) => {
           if (user.id === todo.userId && todo.completed === false) {
             style = "uncompleted_border";

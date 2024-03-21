@@ -2,6 +2,7 @@ import styles from "./Users.module.css";
 
 import { useState, useEffect, useCallback } from "react";
 
+import Card from "../UI/Card";
 import Search from "./Search";
 import UsersList from "./UsersList";
 import HttpReq from "../utils/httpReq";
@@ -16,8 +17,14 @@ const Users = () => {
   const [todos, setTodos] = useState([]);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [filteredList, setFilteredList] = useState([]);
+  // Save the entered search letters by the user
+  const [searchLetters, setSearchLetters] = useState("");
+  // Flag to store the state that the user used search bar
   const [isSearch, setIsSearch] = useState(false);
+  // If the user pressed on specific user id to show his tasks and posts
+  const [selectedUserId, setSelectedUserId] = useState(0);
+  // Flag to determine if the user pressed on specific user id
+  const [isSelectedId, setIsSelectedId] = useState(false);
 
   const fetchData = useCallback(async () => {
     setIsLoading(true);
@@ -38,17 +45,14 @@ const Users = () => {
     fetchData();
   }, [fetchData]);
 
-  const searchUsersHandler = (string) => {
-    if (string === "") {
+  const searchUsersHandler = (searchLet) => {
+    if (searchLet === "") {
       setIsSearch(false);
+      setSearchLetters("");
       return;
     }
 
-    const filteredList = users.filter((user) => {
-      return user.name.includes(string) || user.email.includes(string);
-    });
-
-    setFilteredList([...filteredList]);
+    setSearchLetters(searchLet);
     setIsSearch(true);
   };
 
@@ -87,7 +91,7 @@ const Users = () => {
       },
     };
 
-    const index = users.findIndex(user => user.id === id);
+    const index = users.findIndex((user) => user.id === id);
     setUsers((latestUsers) => {
       const newUsers = [...latestUsers];
       newUsers.splice(index, 1, emptyObj);
@@ -96,27 +100,61 @@ const Users = () => {
     });
   };
 
+  const selectSpecificUserHandler = (id) => {
+    // If pressed twice on the same id, the selected user will removed
+    if(id === selectedUserId) {
+      setIsSelectedId(false);
+      setSelectedUserId(0);  
+      return;
+    }
+
+    setIsSelectedId(true);
+    setSelectedUserId(id);
+  };
+
+  // Filter the users list if some letters entered by the user for search
+  let filteredList = users;
+  if (isSearch) {
+    filteredList = users.filter((user) => {
+      return (
+        user.name.includes(searchLetters) || user.email.includes(searchLetters)
+      );
+    });
+  }
+
   return (
     <>
       {isLoading && <PacmanLoading color="blue" />}
       {!isLoading && (
-        <div className={styles.mobile_container}>
-          <Search onSearch={searchUsersHandler} />
-          {!isSearch && (
-            <UsersList
-              users={users}
-              todos={todos}
-              onUpdate={updateUserHandler}
-              onDelete={deleteUserDataHandler}
-            />
-          )}
-          {isSearch && (
+        <div className={styles.main}>
+          <div className={styles.mobile_container}>
+            <Search onSearch={searchUsersHandler} />
             <UsersList
               users={filteredList}
               todos={todos}
               onUpdate={updateUserHandler}
               onDelete={deleteUserDataHandler}
+              onIdSelect={selectSpecificUserHandler}
             />
+          </div>
+
+          {isSelectedId && (
+            <div className={styles.tasks_container}>
+              <Card>
+                <ul>
+                  <li>HIdfgdfgdfgdfgdgdfg</li>
+                  <li>Bye</li>
+                  <li>Dye</li>
+                </ul>
+              </Card>
+              <Card>
+                <ul>
+                  <li>HI</li>
+                  <li>Bye</li>
+                  <li>Dye</li>
+                </ul>
+              </Card>
+            </div>
           )}
         </div>
       )}
