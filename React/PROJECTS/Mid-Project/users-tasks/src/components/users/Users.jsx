@@ -126,7 +126,7 @@ const Users = () => {
   // If user id selected, will filter the lists according to the user id
   let userTodos = todos;
   let userPosts = posts;
-  if(isSelectedId) {
+  if (isSelectedId) {
     userTodos = todos.filter((todo) => todo.userId === selectedUserId);
     userPosts = posts.filter((post) => post.userId === selectedUserId);
   }
@@ -145,12 +145,13 @@ const Users = () => {
               onDelete={deleteUserDataHandler}
               onIdSelect={selectSpecificUserHandler}
             />
+            <div className={styles.iphone_bottom}></div>
           </div>
 
           {isSelectedId && (
             <div className={styles.tasks_container}>
-              <Todos todos={userTodos} userId={selectedUserId}/>
-              <Posts posts={userPosts} userId={selectedUserId}/>
+              <Todos todos={userTodos} userId={selectedUserId} />
+              <Posts posts={userPosts} userId={selectedUserId} />
             </div>
           )}
         </div>
