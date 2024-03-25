@@ -2,7 +2,8 @@ import styles from "./Users.module.css";
 
 import { useState, useEffect, useCallback } from "react";
 
-import Card from "../UI/Card";
+import Posts from "../posts/Posts";
+import Todos from "../todos/Todos";
 import Search from "./Search";
 import UsersList from "./UsersList";
 import HttpReq from "../utils/httpReq";
@@ -102,9 +103,9 @@ const Users = () => {
 
   const selectSpecificUserHandler = (id) => {
     // If pressed twice on the same id, the selected user will removed
-    if(id === selectedUserId) {
+    if (id === selectedUserId) {
       setIsSelectedId(false);
-      setSelectedUserId(0);  
+      setSelectedUserId(0);
       return;
     }
 
@@ -120,6 +121,14 @@ const Users = () => {
         user.name.includes(searchLetters) || user.email.includes(searchLetters)
       );
     });
+  }
+
+  // If user id selected, will filter the lists according to the user id
+  let userTodos = todos;
+  let userPosts = posts;
+  if(isSelectedId) {
+    userTodos = todos.filter((todo) => todo.userId === selectedUserId);
+    userPosts = posts.filter((post) => post.userId === selectedUserId);
   }
 
   return (
@@ -140,20 +149,8 @@ const Users = () => {
 
           {isSelectedId && (
             <div className={styles.tasks_container}>
-              <Card>
-                <ul>
-                  <li>HIdfgdfgdfgdfgdgdfg</li>
-                  <li>Bye</li>
-                  <li>Dye</li>
-                </ul>
-              </Card>
-              <Card>
-                <ul>
-                  <li>HI</li>
-                  <li>Bye</li>
-                  <li>Dye</li>
-                </ul>
-              </Card>
+              <Todos todos={userTodos} userId={selectedUserId}/>
+              <Posts posts={userPosts} userId={selectedUserId}/>
             </div>
           )}
         </div>
