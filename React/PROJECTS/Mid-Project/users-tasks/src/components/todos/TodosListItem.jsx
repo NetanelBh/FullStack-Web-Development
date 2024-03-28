@@ -3,7 +3,7 @@ import styles from "./TodosListItem.module.css";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 
-const TodosListItem = ({ todo }) => {
+const TodosListItem = ({ todo, onMarkComplete }) => {
   return (
     <Card className={styles.li_container}>
       <li>
@@ -18,6 +18,7 @@ const TodosListItem = ({ todo }) => {
             <Button
               type="button"
               title="Mark Completed"
+              onClick={() => onMarkComplete(todo.title)}
               className={styles.btn}
             />
           )}

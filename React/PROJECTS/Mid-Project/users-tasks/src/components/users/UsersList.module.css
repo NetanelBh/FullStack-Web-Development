@@ -1,7 +1,8 @@
 ul {
   list-style: none;
   padding: 0;
-  margin: 2rem 1.5rem 2rem 1.5rem;
+  padding-right: 0.5rem;
+  margin: 2rem 1.1rem 3.2rem 1.5rem;
   overflow: auto;
 }
 
@@ -16,5 +17,5 @@ ul {
 }
 
 .orange_background {
-  background-color: orange;
+  background-color: rgb(255, 204, 108);
 }

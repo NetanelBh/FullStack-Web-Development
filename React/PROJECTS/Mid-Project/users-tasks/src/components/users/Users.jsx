@@ -2,9 +2,11 @@ import styles from "./Users.module.css";
 
 import { useState, useEffect, useCallback } from "react";
 
+import Card from "../UI/Card";
+import Search from "./Search";
+import AddForm from "../form/AddForm";
 import Posts from "../posts/Posts";
 import Todos from "../todos/Todos";
-import Search from "./Search";
 import UsersList from "./UsersList";
 import HttpReq from "../utils/httpReq";
 import PacmanLoading from "../UI/PacmanLoading";
@@ -26,6 +28,8 @@ const Users = () => {
   const [selectedUserId, setSelectedUserId] = useState(0);
   // Flag to determine if the user pressed on specific user id
   const [isSelectedId, setIsSelectedId] = useState(false);
+  // Flag to determine if the user pressed on add user
+  const [isAddUser, setIsAdUser] = useState(false);
 
   const fetchData = useCallback(async () => {
     setIsLoading(true);
@@ -63,39 +67,16 @@ const Users = () => {
       const newUsers = [...latestUsers];
       newUsers[index].name = updatedUser.name;
       newUsers[index].email = updatedUser.email;
+
       return newUsers;
     });
   };
 
   const deleteUserDataHandler = (id) => {
-    const emptyObj = {
-      id: id,
-      name: "",
-      username: "",
-      email: "",
-      address: {
-        street: "",
-        suite: "",
-        city: "",
-        zipcode: "",
-        geo: {
-          lat: "",
-          lng: "",
-        },
-      },
-      phone: "",
-      website: "",
-      company: {
-        name: "",
-        catchPhrase: "",
-        bs: "",
-      },
-    };
-
     const index = users.findIndex((user) => user.id === id);
     setUsers((latestUsers) => {
       const newUsers = [...latestUsers];
-      newUsers.splice(index, 1, emptyObj);
+      newUsers.splice(index, 1);
 
       return newUsers;
     });
@@ -111,6 +92,40 @@ const Users = () => {
 
     setIsSelectedId(true);
     setSelectedUserId(id);
+  };
+
+  const completeTaskHandler = (title) => {
+    const index = todos.findIndex((user) => user.title === title);
+    setTodos((todos) => {
+      const newTodos = [...todos];
+      newTodos[index].completed = true;
+
+      return newTodos;
+    });
+  };
+
+  const addTodoHandler = (todoObj) => {
+    const newTodos = [...todos, todoObj];
+    setTodos(newTodos);
+  };
+
+  const addPostHandler = (postObj) => {
+    const newPost = [...posts, postObj];
+    setPosts(newPost);
+  };
+
+  const addUserClicked = () => {
+    setIsAdUser(true);
+  };
+
+  const addUserHandler = (newData) => {
+    if (isSelectedId) return;
+
+    const newUser = {name: newData.title, email: newData.body, id: users.length + 1};
+    const usersList = [...users, newUser];
+    setUsers(usersList);
+
+    setIsAdUser(false);
   };
 
   // Filter the users list if some letters entered by the user for search
@@ -137,7 +152,7 @@ const Users = () => {
       {!isLoading && (
         <div className={styles.main}>
           <div className={styles.mobile_container}>
-            <Search onSearch={searchUsersHandler} />
+            <Search onSearch={searchUsersHandler} onAddUser={addUserClicked} />
             <UsersList
               users={filteredList}
               todos={todos}
@@ -145,13 +160,37 @@ const Users = () => {
               onDelete={deleteUserDataHandler}
               onIdSelect={selectSpecificUserHandler}
             />
-            <div className={styles.iphone_bottom}></div>
           </div>
+          <div className={styles.iphone_bottom}></div>
 
           {isSelectedId && (
             <div className={styles.tasks_container}>
-              <Todos todos={userTodos} userId={selectedUserId} />
-              <Posts posts={userPosts} userId={selectedUserId} />
+              <Todos
+                todos={userTodos}
+                userId={selectedUserId}
+                onMarkComplete={completeTaskHandler}
+                onAddTodo={addTodoHandler}
+              />
+              <Posts
+                posts={userPosts}
+                userId={selectedUserId}
+                onAddPost={addPostHandler}
+              />
+            </div>
+          )}
+
+          {isAddUser && (
+            <div className={styles.add_user_container}>
+              <h3>Add New User</h3>
+
+              <Card className={styles.main_container}>
+                <AddForm
+                titleName="Name:"
+                bodyName='Email'
+                onAdd={addUserHandler}
+                onCancel={() => setIsAdUser(false)}
+                />
+              </Card>
             </div>
           )}
         </div>
