@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 192, 136);
+  width: 50%;
+  margin: 4rem auto auto auto;
+}
+
+.details_container {
+  display: flex;
+}
+
+.font_size {
+  font-size: 1.5rem;
+}
+
+.name_label {
+  width: 2.5rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
+}
+
+.color {
+  color: blue;
+}
