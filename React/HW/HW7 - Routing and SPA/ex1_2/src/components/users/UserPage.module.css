@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(252, 209, 172);
+  width: 50%;
+  margin: 4rem auto auto auto;
+}
+
+.details_container {
+  display: flex;
+}
+
+.font_size {
+  font-size: 1.5rem;
+}
+
+.name_label {
+  width: 2.5rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
+}
+
+.color {
+  color: blue;
+}
+
+.titles {
+  width: fit-content;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: rgb(122, 0, 122); 
+  color: white;
+  margin: 4rem auto auto auto;
+  margin-top: 0;
+  overflow: auto;
+}
+
+.titles ul {
+  list-style: none;
+  text-align: center;
+}
+
+li {
+  margin-bottom: 1.8rem;
+}
