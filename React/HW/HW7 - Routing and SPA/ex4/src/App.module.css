@@ -1,0 +1,19 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 90vh;
+  margin-top: 2rem;
+}
+
+.movies_list {
+  display: flex;
+  flex-direction: column;
+}
+
+.movies_image {
+  border: 3px solid blue;
+}
+
+h1 {
+  margin-left: 1rem;
+}

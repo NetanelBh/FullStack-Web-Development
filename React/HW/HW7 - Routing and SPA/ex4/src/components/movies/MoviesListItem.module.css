@@ -1,0 +1,23 @@
+li {
+  border: 2px solid red;
+  width: 60%;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.2rem;
+  padding: 5px;
+}
+
+.move_mouse {
+  background-color: yellow;
+  width: 35%;
+}
+
+span {
+  color: blue;
+}
+
+.move_mouse:hover {
+  cursor: pointer;
+}
