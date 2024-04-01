@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.select {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+  background-color: #F1EAFF;
+}
+
+.btn {
+  font-size: 1.2rem;
+  background-color: #F1EAFF;
+}
+
+.btn:hover {
+  background-color: #D0A2F7;
+}

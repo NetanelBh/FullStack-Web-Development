@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 3rem auto auto auto;
+  background-color: #F1EAFF;
+}
+
+.form {
+  text-align: center;
+  margin: 2rem auto 1.5rem auto;
+}
+
+.input {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.input label {
+  font-size: 1.3rem;
+  width: 7rem;
+}
+
+.input input {
+  font-size: 1.2rem;
+}
+
+.input input:focus {
+  background-color: #E5D4FF;
+}
+
+.btn {
+  margin-top: 1.5rem;
+  width: 5rem;
+  font-size: 1.3rem;
+}
+
+.btn:hover {
+  background-color: #D0A2F7;
+}
