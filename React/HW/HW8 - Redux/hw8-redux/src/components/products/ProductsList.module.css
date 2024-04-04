@@ -1,0 +1,50 @@
+.container {
+  border: 1px solid white;
+  margin: 2rem;
+  grid-area: 1 / 2 / 2 span / 2;
+  height: 90vh;
+  width: 70%;
+  margin: 2rem auto auto 7rem;
+}
+
+.list {
+  list-style: none;
+  height: 74vh;
+  overflow: auto;
+  padding: 0;
+}
+
+.header {
+  margin: 2rem auto 3rem auto;
+  text-align: center;
+  background: linear-gradient(
+    to right,
+    #b9fc03,
+    #fffb00,
+    #ffd000,
+    #ff4800,
+    #ff6666
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow_animation 4s linear infinite;
+  background-size: 400% 100%;
+}
+
+@keyframes rainbow_animation {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 100% 0;
+  }
+}
+
+.no_products {
+  color: white;
+  text-align: center;
+  margin-top: 3rem;
+}

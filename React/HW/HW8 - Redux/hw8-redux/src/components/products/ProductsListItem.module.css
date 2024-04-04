@@ -1,0 +1,37 @@
+.li_card {
+  border: 1px solid red;
+  width: 60%;
+  text-align: center;
+  margin: 0 auto 1rem auto;
+}
+
+.li {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.li_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.li_content {
+  margin: 0.5rem auto 0.5rem auto;
+}
+
+.h2 {
+  color: yellow;
+}
+
+.btn {
+  width: 50%;
+  margin: 1rem auto 0.5rem auto;
+  background-color: rgb(253, 255, 149);
+  font-size: 1.2rem;
+}
+
+.btn:hover {
+  background-color: red;
+  color: white;
+  border-color: red;
+}

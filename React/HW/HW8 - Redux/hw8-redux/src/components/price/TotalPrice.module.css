@@ -1,0 +1,11 @@
+.container {
+  border: 1px solid red;
+  margin: 5rem 6rem 4rem 11rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container > h1 {
+  color: yellow;
+}
