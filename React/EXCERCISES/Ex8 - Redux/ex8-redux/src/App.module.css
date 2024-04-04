@@ -1,0 +1,15 @@
+.container {
+  height: 100vh;
+  background-image: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('./assets/images.jpeg');
+  background-size: cover;
+  animation: background_anim linear infinite 10s;
+}
+
+@keyframes background_anim {
+  from {
+    background-position-y: 0;
+  }
+  to {
+    background-position-y: -720px;
+  }
+}

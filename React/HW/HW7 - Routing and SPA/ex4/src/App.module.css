@@ -17,3 +17,12 @@
 h1 {
   margin-left: 1rem;
 }
+
+@keyframes bckg {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -500px 0;
+  }
+}

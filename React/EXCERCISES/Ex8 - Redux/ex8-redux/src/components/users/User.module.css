@@ -1,0 +1,49 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+  font-size: 1.3rem;
+  margin: 0 auto 3rem auto;
+  width: 60%;
+}
+
+.user_data {
+  margin-bottom: 1rem;
+}
+
+.data_container {
+  display: flex;
+  margin-bottom: 0.2rem;
+}
+
+input {
+  width: 10rem;
+  border: 1px grey solid;
+  border-radius: 5px;
+}
+
+label {
+  width: 6.5rem;
+}
+
+input:focus {
+  background-color: rgb(255, 223, 228);
+}
+
+.actions {
+  display: flex;
+  gap: 1rem
+}
+
+.btn {
+  width: 5rem;
+  font-size: 1rem;
+  background-color: rgb(255, 223, 228);
+}
+
+.btn:hover {
+  background-color: rgb(255, 156, 171);
+}
+
