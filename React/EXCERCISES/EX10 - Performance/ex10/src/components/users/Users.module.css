@@ -1,0 +1,16 @@
+.main_container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.ul_container {
+  box-shadow: 1px 1px 6px 1px yellow;
+  width: 90%;
+  margin: 0 auto auto auto;
+  text-align: center;
+}
+
+.ul {
+  padding: 0;
+  list-style: none;
+}

@@ -1,0 +1,9 @@
+.li {
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid yellow;
+  text-align: left;
+}
+
+.li span {
+  text-decoration: underline red;
+}
