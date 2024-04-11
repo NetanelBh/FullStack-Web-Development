@@ -72,15 +72,25 @@ const Login = () => {
         <Card className={styles.inner_container}>
           <form onSubmit={submitHandler} className={styles.form}>
             <h1>Next Generation E-Commerce</h1>
-            <div className={styles.input}>
-              <Input title="User Name:" type="text" ref={nameRef} />
+            <div className={styles.input_container}>
+              <Input
+                title="User Name:"
+                type="text"
+                ref={nameRef}
+                className={styles.input_direction}
+              />
               {!isValidUserName && (
                 <p className={styles.invalid}>Invalid User Name</p>
               )}
             </div>
 
-            <div className={styles.input}>
-              <Input title="Password:" type="text" ref={passRef} />
+            <div className={styles.input_container}>
+              <Input
+                title="Password:"
+                type="text"
+                ref={passRef}
+                className={styles.input_direction}
+              />
               {!isValidPassword && (
                 <p className={styles.invalid}>Invalid Password</p>
               )}
