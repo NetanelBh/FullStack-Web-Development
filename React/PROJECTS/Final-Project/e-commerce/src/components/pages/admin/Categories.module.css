@@ -5,6 +5,10 @@
   max-height: 78vh;
 }
 
+.main_container h1 {
+  margin-top: 1rem;
+}
+
 /* The container which contain the categories list */
 .list_container {
   margin: 1rem;
@@ -36,6 +40,7 @@
 .item_actions input {
   font-size: 1.2rem;
   margin-right: 1rem;
+  width: 80%;
 }
 
 .btn {

@@ -1,11 +1,14 @@
 import { RouterProvider } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { useEffect, useCallback, useState, Children } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { usersActions } from "./components/store/usersSlice";
+import { ordersActions } from './components/store/ordersSlice';
+import { productsActions } from "./components/store/productsSlice";
+import { categoriesActions } from "./components/store/categoriesSlice";
 
 import db from "./components/firebase";
-import { query, collection, onSnapshot } from "firebase/firestore";
+import { query, collection, onSnapshot, where } from "firebase/firestore";
 
 import PacmanLoading from "./components/UI/PacmanLoading";
 import CreateRouter from "./components/utils/createRouter";
@@ -17,24 +20,36 @@ const App = () => {
   // Create the router from utils dir
   const router = CreateRouter();
 
-  const fetchUsers = useCallback(() => {
+  const fetchUsers = useCallback((collectionName) => {
     setIsLoading(true);
 
-    const q = query(collection(db, "users"));
+    let q = query(collection(db, collectionName));
+
     // With snapshot we can communicate with firebase(realtime update when change)
-    onSnapshot(q, (snapshot) => {
-      const users = snapshot.docs.map((doc) => {
+    onSnapshot(q, (snapShot) => {
+      const data = snapShot.docs.map((doc) => {
         return { id: doc.id, ...doc.data() };
       });
 
-      dispatch(usersActions.loadUsers(users));
-
-      setIsLoading(false);
+      if(collectionName === 'users') {
+        dispatch(usersActions.load(data));
+      } else if(collectionName === 'orders') {
+        dispatch(ordersActions.load(data));
+      } else if(collectionName === 'categories') {
+        dispatch(categoriesActions.load(data));
+      } else if(collectionName === 'products') {
+        dispatch(productsActions.load(data));
+      }
     });
+
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    fetchUsers();
+    fetchUsers("users");
+    fetchUsers("orders");
+    fetchUsers("categories");
+    fetchUsers("products");
   }, [fetchUsers]);
 
   return (

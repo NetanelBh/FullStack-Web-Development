@@ -41,27 +41,32 @@ const Login = () => {
     }
 
     if (existUser.admin) {
-      const adminNavHeaders = [
-        { header: "Categories", navigateTo: "/layout" },
-        { header: "Products", navigateTo: "/layout/adminProd" },
-        { header: "customers", navigateTo: "/layout/customers" },
-        { header: "Statistics", navigateTo: "/layout/statistics" },
-      ];
+      const adminNavHeaders = {
+        navHeaders: [
+          { header: "Categories", navigateTo: "/layout/adminCategory" },
+          { header: "Products", navigateTo: "/layout/adminProd" },
+          { header: "customers", navigateTo: "/layout/customers" },
+          { header: "Statistics", navigateTo: "/layout/statistics" },
+        ],
+        title: "Admin",
+      };
       sessionStorage.setItem("data", JSON.stringify(adminNavHeaders));
 
-      navigate("/layout");
+      navigate("/layout/adminCategory");
 
       return;
     } else {
-      const userNavHeaders = [
-        { header: "Products", navigateTo: "/layout" },
-        { header: "My Orders", navigateTo: "/layout/userOrders" },
-        { header: "My Account", navigateTo: "/layout/userAccount" },
-        { header: "Log Out", navigateTo: "/layout/logout" },
-      ];
+      const userNavHeaders = {
+        navHeaders: [
+          { header: "Products", navigateTo: "/layout/userProd" },
+          { header: "My Orders", navigateTo: "/layout/userOrders" },
+          { header: "My Account", navigateTo: "/layout/userAccount" },
+          { header: "Log Out", navigateTo: "/layout/logout" },
+        ],
+      };
       sessionStorage.setItem("data", JSON.stringify(userNavHeaders));
 
-      navigate("/layout");
+      navigate("/layout/userProd");
       return;
     }
   };

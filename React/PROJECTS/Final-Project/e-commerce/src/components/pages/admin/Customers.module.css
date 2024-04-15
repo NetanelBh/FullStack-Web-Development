@@ -1,0 +1,17 @@
+.main_container {
+  background-color: #B9D7EA;
+  width: 40rem;
+  text-align: center;
+  max-height: 78vh;
+}
+
+.main_container h1 {
+  margin: 1rem auto 1rem auto;
+}
+
+.main_container p {
+  height: 1rem;
+  width: 100%;
+  margin: auto;
+  background-color: white;
+}

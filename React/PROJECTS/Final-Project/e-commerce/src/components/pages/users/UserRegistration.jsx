@@ -1,13 +1,12 @@
 import styles from "./UserRegistration.module.css";
 
-import db from "../../firebase";
-import {addDoc, collection} from 'firebase/firestore';
-
+import { addDocument } from "../../utils/firebaseActions"; 
 import Card from "../../UI/Card";
 import Input from "../../form/Input";
 import Button from "../../UI/Button";
 
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserRegistration = () => {
   const firstNameRef = useRef();
@@ -15,21 +14,35 @@ const UserRegistration = () => {
   const userNameRef = useRef();
   const passRef = useRef();
   const checkboxRef = useRef();
+  const navigate = useNavigate();
 
   const submitHandler = (event) => {
     event.preventDefault();
 
+    const fName = `${firstNameRef.current.value} ${lastNameRef.current.value}`;
+
     const user = {
       admin: false,
-      first_name: firstNameRef.current.value,
-      last_name: lastNameRef.current.value,
+      full_name: fName,
       password: passRef.current.value,
       see_orders: checkboxRef.current.checked,
-      user_name: userNameRef.current.value
+      user_name: userNameRef.current.value,
+      join_date: new Date().toLocaleDateString(),
     };
 
-    console.log(user);
-    addDoc(collection(db, 'users'), user);
+    addDocument('users', user);
+
+    firstNameRef.current.value = "";
+    lastNameRef.current.value = "";
+    userNameRef.current.value = "";
+    passRef.current.value = "";
+    checkboxRef.current.value = "";
+
+    alert("User added successfully")
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
 
   return (
@@ -66,11 +79,11 @@ const UserRegistration = () => {
           />
 
           <div className={styles.checkbox_action}>
-            <input type="checkbox" id="checkbox" ref={checkboxRef}/>
+            <input type="checkbox" id="checkbox" ref={checkboxRef} />
             <span>Allow others to see my orders</span>
           </div>
 
-          <Button title='Create' type='submit' className={styles.btn} />
+          <Button title="Create" type="submit" className={styles.btn} />
         </form>
       </Card>
     </div>

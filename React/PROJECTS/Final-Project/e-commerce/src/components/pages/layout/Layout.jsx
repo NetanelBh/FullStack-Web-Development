@@ -5,14 +5,16 @@ import { Outlet } from "react-router-dom";
 import NavBar from '../../UI/NavBar';
 
 const Layout = () => {
-  const navData = JSON.parse(sessionStorage.getItem('data'));
+  const data = JSON.parse(sessionStorage.getItem('data'));
+
   return (
-    <>
-      <NavBar data={navData}/>
+    <div className={styles.container}>
+      {data.title && <h1>Hello {data.title}</h1>}
+      <NavBar data={data.navHeaders}/>
       <main className={styles.main}>
         <Outlet />
       </main>
-    </>
+    </div>
   )
 }
 

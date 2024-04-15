@@ -6,8 +6,8 @@ const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    loadUsers(state, action) {
-      state.users = [...action.payload];
+    load(state, action) {
+      state.users = action.payload;
     }
   }
 });
