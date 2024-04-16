@@ -8,7 +8,7 @@ import { productsActions } from "./components/store/productsSlice";
 import { categoriesActions } from "./components/store/categoriesSlice";
 
 import db from "./components/firebase";
-import { query, collection, onSnapshot, where } from "firebase/firestore";
+import { query, collection, onSnapshot } from "firebase/firestore";
 
 import PacmanLoading from "./components/UI/PacmanLoading";
 import CreateRouter from "./components/utils/createRouter";
