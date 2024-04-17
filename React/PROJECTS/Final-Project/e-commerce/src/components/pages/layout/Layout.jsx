@@ -6,7 +6,7 @@ import NavBar from '../../UI/NavBar';
 
 const Layout = () => {
   const data = JSON.parse(sessionStorage.getItem('data'));
-
+  
   return (
     <div className={styles.container}>
       {data.title && <h1>Hello {data.title}</h1>}

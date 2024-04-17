@@ -48,7 +48,7 @@ const Login = () => {
           { header: "customers", navigateTo: "/layout/customers" },
           { header: "Statistics", navigateTo: "/layout/statistics" },
         ],
-        title: "Admin",
+        title: existUser.full_name,
       };
       sessionStorage.setItem("data", JSON.stringify(adminNavHeaders));
 

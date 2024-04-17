@@ -1,6 +1,6 @@
 import styles from "./AdminProductItem.module.css";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import Card from "../../UI/Card";
@@ -15,6 +15,7 @@ const AdminProductItem = ({ product }) => {
   const priceRef = useRef();
   const imageLinkRef = useRef();
   const descriptionRef = useRef();
+  const [selectedCategory, setSelectedCategory] = useState(product.category);
 
   const users = useSelector((state) => state.users.users);
   const orders = useSelector((state) => state.orders.orders);
@@ -78,16 +79,65 @@ const AdminProductItem = ({ product }) => {
   const addOrderHandler = (event) => {
     event.preventDefault();
 
-    // Check 2 conditions before adding the edited product
-    const newProduct = {
-      title: titleRef.current.value,
-      price: priceRef.current.value,
-      category: categoryRef.current.value,
-      description: descriptionRef.current.value,
-      image_link: "http://Belt"
-    };
+    // The new product name entred by the admin
+    const productTitle = titleRef.current.value;
 
-    updateDocument('products', product.id, newProduct);
+    // Create new object with the relevant properties that changed
+    const fieldsToUpdate = {};
+
+    // Check if the product name changed, update all orders with the new name
+    if (product.title !== productTitle) {
+      // Will add the title property to the final object
+      fieldsToUpdate.title = productTitle;
+
+      const editedOrdersList = orders
+        .map((order) => {
+          const ordersList = JSON.parse(order.products);
+
+          // Flag to determine if the order edited, later will filter the array
+          let edited = false;
+          // If found the old pruduct's name in some order, change it to the new
+          const changedOrders = ordersList.map((o) => {
+            if (o.name === product.title) {
+              o.name = productTitle;
+              edited = true;
+            }
+
+            return o;
+          });
+
+          return { edited, order: changedOrders, id: order.id };
+        })
+        .flat();
+
+      // Iterate the orders and update only the changed orders
+      editedOrdersList.forEach((order) => {
+        if(order.edited) {
+          const jsonArray = JSON.stringify(order.order);
+          const data = {products: jsonArray};
+
+          // Update in firebase the the relevant orders with the new name
+          updateDocument('orders', order.id, data, {merge: true});
+        }
+      });
+    }
+
+    // Check which fields are changed
+    if(priceRef.current.value !== product.price) {
+      fieldsToUpdate.price = priceRef.current.value;
+    }
+    if(selectedCategory !== product.category) {
+      fieldsToUpdate.category = selectedCategory;
+    }
+    if(imageLinkRef.current.value !== product.image_link) {
+      fieldsToUpdate.image_link = imageLinkRef.current.value;
+    }
+    if(descriptionRef.current.value !== product.description) {
+      fieldsToUpdate.description = descriptionRef.current.value;
+    }
+
+    // To update only specific field in document(products), send {merge: true}
+    updateDocument('products', product.id, fieldsToUpdate, {merge: true});
   };
 
   return (
@@ -105,7 +155,7 @@ const AdminProductItem = ({ product }) => {
           type="text"
           className={styles.column_input}
           ref={priceRef}
-          initInput={product.price}
+          initInput={`${String.fromCharCode(0x20aa)}${product.price}`}
         />
 
         <div className={styles.category}>
@@ -144,7 +194,7 @@ const AdminProductItem = ({ product }) => {
           <GenericTable data={tableData} columns={boughtcolumns} />
         </div>
 
-        <Button title="Save" type="submit" className={styles.btn} />
+        <Button title="Save" type="submit" className={styles.save_btn} />
       </Card>
     </form>
   );

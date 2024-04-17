@@ -1,5 +1,5 @@
 .main_container {
-  background-color: #B9D7EA;
+  background-color: #79c7f8;
   width: 40rem;
   text-align: center;
   max-height: 78vh;
@@ -14,4 +14,9 @@
   width: 100%;
   margin: auto;
   background-color: white;
+}
+
+.inner_table {
+  max-height: 35vh;
+  overflow: auto;
 }

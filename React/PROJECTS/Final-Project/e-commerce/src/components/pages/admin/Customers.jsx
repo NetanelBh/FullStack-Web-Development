@@ -41,21 +41,27 @@ const Customers = () => {
     });
 
     // Merge all orders into single array
-    const mergeOrders = userOrders.map((order) => {
-      // Parse the orders list(store in DB as JSON.stringify)
-      const productsList = JSON.parse(order.products);
-      // In the end of the func, flat make it single array from array of arrays
-      return productsList.map((product) => {
-        return {
-          name: product.name,
-          qty: product.qty,
-          date: order.purchased_date,
-        };
-      });
-    }).flat();
+    const mergeOrders = userOrders
+      .map((order) => {
+        // Parse the orders list(store in DB as JSON.stringify)
+        const productsList = JSON.parse(order.products);
+        // In the end of the func, flat make it single array from array of arrays
+        return productsList.map((product) => {
+          return {
+            name: product.name,
+            qty: product.qty,
+            date: order.purchased_date,
+          };
+        });
+      })
+      .flat();
 
     // Create inner table for each user
-    const table = <GenericTable data={mergeOrders} columns={boughtColumns} />;
+    const table = (
+      <div className={styles.inner_table}>
+        <GenericTable data={mergeOrders} columns={boughtColumns} />
+      </div>
+    );
 
     // Return new object with all info about each user including the inner table
     return {

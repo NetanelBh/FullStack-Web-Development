@@ -6,8 +6,8 @@ export const addDocument = (collectionName, data) => {
   addDoc(collection(db, collectionName), data);
 };
 
-export const updateDocument = (collectionName, docId, newData) => {
-  updateDoc(doc(db, collectionName, docId), newData);
+export const updateDocument = (collectionName, docId, newData, filter) => {
+  updateDoc(doc(db, collectionName, docId), newData, filter);
 };
 
 export const deleteDocument = (collectionName, docId) => {

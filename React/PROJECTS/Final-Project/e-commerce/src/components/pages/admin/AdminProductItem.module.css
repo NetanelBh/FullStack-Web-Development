@@ -74,17 +74,17 @@
   overflow: auto;
 }
 
-.btn {
+.save_btn {
   font-size: 1.2rem;
   height: 2rem;
   width: 8rem;
   margin: 0.5rem auto 0.5rem 1rem;
-  background-color: #8dc4ff;
-  font-weight: bold;
+  background-color: #a1cdfd;
+  border: 1px solid #000000;
 }
 
-.btn:hover {
+.save_btn:hover {
   background-color: #006bdd;
-  border-color: #006bdd;
+  border: 1px solid #000000;
   color: whitesmoke;
 }
