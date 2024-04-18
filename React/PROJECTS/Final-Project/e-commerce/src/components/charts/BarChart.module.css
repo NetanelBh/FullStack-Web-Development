@@ -5,8 +5,9 @@
 
 .select {
   display: flex;
-  margin: 1rem 1rem 0 auto;
+  margin: 1rem 0.5rem 1rem auto;
   font-size: 1.2rem;
   justify-content: end;
   text-align: center;
+  height: 2rem
 }
