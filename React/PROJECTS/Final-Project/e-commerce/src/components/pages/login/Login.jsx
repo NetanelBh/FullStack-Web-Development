@@ -48,7 +48,8 @@ const Login = () => {
           { header: "customers", navigateTo: "/layout/customers" },
           { header: "Statistics", navigateTo: "/layout/statistics" },
         ],
-        title: existUser.full_name,
+        title: `${existUser.first_name} ${existUser.last_name}`,
+        admin: true
       };
       sessionStorage.setItem("data", JSON.stringify(adminNavHeaders));
 
@@ -63,6 +64,8 @@ const Login = () => {
           { header: "My Account", navigateTo: "/layout/userAccount" },
           { header: "Log Out", navigateTo: "/layout/logout" },
         ],
+        title: JSON.stringify(existUser),
+        admin: false
       };
       sessionStorage.setItem("data", JSON.stringify(userNavHeaders));
 

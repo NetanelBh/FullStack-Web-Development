@@ -1,16 +1,27 @@
 import { useSelector } from "react-redux";
 
-const getBarData = (userId) => {
+const getBarData = (customerId) => {
   const orders = useSelector((state) => state.orders.orders);
 
-  const filteredOrders = orders.filter((order) => order.userId === userId);
-  console.log(filteredOrders);
+  const filteredOrders = orders.filter((order) => order.userId === customerId);
   
-  // MAP THE FILTERED ORDERS ARRAY AND GET ALL THE PRODUCTS AND QUANTITY
-  // SAVE IT AS DATA AND PASS IT TO DATA IN DETAILS OBJECT
+  const productsObj = {};
+  filteredOrders.forEach(order => {
+    JSON.parse(order.products).forEach((product) => {
+      if(!productsObj[product.name]) {
+        productsObj[product.name] = product.qty;
+      } else {
+        productsObj[product.name] += product.qty
+      }
+    });
+  });
+  
+  // map the object keys to create array of objects for the table data array
+  const tableData = Object.keys(productsObj).map(key => {
+    return {label: key, y: productsObj[key]};
+  });
 
   const details = {
-    height: 500,
     title: {
       text: "Products Quantity Per Customer",
       fontStyle: "italic",
@@ -19,6 +30,8 @@ const getBarData = (userId) => {
     },
     axisY: {
       margin: 30,
+      minimum: 0,
+      interval: 2
     },
     axisX: {
       margin: 10,
@@ -29,13 +42,7 @@ const getBarData = (userId) => {
       {
         // Change type to "doughnut", "line", "splineArea", etc.
         type: "column",
-        dataPoints: [
-          { label: "Apple", y: 10 },
-          { label: "Orange", y: 15 },
-          { label: "Banana", y: 25 },
-          { label: "Mango", y: 30 },
-          { label: "Grape", y: 28 },
-        ],
+        dataPoints: tableData
       },
     ],
   };

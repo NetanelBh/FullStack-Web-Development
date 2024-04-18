@@ -67,13 +67,17 @@ const AdminProductItem = ({ product }) => {
     return product.title === order.prodName;
   });
 
-  const tableData = filtereOrders.map((order) => {
+  const tableData = [];
+  filtereOrders.forEach((order) => {
+    // Each customer that bought this product will add him to table data
     const userName = users.find((user) => user.id === order.userId);
-    return {
-      name: userName.full_name,
-      qty: order.qty,
-      date: order.date,
-    };
+    if (userName) {
+      tableData.push({
+        name: `${userName.first_name} ${userName.last_name}`,
+        qty: order.qty,
+        date: order.date,
+      });
+    }
   });
 
   const addOrderHandler = (event) => {
@@ -112,32 +116,32 @@ const AdminProductItem = ({ product }) => {
 
       // Iterate the orders and update only the changed orders
       editedOrdersList.forEach((order) => {
-        if(order.edited) {
+        if (order.edited) {
           const jsonArray = JSON.stringify(order.order);
-          const data = {products: jsonArray};
+          const data = { products: jsonArray };
 
           // Update in firebase the the relevant orders with the new name
-          updateDocument('orders', order.id, data, {merge: true});
+          updateDocument("orders", order.id, data, { merge: true });
         }
       });
     }
 
     // Check which fields are changed
-    if(priceRef.current.value !== product.price) {
+    if (priceRef.current.value !== product.price) {
       fieldsToUpdate.price = priceRef.current.value;
     }
-    if(selectedCategory !== product.category) {
+    if (selectedCategory !== product.category) {
       fieldsToUpdate.category = selectedCategory;
     }
-    if(imageLinkRef.current.value !== product.image_link) {
+    if (imageLinkRef.current.value !== product.image_link) {
       fieldsToUpdate.image_link = imageLinkRef.current.value;
     }
-    if(descriptionRef.current.value !== product.description) {
+    if (descriptionRef.current.value !== product.description) {
       fieldsToUpdate.description = descriptionRef.current.value;
     }
 
     // To update only specific field in document(products), send {merge: true}
-    updateDocument('products', product.id, fieldsToUpdate, {merge: true});
+    updateDocument("products", product.id, fieldsToUpdate, { merge: true });
   };
 
   return (

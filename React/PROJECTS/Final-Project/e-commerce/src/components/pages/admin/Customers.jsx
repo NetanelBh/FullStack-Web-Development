@@ -65,7 +65,7 @@ const Customers = () => {
 
     // Return new object with all info about each user including the inner table
     return {
-      full_name: user.full_name,
+      full_name: `${user.first_name} ${user.last_name}`,
       join_date: user.join_date,
       orders: table,
     };

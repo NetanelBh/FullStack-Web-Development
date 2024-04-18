@@ -7,6 +7,7 @@ export const addDocument = (collectionName, data) => {
 };
 
 export const updateDocument = (collectionName, docId, newData, filter) => {
+  // If want to update specific fields, use filter - {merge: true}
   updateDoc(doc(db, collectionName, docId), newData, filter);
 };
 

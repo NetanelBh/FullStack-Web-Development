@@ -19,11 +19,10 @@ const UserRegistration = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    const fName = `${firstNameRef.current.value} ${lastNameRef.current.value}`;
-
     const user = {
       admin: false,
-      full_name: fName,
+      first_name: firstNameRef.current.value,
+      last_name: lastNameRef.current.value,
       password: passRef.current.value,
       see_orders: checkboxRef.current.checked,
       user_name: userNameRef.current.value,
@@ -36,7 +35,7 @@ const UserRegistration = () => {
     lastNameRef.current.value = "";
     userNameRef.current.value = "";
     passRef.current.value = "";
-    checkboxRef.current.value = "";
+    checkboxRef.current.checked = false;
 
     alert("User added successfully")
 
