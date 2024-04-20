@@ -9,6 +9,7 @@ import Button from "../../UI/Button";
 
 import { updateDocument } from "../../utils/firebaseActions";
 import GenericTable from "../../react-material-table/GenericTable";
+import mergeOrdersToSingleArray from "../../utils/mergeOrdersToSingleArray";
 
 const AdminProductItem = ({ product }) => {
   const titleRef = useRef();
@@ -48,23 +49,11 @@ const AdminProductItem = ({ product }) => {
   );
 
   // first, merge all orders into one flat array (array of objects)
-  const singleOrdersArray = orders
-    .map((order) => {
-      const parsedOrders = JSON.parse(order.products);
-      return parsedOrders.map((o) => {
-        return {
-          prodName: o.name,
-          qty: o.qty,
-          date: order.purchased_date,
-          userId: order.userId,
-        };
-      });
-    })
-    .flat();
+  const singleOrdersArray = mergeOrdersToSingleArray(orders);
 
   // Filter the orders array according to product name
   const filtereOrders = singleOrdersArray.filter((order) => {
-    return product.title === order.prodName;
+    return product.title === order.name;
   });
 
   const tableData = [];

@@ -54,8 +54,6 @@ const Login = () => {
       sessionStorage.setItem("data", JSON.stringify(adminNavHeaders));
 
       navigate("/layout/adminCategory");
-
-      return;
     } else {
       const userNavHeaders = {
         navHeaders: [
@@ -70,7 +68,6 @@ const Login = () => {
       sessionStorage.setItem("data", JSON.stringify(userNavHeaders));
 
       navigate("/layout/userProd");
-      return;
     }
   };
 

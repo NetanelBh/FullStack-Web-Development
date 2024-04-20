@@ -28,7 +28,7 @@ const GenericTable = ({data, columns}) => {
         border: '1px solid rgba(81, 81, 81, .5)',
         fontStyle: 'italic',
         fontWeight: 'bold',
-        backgroundColor: '#B9D7EA',
+        backgroundColor: '#FFEBB2',
       },
     },
     muiTableBodyCellProps: {

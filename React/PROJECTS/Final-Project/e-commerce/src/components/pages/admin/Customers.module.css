@@ -3,17 +3,17 @@
   width: 40rem;
   text-align: center;
   max-height: 78vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .main_container h1 {
-  margin: 1rem auto 1rem auto;
+  margin: 1rem;
 }
 
-.main_container p {
-  height: 1rem;
-  width: 100%;
-  margin: auto;
-  background-color: white;
+.table_container {
+  margin: 1rem;
+  overflow: auto;
 }
 
 .inner_table {

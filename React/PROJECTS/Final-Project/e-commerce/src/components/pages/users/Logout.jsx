@@ -1,9 +1,10 @@
-import styles from './Logout.module.css';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
-  return (
-    <div>Logout</div>
-  )
+  const navigate = useNavigate();
+  
+  useEffect(() => navigate("/"), []);
 }
 
-export default Logout
+export default Logout;
