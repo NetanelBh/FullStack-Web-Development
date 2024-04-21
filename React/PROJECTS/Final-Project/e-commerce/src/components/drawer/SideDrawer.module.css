@@ -1,0 +1,49 @@
+.close_mode {
+  display: flex;
+  align-items: center;
+  height: 70vh;
+  background-color: #d6e6f2;
+  margin: 2rem 1rem auto 0;
+  width: 5rem;
+}
+
+.arrow_btn {
+  height: 10vh;
+  width: 2rem;
+  border: none;
+}
+
+.open_mode {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  background-color: #d6e6f2;
+  margin: 2rem 1rem auto auto;
+  width: 25rem;
+}
+
+.open_mode h1 {
+  margin: 1rem auto 1rem 1rem;
+  text-decoration: underline;
+}
+
+.open_mode h2 {
+  margin: 1rem auto 1rem 1rem;
+}
+
+.order_btn {
+  font-size: 1.5rem;
+  width: 7rem;
+  padding: 0.5rem;
+  margin: 0 auto auto 1rem;
+  border: 1px solid;
+  border-radius: 12px;
+}
+
+.order_btn:hover {
+  background-color: #79c7f8;
+}
+
+.close_btn {
+  margin: auto 0 1rem auto;
+}

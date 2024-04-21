@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@canvasjs/react-charts": "^1.0.2",
+    "@material/slider": "^14.0.0",
+    "@mui/material": "^5.15.15",
     "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.6.8",
     "firebase": "^10.10.0",

@@ -1,0 +1,66 @@
+.main_container {
+  display: flex;
+  max-width: 80rem;
+}
+
+.filters_container {
+  display: inline-flex;
+  margin: 2rem auto 2rem auto;
+  background-color: #a3dafd;
+  align-items: center;
+  height: 10vh;
+  font-weight: bold;
+}
+
+.filter_header {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.category_filter_container {
+  display: flex;
+  align-items: center;
+  margin-right: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.category_filter_container > select {
+  margin-left: 0.3rem;
+  height: fit-content;
+  font-size: 1.2rem;
+}
+
+.price_filter_container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 12.5rem;
+  margin-right: 1.5rem;
+}
+
+.price_header {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.price_value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 0.6rem;
+}
+
+.search_container {
+  display: flex;
+  align-items: center;
+}
+
+.search_container label {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.search_container input {
+  width: 7rem;
+  margin-right: 1rem;
+}
