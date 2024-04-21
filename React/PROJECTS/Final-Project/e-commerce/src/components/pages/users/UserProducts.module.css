@@ -1,6 +1,6 @@
 .main_container {
   display: flex;
-  max-width: 80rem;
+  max-width: 100%;
 }
 
 .filters_container {
@@ -13,7 +13,7 @@
 }
 
 .filter_header {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-right: 1rem;
   margin-left: 1rem;
 }
@@ -22,45 +22,71 @@
   display: flex;
   align-items: center;
   margin-right: 1.5rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  border: 1px solid #2F89FC
+}
+
+.category_filter_container p {
+  margin-left: 0.3rem;
 }
 
 .category_filter_container > select {
   margin-left: 0.3rem;
+  margin-right: 0.3rem;
   height: fit-content;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .price_filter_container {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 12.5rem;
+  width: 12.4rem;
   margin-right: 1.5rem;
+  border-top: 1px solid #2F89FC;
+  border-bottom: 1px solid #2F89FC;
+  border-right: 1px solid #2F89FC;
 }
 
 .price_header {
-  font-size: 1.2rem;
-  margin-right: 1rem;
+  font-size: 1rem;
+  margin-right: 1rem 0 0.5rem 0.3rem;
+  border-top: 1px solid #2F89FC;
+  border-left: 1px solid #2F89FC;
+  border-bottom: 1px solid #2F89FC;
+  padding: 1rem 1rem 1rem 0.3rem;
 }
 
 .price_value {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-top: 0.6rem;
+  margin: 0.9rem 0.3rem 0.9rem 0.5rem;
 }
 
 .search_container {
   display: flex;
   align-items: center;
+  border: 1px solid #2F89FC;
+  margin-right: 0.5rem;
 }
 
 .search_container label {
-  font-size: 1.2rem;
-  margin-right: 0.5rem;
+  font-size: 1rem;
+  margin: 1rem 0.5rem 1rem 0.3rem;
 }
 
 .search_container input {
   width: 7rem;
+  font-size: 1rem;
   margin-right: 1rem;
 }
+
+.clear_btn {
+  margin-right: 1rem;
+  font-size: 1rem;
+  background-color: #FA9494;
+}
+
+.clear_btn:hover {
+  background-color: #EB1D36;
+} 

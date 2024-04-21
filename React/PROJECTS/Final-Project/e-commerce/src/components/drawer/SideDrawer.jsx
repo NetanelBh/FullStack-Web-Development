@@ -31,8 +31,13 @@ const SideDrawer = () => {
       {cart.isOpen && (
         <div className={styles.open_mode}>
           <h1>Cart:</h1>
-          <h2>Total: {`${String.fromCharCode(0x20aa)}${""}`}</h2>
-          <Button title='Order' className={styles.order_btn} />
+          {cart.products.length === 0 && <h2>Empty Cart</h2>}
+          {cart.products.length > 0 && (
+            <>
+              <h2>Total: {`${String.fromCharCode(0x20aa)}${""}`}</h2>
+              <Button title="Order" className={styles.order_btn} />
+            </>
+          )}
           <Button
             className={`${styles.arrow_btn} ${styles.close_btn}`}
             title={closeCartSvg()}
