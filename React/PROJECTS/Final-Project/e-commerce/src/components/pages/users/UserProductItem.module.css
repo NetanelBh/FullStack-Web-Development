@@ -1,0 +1,24 @@
+.item_container {
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  width: 90%;
+  margin: 2rem auto 2rem auto;
+  background-color: #a3dafd;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  width: 35%;
+}
+
+.description h1 {
+  color: black
+}
+
+.description h2 {
+  margin-bottom: 0;
+}

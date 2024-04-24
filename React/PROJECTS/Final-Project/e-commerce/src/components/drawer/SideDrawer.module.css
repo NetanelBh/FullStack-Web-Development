@@ -1,10 +1,9 @@
 .close_mode {
   display: flex;
   align-items: center;
-  height: 70vh;
   background-color: #d6e6f2;
-  margin: 2rem 1rem auto 0;
-  width: 5rem;
+  margin-top: 2rem;
+  grid-area: 1/ 1/ span 6/ span 1;
 }
 
 .arrow_btn {
@@ -16,10 +15,9 @@
 .open_mode {
   display: flex;
   flex-direction: column;
-  height: 70vh;
   background-color: #d6e6f2;
-  margin: 2rem 1rem auto auto;
-  width: 25rem;
+  margin-top: 2rem;
+  grid-area: 1/ 1/ span 6/ span 3;
 }
 
 .open_mode h1 {
