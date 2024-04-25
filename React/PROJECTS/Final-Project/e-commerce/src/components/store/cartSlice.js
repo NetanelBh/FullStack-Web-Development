@@ -6,10 +6,8 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    add(state, action) {},
     increase(state, action) {},
     decrease(state, action) {},
-    delete(state, action) {},
     showCart(state) {
       state.isOpen = !state.isOpen;
     }
