@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import FilterBar from "./FilterBar";
 import UserProductItem from "./UserProductItem";
-import SideDrawer from "../../drawer/SideDrawer";
+import SideDrawer from "../../cart/SideDrawer";
 
 const UserProducts = () => {
   const [priceBarValue, setPriceBarValue] = useState(0);

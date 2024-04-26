@@ -1,27 +1,49 @@
 import styles from "./UserProductItem.module.css";
 
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Card from "../../UI/Card";
 import Button from "../../UI/Button";
+import { usersActions } from "../../store/cartSlice";
+import numOfUsersBoughtProduct from "../../utils/usersBoughtProduct";
 
 const UserProductItem = ({ product }) => {
-  const [qty, setQty] = useState(0);
+  const dispatch = useDispatch();
+  const cartProducts = useSelector((state) => state.cart.products);
 
-  // CALCULATE THE NUM OF USERS BOUGHT THIS PRODUCT ACCORDING THEIR SEE_ORDERS FLAG
+  // Find num of users bought this product(only who allowed see his orders)
+  const numOfUsers = numOfUsersBoughtProduct(product.id);
 
   const decrementQtyHandler = () => {
-    if(qty === 0) return;
-    setQty(latestState => latestState - 1);
+    if (qty === 0) return;
 
-    // UPDATE THE QTY OF THE CART FOR THIS PRODUCT
+    // Update Redux cart qty
+    dispatch(
+      usersActions.decrease({
+        id: product.id,
+        price: product.price,
+        name: product.title,
+      })
+    );
   };
 
   const incrementQtyHandler = () => {
-    setQty(latestState => latestState + 1);
-
-    // UPDATE THE QTY OF THE CART FOR THIS PRODUCT
+    // Update Redux cart qty
+    dispatch(
+      usersActions.increase({
+        id: product.id,
+        price: product.price,
+        name: product.title,
+      })
+    );
   };
+
+  // Synchronize the amount item badge with the redux cart qty
+  let qty = 0;
+  const idx = cartProducts.findIndex(p => p.id === product.id);
+  if(idx !== -1) {
+    qty = cartProducts[idx].qty;
+  }
 
   return (
     <Card className={styles.item_container}>
@@ -55,7 +77,7 @@ const UserProductItem = ({ product }) => {
       />
 
       <p className={styles.bought}>
-        <span>Bought:</span> {15}
+        <span>Bought: {numOfUsers}</span>
       </p>
     </Card>
   );

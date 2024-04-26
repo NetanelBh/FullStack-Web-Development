@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { usersActions } from "../store/cartSlice";
 
 import Button from "../UI/Button";
+import CartItem from "./CartItem";
 import openCartSvg from "../utils/openCartSvg";
 import closeCartSvg from "../utils/closeCartSvg";
 
@@ -14,6 +15,12 @@ const SideDrawer = () => {
   const cartArrowClickHandler = () => {
     dispatch(usersActions.showCart());
   };
+  
+  const orderHandler = () => {
+    // SEND REQUEST TO FIREBASE TO PALCE THE ORDER AND UPDATE STOCK
+  };
+
+  const nisSymbol = String.fromCharCode(0x20aa);
 
   return (
     <>
@@ -30,12 +37,22 @@ const SideDrawer = () => {
 
       {cart.isOpen && (
         <div className={styles.open_mode}>
-          <h1>Cart:</h1>
+          <h1>Cart</h1>
           {cart.products.length === 0 && <h2>Empty Cart</h2>}
           {cart.products.length > 0 && (
             <>
-              <h2>Total: {`${String.fromCharCode(0x20aa)}${""}`}</h2>
-              <Button title="Order" className={styles.order_btn} />
+              <div className={styles.items_container}>
+                {cart.products.map((product) => {
+                  return <CartItem key={product.id} product={product} />;
+                })}
+              </div>
+              <h2>Total: {`${nisSymbol}${cart.totalPrice}`}</h2>
+              <Button
+                title="Order"
+                className={styles.order_btn}
+                type="button"
+                onClick={orderHandler}
+              />
             </>
           )}
           <Button
