@@ -44,6 +44,11 @@ const cartSlice = createSlice({
     showCart(state) {
       state.isOpen = !state.isOpen;
     },
+    clearCart(state) {
+      state.products.splice(0, state.products.length);
+      state.isOpen = false;
+      state.totalPrice = 0;
+    }
   },
 });
 

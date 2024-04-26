@@ -18,6 +18,9 @@ const SideDrawer = () => {
   
   const orderHandler = () => {
     // SEND REQUEST TO FIREBASE TO PALCE THE ORDER AND UPDATE STOCK
+    
+    // Clear the cart when place the order
+    dispatch(usersActions.clearCart());
   };
 
   const nisSymbol = String.fromCharCode(0x20aa);
