@@ -1,26 +1,48 @@
 import styles from "./SideDrawer.module.css";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import { usersActions } from "../store/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { addDocument } from "../utils/firebaseActions";
 
 import Button from "../UI/Button";
 import CartItem from "./CartItem";
+import AlertDialog from "./dialog/Dialog";
 import openCartSvg from "../utils/openCartSvg";
 import closeCartSvg from "../utils/closeCartSvg";
+import getCurrentDate from "../utils/getCurrentDate";
 
 const SideDrawer = () => {
-  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const [isPlacedOrder, setIsPlacedOrder] = useState(false);
+
+  const data = sessionStorage.getItem('data');
+  const user = JSON.parse(JSON.parse(data).title);
 
   const cartArrowClickHandler = () => {
     dispatch(usersActions.showCart());
   };
-  
+
   const orderHandler = () => {
-    // SEND REQUEST TO FIREBASE TO PALCE THE ORDER AND UPDATE STOCK
-    
+    const orderData = {
+      purchased_date: getCurrentDate(),
+      userId: user.id,
+      products: JSON.stringify(cart.products)
+    };
+
+    // Add the order to firebase
+    // addDocument('orders', orderData);
+
+    // addDocument('orders', orderData);
+    setIsPlacedOrder(true);
+
     // Clear the cart when place the order
     dispatch(usersActions.clearCart());
+  };
+
+  const cancelDialogClick = () => {
+    setIsPlacedOrder(false);
   };
 
   const nisSymbol = String.fromCharCode(0x20aa);
@@ -66,6 +88,14 @@ const SideDrawer = () => {
           />
         </div>
       )}
+
+      <AlertDialog
+        title="Order Placed Successully!"
+        message="Thanks for your purchase"
+        buttonTitle="OK"
+        openModal={isPlacedOrder}
+        onCancel={cancelDialogClick}
+      />
     </>
   );
 };

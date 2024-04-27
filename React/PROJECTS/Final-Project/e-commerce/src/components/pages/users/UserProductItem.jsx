@@ -40,9 +40,16 @@ const UserProductItem = ({ product }) => {
 
   // Synchronize the amount item badge with the redux cart qty
   let qty = 0;
-  const idx = cartProducts.findIndex(p => p.id === product.id);
-  if(idx !== -1) {
+  const idx = cartProducts.findIndex((p) => p.id === product.id);
+  if (idx !== -1) {
     qty = cartProducts[idx].qty;
+  }
+
+  // Determine stock message according to actual qty(soldout or number)
+  const stock = product.stock;
+  let message = `In Stock: ${stock}`;
+  if (stock === 0) {
+    message = "Sold Out";
   }
 
   return (
@@ -51,18 +58,20 @@ const UserProductItem = ({ product }) => {
         <h1>{product.title}</h1>
         <h2>{product.description}</h2>
         <h2>Price: {`${String.fromCharCode(0x20aa)}${product.price}`}</h2>
-        <h2>In Stock: {product.stock}</h2>
+        <h2 className={stock > 0 ? undefined : styles.sold_out}>{message}</h2>
 
         <div className={styles.action_container}>
           <Button
-            className={styles.action_btn}
+            className={stock > 0 ? styles.action_btn : styles.disable}
             title="-"
             type="button"
             onClick={decrementQtyHandler}
           />
-          <span className={styles.amount_display}>{qty}</span>
+          <span className={stock > 0 ? styles.amount_display : styles.disable}>
+            {qty}
+          </span>
           <Button
-            className={styles.action_btn}
+            className={stock > 0 ? styles.action_btn : styles.disable}
             title="+"
             type="button"
             onClick={incrementQtyHandler}

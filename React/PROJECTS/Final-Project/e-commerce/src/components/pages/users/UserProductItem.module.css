@@ -16,6 +16,11 @@
   width: 40%;
 }
 
+.sold_out {
+  color: red;
+  font-weight: bold;
+}
+
 .description h1 {
   color: black;
   font-weight: bold;
@@ -44,6 +49,10 @@
   height: 2rem;
   font-size: 2rem;
   border-color: #d6e6f2;
+}
+
+.disable {
+  visibility: hidden;
 }
 
 .amount_display {
