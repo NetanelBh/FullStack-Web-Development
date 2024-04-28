@@ -3,11 +3,11 @@ import styles from "./SideDrawer.module.css";
 import { useState } from "react";
 import { usersActions } from "../store/cartSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { addDocument } from "../utils/firebaseActions";
+import { addDocument, updateDocument } from "../utils/firebaseActions";
 
 import Button from "../UI/Button";
 import CartItem from "./CartItem";
-import AlertDialog from "./dialog/Dialog";
+import AlertDialog from "../dialog/Dialog";
 import openCartSvg from "../utils/openCartSvg";
 import closeCartSvg from "../utils/closeCartSvg";
 import getCurrentDate from "../utils/getCurrentDate";
@@ -15,6 +15,7 @@ import getCurrentDate from "../utils/getCurrentDate";
 const SideDrawer = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const dbProducts = useSelector((state) => state.products.products);
   const [isPlacedOrder, setIsPlacedOrder] = useState(false);
 
   const data = sessionStorage.getItem('data');
@@ -31,8 +32,15 @@ const SideDrawer = () => {
       products: JSON.stringify(cart.products)
     };
 
+    // Update the stock in DB
+    cart.products.forEach(cartProduct => {
+      const dbProduct = dbProducts.find(p => p.id === cartProduct.id);
+      const updatedQty = {stock: dbProduct.stock - cartProduct.qty};
+      updateDocument('products', dbProduct.id, updatedQty, {merge: true})
+    });
+    
     // Add the order to firebase
-    // addDocument('orders', orderData);
+    addDocument('orders', orderData);
 
     // addDocument('orders', orderData);
     setIsPlacedOrder(true);

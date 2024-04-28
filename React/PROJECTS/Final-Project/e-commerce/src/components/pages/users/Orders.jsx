@@ -13,8 +13,8 @@ const Orders = () => {
   const headers = useMemo(
     () => [
       {
-        accessorKey: "title",
-        header: "Title",
+        accessorKey: "name",
+        header: "Name",
         size: 75,
       },
       {
@@ -43,7 +43,7 @@ const Orders = () => {
     const totalPrice = order.qty * order.price;
 
     return {
-      title: order.name,
+      name: order.name,
       qty: order.qty,
       total: `${String.fromCharCode(0x20aa)}${totalPrice}`,
       date: order.date,

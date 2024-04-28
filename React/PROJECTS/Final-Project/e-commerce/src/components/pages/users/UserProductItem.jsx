@@ -1,15 +1,20 @@
 import styles from "./UserProductItem.module.css";
 
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Card from "../../UI/Card";
 import Button from "../../UI/Button";
+import AlertDialog from "../../dialog/Dialog";
 import { usersActions } from "../../store/cartSlice";
-import numOfUsersBoughtProduct from "../../utils/usersBoughtProduct";
+import availableInStock from "../../utils/isAvailableInStock";
+import numOfUsersBoughtProduct from "../../hooks/usersBoughtProduct";
 
 const UserProductItem = ({ product }) => {
   const dispatch = useDispatch();
+  const [isInStock, setIsInStock] = useState(true);
   const cartProducts = useSelector((state) => state.cart.products);
+  const dbProducts = useSelector((state) => state.products.products);
 
   // Find num of users bought this product(only who allowed see his orders)
   const numOfUsers = numOfUsersBoughtProduct(product.id);
@@ -28,14 +33,24 @@ const UserProductItem = ({ product }) => {
   };
 
   const incrementQtyHandler = () => {
-    // Update Redux cart qty
-    dispatch(
-      usersActions.increase({
-        id: product.id,
-        price: product.price,
-        name: product.title,
-      })
-    );
+    // Check if the item is still available in stock
+    const isAvailable = availableInStock(product.id, cartProducts, dbProducts);
+    if (isAvailable) {
+      // Update Redux cart qty
+      dispatch(
+        usersActions.increase({
+          id: product.id,
+          price: product.price,
+          name: product.title,
+        })
+      );
+    } else {
+      setIsInStock(false);
+    }
+  };
+
+  const cancelDialogClick = () => {
+    setIsInStock(true);
   };
 
   // Synchronize the amount item badge with the redux cart qty
@@ -88,6 +103,14 @@ const UserProductItem = ({ product }) => {
       <p className={styles.bought}>
         <span>Bought: {numOfUsers}</span>
       </p>
+
+      <AlertDialog
+        title="Out of stock"
+        message="There are no enough items in stock"
+        buttonTitle="OK"
+        openModal={!isInStock}
+        onCancel={cancelDialogClick}
+      />
     </Card>
   );
 };

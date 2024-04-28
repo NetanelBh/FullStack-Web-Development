@@ -4,8 +4,9 @@ import { updateDocument } from "../../utils/firebaseActions";
 import Card from "../../UI/Card";
 import Input from "../../form/Input";
 import Button from "../../UI/Button";
+import AlertDialog from "../../dialog/Dialog";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const MyAccount = () => {
   const firstNameRef = useRef();
@@ -13,8 +14,9 @@ const MyAccount = () => {
   const userNameRef = useRef();
   const passRef = useRef();
   const checkboxRef = useRef();
-  
-  const user = JSON.parse(sessionStorage.getItem('data'));
+  const [isSaved, setIsSaved] = useState(false);
+
+  const user = JSON.parse(sessionStorage.getItem("data"));
   const userDetails = JSON.parse(user.title);
 
   const saveChanges = (event) => {
@@ -26,20 +28,17 @@ const MyAccount = () => {
     userDetails.password = passRef.current.value;
     userDetails.see_orders = checkboxRef.current.checked;
 
-    // const userDetails = {
-    //   first_name: firstNameRef.current.value,
-    //   last_name: lastNameRef.current.value,
-    //   user_name: userNameRef.current.value,
-    //   password: passRef.current.value,
-    //   see_orders: checkboxRef.current.checked
-    // };
-
     user.title = JSON.stringify(userDetails);
-    sessionStorage.setItem('data', JSON.stringify(user));
+    sessionStorage.setItem("data", JSON.stringify(user));
 
-    updateDocument('users', userDetails.id, userDetails, {merge: true});
+    updateDocument("users", userDetails.id, userDetails, { merge: true });
 
-    alert("User updated successfully");
+    setIsSaved(true);
+    // alert("User updated successfully");
+  };
+
+  const cancelAlertHandler = () => {
+    setIsSaved(false);
   };
 
   return (
@@ -76,13 +75,26 @@ const MyAccount = () => {
           />
 
           <div className={styles.checkbox_action}>
-            <input type="checkbox" id="checkbox" ref={checkboxRef} defaultChecked={userDetails.see_orders}/>
+            <input
+              type="checkbox"
+              id="checkbox"
+              ref={checkboxRef}
+              defaultChecked={userDetails.see_orders}
+            />
             <span>Allow others to see my orders</span>
           </div>
 
           <Button title="Save" type="submit" className={styles.btn} />
         </form>
       </Card>
+
+      <AlertDialog
+        title="Successfully Updated!"
+        message="New user data updated"
+        onCancel={cancelAlertHandler}
+        buttonTitle='Ok'
+        openModal={isSaved}
+      />
     </div>
   );
 };

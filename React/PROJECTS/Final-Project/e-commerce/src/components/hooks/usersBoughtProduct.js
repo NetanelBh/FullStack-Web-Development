@@ -14,18 +14,18 @@ const usersBoughtProduct = (productId) => {
     // Per each order, check in the users array that allowed to see their orders
     allowSeeOrdersUsers.forEach((user) => {
       // IF the user found, will check if he bought the specific product
-      if(user.id === order.userId) {
+      if (user.id === order.userId) {
         const boughtProducts = JSON.parse(order.products);
         // Check all the user's bought products, if the required product exist
         boughtProducts.forEach((p) => {
-          if(p.id === productId){
+          if (p.id === productId) {
             numOfUsers += p.qty;
           }
         });
       }
     });
   });
-  
+
   return numOfUsers;
 };
 
