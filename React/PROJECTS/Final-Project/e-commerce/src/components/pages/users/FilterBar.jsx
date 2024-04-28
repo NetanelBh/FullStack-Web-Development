@@ -55,7 +55,6 @@ const FilterBar = ({
             marginTop={1}
           >
             <Slider
-              color="black"
               step={1}
               max={1000}
               size="medium"

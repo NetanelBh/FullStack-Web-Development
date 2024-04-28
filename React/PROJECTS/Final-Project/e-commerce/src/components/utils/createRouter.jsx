@@ -26,12 +26,6 @@ const CreateRouter = () => {
         { path: "/layout/adminProd", element: <AdminProducts /> },
         { path: "/layout/customers", element: <Customers /> },
         { path: "/layout/statistics", element: <Statistics /> },
-      ],
-    },
-    {
-      path: "/layout",
-      element: <Layout />,
-      children: [
         { path: "/layout/userProd", element: <UserProducts /> },
         { path: "/layout/userOrders", element: <Orders /> },
         { path: "/layout/userAccount", element: <MyAccount /> },

@@ -1,7 +1,7 @@
 .close_mode {
   display: flex;
   align-items: center;
-  background-color: #d6e6f2;
+  background-color: #a3dafd;
   margin-top: 2rem;
   grid-area: 1/ 1/ span 6/ span 1;
 }
@@ -15,7 +15,7 @@
 .open_mode {
   display: flex;
   flex-direction: column;
-  background-color: #d6e6f2;
+  background-color: #a3dafd;
   margin-top: 2rem;
   grid-area: 1/ 1/ span 6/ span 4;
   max-height: 100vh;
@@ -40,12 +40,15 @@
   width: 7rem;
   padding: 0.5rem;
   margin: 0 auto auto auto;
-  border: 1px solid;
+  border: none;
+  box-shadow: 1px 1px 3px 2px black;
   border-radius: 12px;
+  background-color: #B784B7;
 }
 
 .order_btn:hover {
-  background-color: #4294ff;
+  background-color: #8E7AB5;
+  box-shadow: 1px 1px 3px 1px black;
 }
 
 .close_btn {

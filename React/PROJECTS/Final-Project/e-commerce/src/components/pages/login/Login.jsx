@@ -47,6 +47,7 @@ const Login = () => {
           { header: "Products", navigateTo: "/layout/adminProd" },
           { header: "customers", navigateTo: "/layout/customers" },
           { header: "Statistics", navigateTo: "/layout/statistics" },
+          { header: "Logout", navigateTo: "/layout/logout" },
         ],
         title: `${existUser.first_name} ${existUser.last_name}`,
         admin: true
@@ -60,7 +61,7 @@ const Login = () => {
           { header: "Products", navigateTo: "/layout/userProd" },
           { header: "My Orders", navigateTo: "/layout/userOrders" },
           { header: "My Account", navigateTo: "/layout/userAccount" },
-          { header: "Log Out", navigateTo: "/layout/logout" },
+          { header: "Logout", navigateTo: "/layout/logout" },
         ],
         title: JSON.stringify(existUser),
         admin: false
