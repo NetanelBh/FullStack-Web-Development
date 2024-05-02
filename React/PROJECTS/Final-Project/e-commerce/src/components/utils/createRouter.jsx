@@ -12,7 +12,6 @@ import Orders from "../pages/users/Orders";
 import Logout from "../pages/users/Logout";
 import MyAccount from "../pages/users/MyAccount";
 import UserProducts from "../pages/users/UserProducts";
-// Important import
 import UserRegistration from "../pages/users/UserRegistration";
 
 const CreateRouter = () => {
