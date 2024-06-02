@@ -1,0 +1,1 @@
+import subscriptionModel from "../models/subscriptionsModel.js";
