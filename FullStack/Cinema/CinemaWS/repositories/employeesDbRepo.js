@@ -5,3 +5,7 @@ export const addEmployee = (employee) => {
 
     return newEmployee.save();
 }
+
+export const getEmployeeByUsername = (username) => { 
+    return employeesModel.findOne({username});
+};

@@ -2,6 +2,7 @@ import "dotenv/config";
 import cors from "cors";
 import express from 'express';
 import bodyParser from "body-parser";
+import session from "express-session";
 
 import DbConnection from "./config/DBConnection.js";
 
@@ -17,6 +18,12 @@ app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+    secret: process.env.HASH_KEY,
+    resave: false,
+    saveUninitialized: true,
+}))
 
 app.use('/auth', authRouter);
 
