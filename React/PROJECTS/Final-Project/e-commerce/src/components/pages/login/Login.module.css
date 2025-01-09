@@ -10,7 +10,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   background-position-y: -4rem;
-  animation: background_anim 15s infinite linear;
+  animation: background_anim 25s infinite linear;
 }
 
 @keyframes background_anim {
@@ -18,7 +18,7 @@ input:focus {
     background-position-x: 0;
   }
   to {
-    background-position-x: 1500px;
+    background-position-x: 1888px;
   }
 }
 
