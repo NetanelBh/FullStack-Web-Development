@@ -7,7 +7,7 @@ import DbConnection from "./config/DBConnection.js";
 // import initializeDB from './utils/initDb.js';
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT;
 
 DbConnection();
 // // Initialize the DB only one time when the server is loaded for the first time

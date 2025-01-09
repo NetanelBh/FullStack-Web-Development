@@ -10,7 +10,7 @@ import authRouter from './routers/authRouter.js';
 import employeesRouter from './routers/employeesRouter.js';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 DbConnection();
 
@@ -26,6 +26,7 @@ app.use(session({
 }))
 
 app.use('/auth', authRouter);
+app.use('/employees', employeesRouter);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

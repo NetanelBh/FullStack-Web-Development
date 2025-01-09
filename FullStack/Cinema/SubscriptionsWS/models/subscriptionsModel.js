@@ -4,8 +4,8 @@ const schema = new Schema(
   { versionKey: false },
   {
     userId: { type: String },
-    // This field store all movies that the member watched and their date
-    // Each array element: {movieId: movie id, date: watched data}
+    // This field store all movies that the member watched and their date.
+    // Each array element: {movieId: movie_id, date: watched_data}
     movies: { type: Array },
   }
 );

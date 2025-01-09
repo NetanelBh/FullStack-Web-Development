@@ -1,11 +1,15 @@
 {
-  "id": "665f09a17a8b3041621cbec0",
-  "permissions": [
-    "View Subscription",
-    "Create Subscriptions",
-    "Delete Subscriptions",
-    "View Movies",
-    "Create Movies",
-    "Delete Movies"
+  "employees": [
+    {
+      "id": "665f09a17a8b3041621cbec0",
+      "permissions": [
+        "View Subscription",
+        "Create Subscriptions",
+        "Delete Subscriptions",
+        "View Movies",
+        "Create Movies",
+        "Delete Movies"
+      ]
+    }
   ]
 }
