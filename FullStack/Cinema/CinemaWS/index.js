@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import session from "express-session";
 
 import DbConnection from "./config/DBConnection.js";
+// import initialize from './utils/init.js';
 
 import authRouter from './routers/authRouter.js';
 import employeesRouter from './routers/employeesRouter.js';
@@ -13,6 +14,9 @@ const app = express();
 const port = process.env.PORT;
 
 DbConnection();
+
+// // Initialize the employees DB only one time when the server is loaded for the first time
+// initialize();
 
 app.use(cors());
 

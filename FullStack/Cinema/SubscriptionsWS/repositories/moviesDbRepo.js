@@ -1,6 +1,7 @@
-import moviesModel from '../models/moviesModel.js';
+import moviesModel from "../models/moviesModel.js";
 
-export const addMovie = (movie) => { 
-    const newMovie = moviesModel(movie);
-    return newMovie.save();
+export const addMovie = (movie) => {
+  const newMovie = moviesModel(movie);
+
+  return newMovie.save();
 };

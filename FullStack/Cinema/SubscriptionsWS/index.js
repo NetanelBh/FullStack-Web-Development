@@ -10,6 +10,7 @@ const app = express();
 const port = process.env.PORT;
 
 DbConnection();
+
 // // Initialize the DB only one time when the server is loaded for the first time
 // initializeDB();
 

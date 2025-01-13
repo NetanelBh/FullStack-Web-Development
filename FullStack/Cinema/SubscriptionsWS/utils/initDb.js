@@ -1,6 +1,7 @@
 // Initialize the DB once the server is started.
 import * as moviesServices from "../services/moviesServices.js";
 import * as membersServices from "../services/membersServices.js";
+import { addSubscription } from "../services/subscriptionsServices.js";
 
 const createRelevantData = (data, type) => {
   switch (type) {
@@ -29,6 +30,9 @@ const saveData = (data, type) => {
       break;
     case "members":
       membersServices.addMember(data);
+      break;
+    case "subscriptions":
+      addSubscription(data);
       break;
     default:
       break;

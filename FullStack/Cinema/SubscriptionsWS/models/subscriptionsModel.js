@@ -1,13 +1,13 @@
 import { Schema, model } from "mongoose";
 
 const schema = new Schema(
-  { versionKey: false },
   {
-    userId: { type: String },
+    userId: { type: String, required: true },
     // This field store all movies that the member watched and their date.
     // Each array element: {movieId: movie_id, date: watched_data}
-    movies: { type: Array },
-  }
+    movies: { type: Array, required: true },
+  },
+  { versionKey: false }
 );
 
 const SubscriptionModel = new model("subscription", schema);
