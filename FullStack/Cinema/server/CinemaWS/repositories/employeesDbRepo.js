@@ -1,6 +1,11 @@
 import employeesModel from "../models/employeesModel.js";
+import bcrypt from "bcryptjs";
 
-export const addEmployee = (employee) => {
+export const addEmployee = async (employee) => {
+  const salt = await bcrypt.genSalt(10);
+  const encryptedPassword = await bcrypt.hash(employee.password, salt);
+  employee.password = encryptedPassword;
+
   const newEmployee = employeesModel(employee);
   return newEmployee.save();
 };

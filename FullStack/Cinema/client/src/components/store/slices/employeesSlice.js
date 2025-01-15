@@ -6,9 +6,6 @@ const employeesSlice = createSlice({
     name: "employees",
     initialState,
     reducers: {
-        load(state, action) {
-            state.employees = action.payload;
-        },
         add(state, action) {
             state.employees.push(action.payload.user);
         },

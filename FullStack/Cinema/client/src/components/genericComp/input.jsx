@@ -1,12 +1,14 @@
 import styles from "./input.module.css";
 
-const Input = ({ label, type }) => {
+import { forwardRef } from "react";
+
+const Input = forwardRef(({ title, type }, ref) => {
     return (
         <div className={styles.container}>
-            <label>{label}:</label>
-            <input type={type} />
+            <label htmlFor={title}>{title}:</label>
+            <input type={type} id={title} ref={ref} autoComplete="off"/>
         </div>
     );
-};
+});
 
 export default Input;

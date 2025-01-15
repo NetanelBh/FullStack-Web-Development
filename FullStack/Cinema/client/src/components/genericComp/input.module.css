@@ -3,21 +3,13 @@
     flex-direction: column;
 }
 
-label {
-    margin-bottom: 0.2rem;
-    font-size: 1.5rem;
-}
-
 input {
     font-size: 1rem;
     padding: 3px;
     outline: none;
-    border-color: rgb(178, 182, 186);
-    /* when some property value is changed here, it will take 0.5s  */
-    transition: 0.5s ease-out;
 }
 
-input:focus {
-    background-color: #C4D7FF;
-    border-color: #87A2FF;
+label {
+    margin-bottom: 0.2rem;
+    font-size: 1.5rem;
 }
