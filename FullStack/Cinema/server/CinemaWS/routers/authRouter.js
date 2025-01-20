@@ -42,16 +42,19 @@ http: router.post("/login", async (req, res) => {
                 // Save username and token in session for future request
                 req.session.user = { username, token };
                 const returnedData = { admin: employee.admin, token };
-                res.send({ status: "success", data: returnedData });
-            } else res.send({ status: "failed", data: "Invalid password" });
+                res.send({ status: true, data: returnedData });
+            } else res.send({ status: false, data: "Invalid password" });
         } else {
-            res.send({ status: "failed", data: "Invalid username" });
+            res.send({ status: false, data: "Invalid username" });
         }
     } catch (error) {
-        res.send({ status: "failed", data: error.message });
+        res.send({ status: false, data: error.message });
     }
 });
 
-router.get("/logout", (req, res) => {});
+router.get("/logout", (req, res) => {
+    req.session.destroy();
+    res.send({ status: true, data: "Logged out successfully" });
+});
 
 export default router;

@@ -1,30 +1,84 @@
 import styles from "./register.module.css";
 
+import axios from "axios";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Header from "../../genericComp/header";
 import Input from "../../genericComp/input";
-import Button from "../../UI/button";
-import Card from "../../UI/card";
-import { useRef } from "react";
+import Button from "../../UI/button/button";
+import Card from "../../UI/card/card";
+import CustomDialog from "../../genericComp/dialog";
 
 const Register = () => {
     const usernameRef = useRef();
     const passwordRef = useRef();
+    const navigate = useNavigate();
+    const [showDialog, setShowDialog] = useState(false);
+    const [validUser, setValidUser] = useState({valid: true, message: ""});
+
+    const registerHandler = async (event) => {
+        event.preventDefault();
+
+        const username = usernameRef.current.value;
+        const password = passwordRef.current.value;
+
+        setValidUser((lastState) => {
+            return {...lastState, valid: true, message: ""};
+        });
+        
+        const url = "http://localhost:3000/employees/register";
+        try {
+            const resp = (await axios.patch(url, { username, password })).data;
+            
+            if (resp.status) {
+                setShowDialog(true);
+            } else {
+                setValidUser((lastState) => {
+                    return {...lastState, valid: false, message: resp.data};
+                });
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    const closeDialog = () => {
+        setShowDialog(false);
+        setValidUser((lastState) => {
+            return {...lastState, valid: true, message: ""};
+        });
+
+        navigate("/");
+    };
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${showDialog ? "blurred" : ""}`}>
             <Header text="Create an Account" />
-            <Card className={styles.card_container}>
-                <form className={styles.form}>
-                    <div className={styles.input_container}>
-                        <Input title="User Name" type="text" ref={usernameRef} />
-                    </div>
-                    <div className={styles.input_container}>
-                        <Input title="Password" type="text" ref={passwordRef} />
-                    </div>
+            {!showDialog && (
+                <Card className={styles.card_container}>
+                    <form className={styles.form} onSubmit={registerHandler}>
+                        <div className={styles.input_container}>
+                            <Input title="User Name" type="text" ref={usernameRef} />
+                            {!validUser.valid && <p>{validUser.message}</p>}
+                        </div>
+                        <div className={styles.input_container}>
+                            <Input title="Password" type="text" ref={passwordRef} />
+                        </div>
 
-                    <Button className={styles.button} text="Register" type="submit" onClick={""} />
-                </form>
-            </Card>
+                        <Button className={styles.button} text="Register" type="submit" />
+                    </form>
+                </Card>
+            )}
+
+            <CustomDialog
+                title="Registration Completed!"
+                text="Employee Successfully Created!"
+                buttonsArray={[
+                    { text: "close", onClick: closeDialog },
+                ]}
+                open={showDialog}
+            />
         </div>
     );
 };

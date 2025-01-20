@@ -1,0 +1,44 @@
+:root {
+    --font-color: rgb(10, 67, 113);
+    --font-size: 1.3rem
+}
+
+.bar_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #87a2ff;
+    height: 4rem;
+    box-shadow: 1px 5px 5px #8f8f8f;
+}
+
+.list {
+    list-style: none;
+    padding: 10px;
+    display: flex;
+}
+
+.link_btn a {
+    color: white;
+    font-size: var(--font-size);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-decoration: none;
+    margin: 0 0.5rem 0 1rem;
+}
+
+.link_btn a.active {
+    color: var(--font-color)
+}
+
+.logout {
+    background-color: transparent;
+    border: none;
+    font-size: var(--font-size);
+    color: white;
+    padding: 10px;
+    margin-right: 1rem;
+}
+
+.logout:hover {
+    cursor: pointer;
+}
