@@ -25,9 +25,7 @@ const NavigationBar = () => {
                             <NavLink
                                 to={navButton.navigateTo}
                                 end
-                                className={({ isActive }) => 
-                                    isActive ? styles.active : undefined
-                                }
+                                className={({ isActive }) => (isActive ? styles.active : undefined)}
                             >
                                 {navButton.header}
                             </NavLink>
@@ -36,7 +34,7 @@ const NavigationBar = () => {
                 })}
             </ul>
 
-            <Button className={styles.logout} text="Logout" type="button" onClick={logoutHandler} />
+            <img src="/logout.png" alt="logout image" className={styles.logout} onClick={logoutHandler}></img>
         </nav>
     );
 };
