@@ -101,12 +101,12 @@ const Login = () => {
             <Card className={styles.card_container}>
                 <form className={styles.form} onSubmit={submitHandler}>
                     <div className={styles.input_container}>
-                        <Input title="username" type="text" ref={usernameRef} />
+                        <Input title="username" type="text" className={styles.input_direction} ref={usernameRef} />
                         {!isValidUser && <p>Invalid Username</p>}
                     </div>
 
                     <div className={styles.input_container}>
-                        <Input title="password" type="password" ref={passwordRef} />
+                        <Input title="password" type="password" className={styles.input_direction} ref={passwordRef} />
                         {!isValidPassword && <p>Invalid password</p>}
                     </div>
                     <Button className={styles.button} text="Login" type="submit" />

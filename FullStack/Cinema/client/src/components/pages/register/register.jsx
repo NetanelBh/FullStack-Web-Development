@@ -59,11 +59,11 @@ const Register = () => {
                 <Card className={styles.card_container}>
                     <form className={styles.form} onSubmit={registerHandler}>
                         <div className={styles.input_container}>
-                            <Input title="User Name" type="text" ref={usernameRef} />
+                            <Input title="User Name" type="text" className={styles.input_direction} ref={usernameRef} />
                             {!validUser.valid && <p>{validUser.message}</p>}
                         </div>
                         <div className={styles.input_container}>
-                            <Input title="Password" type="text" ref={passwordRef} />
+                            <Input title="Password" type="text" className={styles.input_direction} ref={passwordRef} />
                         </div>
 
                         <Button className={styles.button} text="Register" type="submit" />

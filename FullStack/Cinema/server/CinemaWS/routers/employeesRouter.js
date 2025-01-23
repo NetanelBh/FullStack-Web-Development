@@ -7,7 +7,8 @@ const router = express.Router();
 
 // Entry point: http://localhost:3000/employees
 
-router.get("/", async (req, res) => {
+// Get all employees from the DB
+router.get("/db", async (req, res) => {
     try {
         const employees = await employeesServices.getEmployeesFromDb();
         res.send({ status: true, data: employees });
@@ -46,7 +47,7 @@ router.post("/add", async (req, res) => {
     }
 });
 
-// During the register precess, if the employee exists in DB, will update his password.
+// During the register process, if the employee exists in DB, will update his password.
 router.patch("/register", async (req, res) => {
     const { username, password } = req.body;
 
@@ -81,6 +82,25 @@ router.delete("/:id", async (req, res) => {
         // After delete the employee from DB, will delete the employee also from the file with its permissions.
         await permissionsServices.deleteEmployee(id);
         res.send({ status: true, data: deletedEmployee });
+    } catch (error) {
+        res.send({ status: false, data: error.message });
+    }
+});
+
+router.get('/permissions', async (req, res) => {
+    try {
+        const permissions = await permissionsServices.getEmployeesPermissions();
+        res.send({ status: true, data: permissions });
+    } catch (error) {
+        res.send({ status: false, data: error.message });
+    }
+});
+
+// Get the employees data from employees.json file.
+router.get('/file', async (req, res) => {
+    try {
+        const employees = await employeesServices.getEmployeesFromFile();
+        res.send({ status: true, data: employees });
     } catch (error) {
         res.send({ status: false, data: error.message });
     }

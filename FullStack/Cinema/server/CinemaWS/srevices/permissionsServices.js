@@ -4,7 +4,7 @@ import * as fileRepo from "../repositories/fileRepo.js";
 
 const JSONPATH = process.cwd() + "/data/permissions.json";
 
-const getEmployeesPermissions = () => {
+export const getEmployeesPermissions = () => {
     return fileRepo.getDataFromJson(JSONPATH);
 };
 
