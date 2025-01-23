@@ -28,7 +28,7 @@ const Login = () => {
         const url = "http://localhost:3000/auth/login";
         try {
             const resp = (await axios.post(url, { username, password })).data;
-            
+
             if (!resp.status && resp.data.includes("username")) {
                 setIsValidUser(false);
                 return;
@@ -40,26 +40,54 @@ const Login = () => {
                 sessionStorage.setItem("token", resp.data.token);
                 sessionStorage.setItem("username", username);
 
-                // Create the navigations bar headers for the layout component
-                const navBarHeaders = {
+                // Create the navigations bar headers for the main layout component
+                const mainHeadersBar = {
                     headers: [
-                        { header: "Movies", navigateTo: "/layout/movies" },
-                        { header: "Subscriptions", navigateTo: "/layout/subscriptions" },
+                        { header: "Movies", navigateTo: "/layout/WebContentLayout/movies/all" },
+                        { header: "Subscriptions", navigateTo: "/layout/WebContentLayout/subscriptions/all" },
                     ],
                 };
-                
+
                 // To admin there is another tab in navigation bar - manage employees
-                if (resp.data.admin) {                    
-                    navBarHeaders.headers.push({
+                if (resp.data.admin) {
+                    mainHeadersBar.headers.push({
                         header: "Employees Management",
-                        navigateTo: "/layout/employees",
+                        navigateTo: "/layout/WebContentLayout/employees/all",
                     });
                 }
 
                 // Store the headers to use them in the generic layout component to create navigations bar
-                sessionStorage.setItem("headers", JSON.stringify(navBarHeaders));
+                sessionStorage.setItem("mainHeaders", JSON.stringify(mainHeadersBar));
 
-                navigate("/layout/movies");
+                // Create the movies navigations bar headers for the content layout component
+                const moviesHeadersBar = {
+                    headers: [
+                        { header: "All Movies", navigateTo: "/layout/WebContentLayout/movies/all" },
+                        { header: "Add Movie", navigateTo: "/layout/WebContentLayout/movies/add" },
+                    ],
+                };
+
+                // Create the subscriptions navigations bar headers for the content layout component
+                const subscriptionsHeadersBar = {
+                    headers: [
+                        { header: "All Subscriptions", navigateTo: "/layout/WebContentLayout/subscriptions/all" },
+                        { header: "Add Subscription", navigateTo: "/layout/WebContentLayout/subscriptions/add" },
+                    ],
+                };
+
+                // Create the employees navigations bar headers for the content layout component
+                const employeesHeadersBar = {
+                    headers: [
+                        { header: "All Employees", navigateTo: "/layout/WebContentLayout/employees/all" },
+                        { header: "Add Employee", navigateTo: "/layout/WebContentLayout/employees/add" },
+                    ],
+                };
+
+                sessionStorage.setItem("moviesHeaders", JSON.stringify(moviesHeadersBar));
+                sessionStorage.setItem("subscriptionsHeaders", JSON.stringify(subscriptionsHeadersBar));
+                sessionStorage.setItem("employeesHeaders", JSON.stringify(employeesHeadersBar));
+
+                navigate("/layout/WebContentLayout/movies/all");
             }
         } catch (error) {
             console.log(error.message);

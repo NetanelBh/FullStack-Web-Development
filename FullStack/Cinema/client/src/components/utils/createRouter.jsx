@@ -2,10 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Login from "../pages/login/login";
 import Register from "../pages/register/register";
-import Layout from "../pages/layout/layout";
+
+import MainLayout from "../UI/layouts/mainLayout";
 import Movies from "../pages/movies/movies";
 import Subscriptions from "../pages/subscriptions/subscriptions";
-import Employees from "../pages/employees/employees";
+
+import WebContentLayout from "../UI/layouts/WebContentLayout";
+import AddEmployee from "../pages/employees/addEmployee";
+import AllEmployees from "../pages/employees/AllEmployees";
 
 const CreateRouter = () => {
     const router = createBrowserRouter([
@@ -13,11 +17,20 @@ const CreateRouter = () => {
         { path: "/register", element: <Register /> },
         {
             path: "/layout",
-            element: <Layout />,
+            element: <MainLayout />,
             children: [
-                { path: "/layout/movies", element: <Movies /> },
-                { path: "/layout/subscriptions", element: <Subscriptions /> },
-                { path: "/layout/employees", element: <Employees /> },
+                {
+                    path: "/layout/WebContentLayout",
+                    element: <WebContentLayout />,
+                    children: [
+                        { path: "/layout/WebContentLayout/employees/all", element: <AllEmployees /> },
+                        { path: "/layout/WebContentLayout/employees/add", element: <AddEmployee /> },
+                        { path: "/layout/WebContentLayout/movies/all", element: <Movies /> },
+                        { path: "/layout/WebContentLayout/movies/add", element: <Movies /> },
+                        { path: "/layout/WebContentLayout/subscriptions/all", element: <Subscriptions /> },
+                        { path: "/layout/WebContentLayout/subscriptions/add", element: <Subscriptions /> },
+                    ],
+                },
             ],
         },
     ]);

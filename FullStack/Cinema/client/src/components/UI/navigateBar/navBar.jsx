@@ -1,31 +1,32 @@
 import styles from "./navBar.module.css";
 
-import { NavLink, useNavigate } from "react-router-dom";
-import Button from "../button/button";
+import { NavLink, useLocation } from "react-router-dom";
 
-const NavigationBar = () => {
-    const navigate = useNavigate();
-
-    const navButtons = JSON.parse(sessionStorage.getItem("headers")).headers;
-
-    const logoutHandler = () => {
-        sessionStorage.removeItem("headers");
-        sessionStorage.removeItem("username");
-        sessionStorage.removeItem("token");
-
-        navigate("/");
-    };
+const NavigationBar = ({ data }) => {
+    // Remove the last part of the path to get the parent path to keep it active when click on child
+    let location = useLocation().pathname.split("/");
+    location.pop();
+    location = location.join("/");
 
     return (
-        <nav className={styles.bar_container}>
-            <ul className={styles.list}>
-                {navButtons.map((navButton) => {
+        <nav>
+            <ul className={styles.ul}>
+                {data.map((navButton) => {
                     return (
-                        <li key={navButton.header} className={styles.link_btn}>
+                        <li key={navButton.header} className={styles.li}>
                             <NavLink
                                 to={navButton.navigateTo}
-                                end
-                                className={({ isActive }) => (isActive ? styles.active : undefined)}
+                                className={({ isActive }) => {
+                                    // Remove the last part of the path to check if child contains the parent path
+                                    let path = navButton.navigateTo.split('/');
+                                    path.pop();
+                                    path = path.join("/");
+                                    if (isActive || path === location) {
+                                        return styles.active;
+                                    }
+
+                                    return undefined;
+                                }}
                             >
                                 {navButton.header}
                             </NavLink>
@@ -33,8 +34,6 @@ const NavigationBar = () => {
                     );
                 })}
             </ul>
-
-            <img src="/logout.png" alt="logout image" className={styles.logout} onClick={logoutHandler}></img>
         </nav>
     );
 };

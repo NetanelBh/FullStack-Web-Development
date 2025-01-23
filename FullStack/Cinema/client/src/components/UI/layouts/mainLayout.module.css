@@ -1,0 +1,23 @@
+.content {
+    margin-top: 2rem;
+}
+
+.bar_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #87a2ff;
+    height: 4rem;
+    width: 101%;
+    box-shadow: 1px 5px 5px #8f8f8f;
+    transform: translate(-0.5rem, -0.5rem);
+}
+
+.logout {
+    height: 90px;
+    width: 90px;
+}
+
+.logout:hover {
+    cursor: pointer;
+}
