@@ -1,0 +1,62 @@
+:root {
+    --box-shadow-color: #EEEEEE;
+    --border-color: #a9bfa8;
+    --text-color: #FAFFC5;
+}
+
+.all_emp_list_ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+}
+
+.all_emp_card {
+    width: 50%;
+    margin: 1rem 15px 1rem 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 0 10px 0 10px;
+    animation: wow 1.5s linear infinite;
+}
+
+.all_emp_card li {
+    display: flex;
+    flex-direction: column;
+}
+
+.details_wrapper {
+    font-size: 1.3rem;
+    color: var(--box-shadow-color);
+    margin: 0.5rem auto 0.5rem 0;
+}
+
+.employee_data_content {
+    color: var(--text-color);
+}
+
+@keyframes wow {
+    0% {
+        box-shadow: 0 0 5px var(--box-shadow-color);
+    }
+    50% {
+        box-shadow: 0 0 10px var(--box-shadow-color);
+    }
+    100% {
+        box-shadow: 0 0 5px var(--box-shadow-color);
+    }
+}
+
+.all_emp_permissions {
+    display: flex;
+}
+
+.all_emp_permissions_list {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+}
+
+.all_emp_permissions_list p {
+    margin: 0;
+    color: var(--text-color);
+}

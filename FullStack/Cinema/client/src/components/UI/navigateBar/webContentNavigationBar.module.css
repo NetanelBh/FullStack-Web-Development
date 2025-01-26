@@ -10,13 +10,14 @@
 }
 
 .li a {
-    color: black;
+    color: white;
     text-decoration: underline;
     font-size: 1.3rem;
     padding: 5px;
 }
 
 .ul .li a.active {
+    color: #31363F;
     border: 1px solid blue;
     background-color: #FAFFC5;
     text-decoration: none;

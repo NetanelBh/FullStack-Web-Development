@@ -1,18 +1,5 @@
 .all_emp_container {
     display: flex;
     flex-direction: column;
-}
-
-.all_emp_card {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    box-shadow: 0 0 5px #5E686D;
-    margin: 1rem 15px 1rem 15px;
-    border: 1px solid #a9bfa8;
-    border-radius: 5px;
-}
-
-.all_emp_card_content {
-    padding: 5px
+    /* align-items: center; */
 }
