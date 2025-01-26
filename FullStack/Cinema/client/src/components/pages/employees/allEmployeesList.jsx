@@ -1,12 +1,16 @@
 import styles from "./allEmployeesList.module.css";
 
 import Card from "../../UI/card/card";
+import Button from "../../UI/button/button";
 
 const AllEmployeesList = ({ employees }) => {
+    const editHandler = (event) => {};
+
+    const deleteHandler = (event) => {};
+
     return (
         <ul className={styles.all_emp_list_ul}>
             {employees.map((employee) => {
-                console.log(employee);
                 return (
                     <Card className={styles.all_emp_card} key={employee.id}>
                         <li>
@@ -34,6 +38,11 @@ const AllEmployeesList = ({ employees }) => {
                                     })}
                                 </div>
                             </span>
+
+                            <div className={styles.all_emp_list_actions}>
+                                <Button className={`${styles.all_emp_list_action_buttons} ${styles.edit_btn}`} text='Edit' type='button' onClick={editHandler}/>
+                                <Button className={`${styles.all_emp_list_action_buttons} ${styles.delete_btn}`} text='Delete' type='button' onClick={deleteHandler}/>
+                            </div>
                         </li>
                     </Card>
                 );

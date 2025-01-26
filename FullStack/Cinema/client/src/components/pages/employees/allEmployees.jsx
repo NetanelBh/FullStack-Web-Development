@@ -17,7 +17,7 @@ const AllEmployees = () => {
     const dispatch = useDispatch();
     const allEmployees = useSelector((state) => state.employees.employees);
 
-    const createEmployeesList = (employees, permissions, employeeData) => {
+    const createEmployeesList = useCallback((employees, permissions, employeeData) => {
         const employeesList = employees.data.map((emp) => {
             const empObj = {
                 username: emp.username,
@@ -44,30 +44,36 @@ const AllEmployees = () => {
         });
 
         dispatch(employeesActions.load(employeesList));
-    };
+    }, []);
 
     useEffect(() => {
-        const fetchedData = async () => {
-            try {
-                setIsLoading(true);
-                const empResp = axios.get(DB_EMPLOYEES_URL);
-                const permResp = axios.get(PERMISSIONS_FILE_URL);
-                const employeeDataResp = axios.get(EMP_DATA_FILE_URL);
+        if (allEmployees.length === 0) {
+            const fetchedData = async () => {
+                try {
+                    setIsLoading(true);
+                    const empResp = axios.get(DB_EMPLOYEES_URL);
+                    const permResp = axios.get(PERMISSIONS_FILE_URL);
+                    const employeeDataResp = axios.get(EMP_DATA_FILE_URL);
 
-                // Waiting for all requests to get their responses
-                const [employees, permissions, employeeData] = await Promise.all([empResp, permResp, employeeDataResp]);
-                // Create the employees list to store in redux only if all the requested url returned with corrrect data
-                if (employees.status && permissions.status && employeeData.status) {
-                    createEmployeesList(employees.data, permissions.data, employeeData.data);
+                    // Waiting for all requests to get their responses
+                    const [employees, permissions, employeeData] = await Promise.all([
+                        empResp,
+                        permResp,
+                        employeeDataResp,
+                    ]);
+                    // Create the employees list to store in redux only if all the requested url returned with corrrect data
+                    if (employees.status && permissions.status && employeeData.status) {
+                        createEmployeesList(employees.data, permissions.data, employeeData.data);
+                    }
+                } catch (error) {
+                    console.log(error.message);
                 }
-            } catch (error) {
-                console.log(error.message);
-            }
-            setIsLoading(false);
-        };
+                setIsLoading(false);
+            };
 
-        fetchedData();
-    }, []);
+            fetchedData();
+        }
+    }, [dispatch, createEmployeesList]);
 
     return (
         <div className={styles.all_emp_container}>

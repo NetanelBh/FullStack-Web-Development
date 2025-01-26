@@ -1,16 +1,22 @@
-.content {
-    margin-top: 2rem;
+.main_layout_background {
+    background-color: #31363f;
+}
+
+.main_layout_header {
+    padding-top: 3rem;
 }
 
 .bar_container {
+    position: sticky;
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #87a2ff;
     height: 4rem;
-    width: 101%;
+    width: 100%;
     box-shadow: 1px 5px 5px #8f8f8f;
-    transform: translate(-0.5rem, -0.5rem);
+    margin-bottom: 0.2rem;
 }
 
 .logout {

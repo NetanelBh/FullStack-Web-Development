@@ -1,3 +1,8 @@
+.web_content_nav_container {
+    position: sticky;
+    top: 4rem;
+}
+
 .ul {
     list-style: none;
     padding: 10px;

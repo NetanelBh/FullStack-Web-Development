@@ -27,8 +27,8 @@ const MainLayout = () => {
                 <img src="/logout.png" alt="logout image" className={styles.logout} onClick={logoutHandler}></img>
             </div>
 
-            <div className={styles.content}>
-                <Header text="Netanel's Cinema" />
+            <div className={styles.main_layout_background}>
+                <Header text="Netanel's Cinema" className={styles.main_layout_header} />
                 <Outlet />
             </div>
         </>

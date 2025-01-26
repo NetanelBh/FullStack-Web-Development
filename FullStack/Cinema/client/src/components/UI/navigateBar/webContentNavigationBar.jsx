@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const WebContentNavigationBar = ({data}) => {
     return (
-        <nav>
+        <nav className={styles.web_content_nav_container}>
             <ul className={styles.ul}>
                 {data.map((navButton) => {
                     return (

@@ -1,33 +1,41 @@
 :root {
-    --box-shadow-color: #EEEEEE;
+    --box-shadow-color: #eeeeee;
     --border-color: #a9bfa8;
-    --text-color: #FAFFC5;
+    --text-color: #faffc5;
+    --action-buttons-font-size: 1.2rem;
+    --actions-border-color: #fa4032;
+    --delete-button-hover-color: #e4003a;
+    --action-buttons-hover-background: #fff27b;
 }
 
 .all_emp_list_ul {
     list-style: none;
     padding: 0;
     margin-top: 0;
+    width: 40%;
+    height: 75vh;
+    overflow-y: auto;
 }
 
 .all_emp_card {
-    width: 50%;
-    margin: 1rem 15px 1rem 15px;
+    margin: 1rem 15px 1.2rem 15px;
     border: 1px solid var(--border-color);
     border-radius: 5px;
-    padding: 0 10px 0 10px;
+    padding: 10px 10px 0 10px;
     animation: wow 1.5s linear infinite;
+    display: flex;
 }
 
 .all_emp_card li {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .details_wrapper {
     font-size: 1.3rem;
     color: var(--box-shadow-color);
-    margin: 0.5rem auto 0.5rem 0;
+    margin: 0.3rem auto 0.3rem 0;
 }
 
 .employee_data_content {
@@ -59,4 +67,33 @@
 .all_emp_permissions_list p {
     margin: 0;
     color: var(--text-color);
+}
+
+.all_emp_list_actions {
+    display: flex;
+    width: 100%;
+    margin: 0.5rem auto 0.5rem 0;
+    padding-top: 10px;
+    border-top: #eeeeee 1px solid;
+}
+
+.all_emp_list_action_buttons {
+    background-color: var(--text-color);
+    font-size: var(--action-buttons-font-size);
+    padding: 5px;
+    border-radius: 5px;
+    border-color: var(--actions-border-color);
+    cursor: pointer;
+}
+
+.all_emp_list_action_buttons:hover {
+    background-color: var(--action-buttons-hover-background);
+}
+
+.edit_btn {
+    margin-right: 0.5rem;
+}
+
+.delete_btn:hover {
+    color: var(--delete-button-hover-color);
 }
