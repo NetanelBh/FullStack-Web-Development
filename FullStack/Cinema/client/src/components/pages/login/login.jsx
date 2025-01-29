@@ -36,7 +36,7 @@ const Login = () => {
             } else if (!resp.status && resp.data.includes("password")) {
                 setIsValidPassword(false);
                 return;
-            } else {                
+            } else {         
                 // If user authenticated, will save the token in local storage
                 sessionStorage.setItem("token", resp.data.token);
                 sessionStorage.setItem("username", username);
