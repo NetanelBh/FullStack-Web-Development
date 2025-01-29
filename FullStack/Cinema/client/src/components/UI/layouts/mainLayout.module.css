@@ -1,9 +1,24 @@
 .main_layout_background {
     background-color: #31363f;
+    margin-bottom: 1rem;
 }
 
 .main_layout_header {
-    padding-top: 3rem;
+    padding: 3rem 0 2rem 0;
+}
+
+.main_layout_space {
+    height: 0.1rem;
+    background-color: white;
+}
+
+.main_layout_employee_name {
+    color: white;
+    font-size: 2rem;
+    font-family: 'Agbalumo', sans-serif;
+    margin-left: 1.5rem;
+    text-decoration: underline;
+    color: #fff27b;
 }
 
 .bar_container {

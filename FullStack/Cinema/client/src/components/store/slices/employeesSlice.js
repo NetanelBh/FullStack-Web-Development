@@ -7,21 +7,21 @@ const employeesSlice = createSlice({
     initialState,
     reducers: {
         load(state, action) {
-            state.employees = action.payload;
+            state.employees = action.payload;            
         },
         add(state, action) {
-            state.employees.push(action.payload.user);
+            state.employees.push(action.payload);
         },
         remove(state, action) {
-            const index = state.employees.findIndex((emp) => emp.id === action.payload);
+            const index = state.employees.findIndex((emp) => emp.id === action.payload.id);
             if (index!== -1) {
                 state.employees.splice(index, 1);
             }
         },
-        edit(state, action) {
-            const index = state.employees.findIndex((emp) => emp.id === action.payload)
+        editPermissions(state, action) {            
+            const index = state.employees.findIndex((emp) => emp.id === action.payload.id);
             if (index!== -1) {
-                state.employees[index] = action.payload;
+                state.employees[index].permissions = action.payload.permissions;
             }
         }
     }

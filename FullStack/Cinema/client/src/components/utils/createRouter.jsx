@@ -10,6 +10,7 @@ import Subscriptions from "../pages/subscriptions/subscriptions";
 import WebContentLayout from "../UI/layouts/WebContentLayout";
 import AddEmployee from "../pages/employees/addEmployee";
 import AllEmployees from "../pages/employees/AllEmployees";
+import EditEmployee from "../pages/employees/editEmployee";
 
 const CreateRouter = () => {
     const router = createBrowserRouter([
@@ -31,6 +32,7 @@ const CreateRouter = () => {
                         { path: "/layout/WebContentLayout/subscriptions/add", element: <Subscriptions /> },
                     ],
                 },
+                {path: "/layout/editEmployee", element: <EditEmployee />},
             ],
         },
     ]);

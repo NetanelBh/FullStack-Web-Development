@@ -8,14 +8,12 @@ const MainLayout = () => {
     const navigate = useNavigate();
 
     const navButtons = JSON.parse(sessionStorage.getItem("mainHeaders")).headers;
+    const employeeName = sessionStorage.getItem("fullName");
 
     const logoutHandler = () => {
-        sessionStorage.removeItem("mainHeaders");
-        sessionStorage.removeItem("username");
-        sessionStorage.removeItem("token");
-        sessionStorage.removeItem("moviesHeaders");
-        sessionStorage.removeItem("employeesHeaders");
-        sessionStorage.removeItem("subscriptionsHeaders");
+        // Clear the session storage
+        sessionStorage.clear();
+        localStorage.clear();
 
         navigate("/");
     };
@@ -28,7 +26,9 @@ const MainLayout = () => {
             </div>
 
             <div className={styles.main_layout_background}>
-                <Header text="Netanel's Cinema" className={styles.main_layout_header} />
+                <Header text="Home Cinema" className={styles.main_layout_header} />
+                <div className={styles.main_layout_space}/>
+                <h2 className={styles.main_layout_employee_name}>{employeeName}</h2>
                 <Outlet />
             </div>
         </>

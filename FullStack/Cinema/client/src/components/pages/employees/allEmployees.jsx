@@ -9,13 +9,13 @@ import PacmanLoading from "../../UI/loading/pacmanLoading";
 import AllEmployeesList from "./allEmployeesList";
 
 const DB_EMPLOYEES_URL = "http://localhost:3000/employees/db";
-const PERMISSIONS_FILE_URL = "http://localhost:3000/employees/permissions";
+const PERMISSIONS_FILE_URL = "http://localhost:3000/permissions";
 const EMP_DATA_FILE_URL = "http://localhost:3000/employees/file";
 
 const AllEmployees = () => {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
-    const allEmployees = useSelector((state) => state.employees.employees);
+    const allEmployees = useSelector((state) => state.employees.employees);    
 
     const createEmployeesList = useCallback((employees, permissions, employeeData) => {
         const employeesList = employees.data.map((emp) => {
@@ -61,6 +61,7 @@ const AllEmployees = () => {
                         permResp,
                         employeeDataResp,
                     ]);
+                    
                     // Create the employees list to store in redux only if all the requested url returned with corrrect data
                     if (employees.status && permissions.status && employeeData.status) {
                         createEmployeesList(employees.data, permissions.data, employeeData.data);
@@ -78,7 +79,7 @@ const AllEmployees = () => {
     return (
         <div className={styles.all_emp_container}>
             {isLoading && <PacmanLoading color="#87a2ff" />}
-            {!isLoading && <AllEmployeesList employees={allEmployees} />}
+            {!isLoading && <AllEmployeesList />}
         </div>
     );
 };

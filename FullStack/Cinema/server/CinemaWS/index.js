@@ -9,6 +9,7 @@ import DbConnection from "./config/DBConnection.js";
 
 import authRouter from './routers/authRouter.js';
 import employeesRouter from './routers/employeesRouter.js';
+import permissionsRouter from './routers/permissionsRouter.js';
 
 const app = express();
 const port = process.env.PORT;
@@ -31,6 +32,7 @@ app.use(session({
 
 app.use('/auth', authRouter);
 app.use('/employees', employeesRouter);
+app.use('/permissions', permissionsRouter);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

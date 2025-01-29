@@ -53,6 +53,14 @@ export const getEmployeesFromFile = () => {
     return fileRepo.getDataFromJson(JSONPATH);
 };
 
+export const getEmployeeFromFileById = async (id) => {
+    const employees = await getEmployeesFromFile();
+    
+    return employees.employees.find((employee) => {                
+        return employee.id === String(id);
+    });    
+};
+
 export const addEmployeeToFile = async (newEmployee) => {
     let employees = {};
     if (fs.existsSync(JSONPATH)) {

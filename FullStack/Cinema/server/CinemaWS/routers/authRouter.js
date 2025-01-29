@@ -29,19 +29,20 @@ router.post("/register", async (req, res) => {
 //localhost:3000/auth/login
 http: router.post("/login", async (req, res) => {
     const { username, password } = req.body;
-    
-    try {
+
+    try {        
         // Return the match user from DB with the username, if not exist, return undefined
         const employee = await authServices.login(username);
+        
         // If the employee exist in DB
         if (employee !== null) {
             // Compare the password entered by user with the hashed password in DB.
-            if (await bcrypt.compare(password, employee.password)) {
+            if (await bcrypt.compare(String(password), employee.password)) {
                 // Create token to user
                 const token = jwt.sign(username, process.env.HASH_KEY);
-                // Save username and token in session for future request
+                // Return the employee's full name to show in every page he navigates in the cinema
                 req.session.user = { username, token };
-                const returnedData = { admin: employee.admin, token };
+                const returnedData = { admin: employee.admin, token, fullName: employee.fullName };
                 res.send({ status: true, data: returnedData });
             } else res.send({ status: false, data: "Invalid password" });
         } else {

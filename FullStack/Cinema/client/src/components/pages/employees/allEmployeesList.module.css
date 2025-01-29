@@ -75,6 +75,7 @@
     margin: 0.5rem auto 0.5rem 0;
     padding-top: 10px;
     border-top: #eeeeee 1px solid;
+    gap: 0.5rem;
 }
 
 .all_emp_list_action_buttons {
@@ -88,10 +89,6 @@
 
 .all_emp_list_action_buttons:hover {
     background-color: var(--action-buttons-hover-background);
-}
-
-.edit_btn {
-    margin-right: 0.5rem;
 }
 
 .delete_btn:hover {

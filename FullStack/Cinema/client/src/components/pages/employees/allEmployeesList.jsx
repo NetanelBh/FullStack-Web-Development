@@ -1,16 +1,26 @@
 import styles from "./allEmployeesList.module.css";
+import { useNavigate } from "react-router-dom";
 
 import Card from "../../UI/card/card";
 import Button from "../../UI/button/button";
+import { useSelector } from "react-redux";
 
-const AllEmployeesList = ({ employees }) => {
-    const editHandler = (event) => {};
+const AllEmployeesList = () => {
+    const navigate = useNavigate();
+    const allEmployees = useSelector((state) => state.employees.employees);
 
-    const deleteHandler = (event) => {};
+    const editHandler = (employee) => {  
+        // Save it to localStorage to parse it in the edit employee page  
+        localStorage.setItem("empId", JSON.stringify(employee.id));
+            
+        navigate("/layout/editEmployee");
+    };
+
+    const deleteHandler = () => {};
 
     return (
         <ul className={styles.all_emp_list_ul}>
-            {employees.map((employee) => {
+            {allEmployees.map((employee) => {
                 return (
                     <Card className={styles.all_emp_card} key={employee.id}>
                         <li>
@@ -40,8 +50,18 @@ const AllEmployeesList = ({ employees }) => {
                             </span>
 
                             <div className={styles.all_emp_list_actions}>
-                                <Button className={`${styles.all_emp_list_action_buttons} ${styles.edit_btn}`} text='Edit' type='button' onClick={editHandler}/>
-                                <Button className={`${styles.all_emp_list_action_buttons} ${styles.delete_btn}`} text='Delete' type='button' onClick={deleteHandler}/>
+                                <Button
+                                    className={styles.all_emp_list_action_buttons}
+                                    text="Edit"
+                                    type="button"
+                                    onClick={() => editHandler(employee)}
+                                />
+                                <Button
+                                    className={`${styles.all_emp_list_action_buttons} ${styles.delete_btn}`}
+                                    text="Delete"
+                                    type="button"
+                                    onClick={deleteHandler}
+                                />
                             </div>
                         </li>
                     </Card>

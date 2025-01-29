@@ -16,6 +16,8 @@ const Login = () => {
     const [isValidUser, setIsValidUser] = useState(true);
     const [isValidPassword, setIsValidPassword] = useState(true);
 
+    sessionStorage.clear();
+
     const submitHandler = async (event) => {
         event.preventDefault();
 
@@ -28,17 +30,17 @@ const Login = () => {
         const url = "http://localhost:3000/auth/login";
         try {
             const resp = (await axios.post(url, { username, password })).data;
-
             if (!resp.status && resp.data.includes("username")) {
                 setIsValidUser(false);
                 return;
             } else if (!resp.status && resp.data.includes("password")) {
                 setIsValidPassword(false);
                 return;
-            } else {
+            } else {                
                 // If user authenticated, will save the token in local storage
                 sessionStorage.setItem("token", resp.data.token);
                 sessionStorage.setItem("username", username);
+                sessionStorage.setItem("fullName", resp.data.fullName);
 
                 // Create the navigations bar headers for the main layout component
                 const mainHeadersBar = {

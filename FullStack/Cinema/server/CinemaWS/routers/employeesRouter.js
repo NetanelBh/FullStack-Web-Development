@@ -87,15 +87,6 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-router.get('/permissions', async (req, res) => {
-    try {
-        const permissions = await permissionsServices.getEmployeesPermissions();
-        res.send({ status: true, data: permissions });
-    } catch (error) {
-        res.send({ status: false, data: error.message });
-    }
-});
-
 // Get the employees data from employees.json file.
 router.get('/file', async (req, res) => {
     try {

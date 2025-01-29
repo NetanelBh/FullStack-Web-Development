@@ -17,7 +17,7 @@ const WebContentLayout = () => {
     }
 
     return (
-        <div className={styles.web_content_emp_container}>
+        <div className={styles.layout_web_content_container}>
             <WebContentNavigationBar data={navTabs} />
 
             <Outlet />

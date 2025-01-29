@@ -21,17 +21,30 @@ export const addEmployee = async (employee) => {
     fileRepo.writeDataToJson(JSONPATH, employees);
 };
 
-export const addPermission = (employeeId, permission) => {};
-
-export const removePermission = (employeeId, permission) => {};
+export const updatePermissions = async (employeeId, permissionsList) => {
+    try {
+        const permissions = await fileRepo.getDataFromJson(JSONPATH);
+    
+        // Update the new permissions for the corresponding employee
+        permissions.permissions.forEach((perm) => {
+            if (perm.id === employeeId) {
+                perm.permissions = permissionsList;
+            }
+        });
+    
+        // Save the permissions to the JSON file
+        await fileRepo.writeDataToJson(JSONPATH, permissions);
+        return permissions;
+    } catch (error) {
+        
+    }
+};
 
 export const deleteEmployee = async (employeeId) => {
     // When delete employee from the system, will remove the employee's permissions from the JSON file
     try {
         const empPermissions = await getEmployeesPermissions();
-        const index = empPermissions.permissions.findIndex(
-            (emp) => emp.id === employeeId
-        );
+        const index = empPermissions.permissions.findIndex((emp) => emp.id === employeeId);
         if (index !== -1) {
             empPermissions.permissions.splice(index, 1);
         }
