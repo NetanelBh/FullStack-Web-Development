@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { employees: [] };
+const initialState = { employees: []};
 
 const employeesSlice = createSlice({
 	name: "employees",
@@ -8,11 +8,11 @@ const employeesSlice = createSlice({
 	reducers: {
         // Load the employees list at the beginning from the database and the data json files
 		load(state, action) {
-			state.employees = action.payload;
+			state.employees = action.payload.employees;
 		},
 		// Add a new employee to the employees list
 		add(state, action) {
-			state.employees.push(action.payload);
+			state.employees.push(action.payload.employee);
 		},
 		// Remove employee from the employees list
 		remove(state, action) {

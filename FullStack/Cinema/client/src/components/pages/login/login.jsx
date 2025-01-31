@@ -17,6 +17,7 @@ const Login = () => {
     const [isValidPassword, setIsValidPassword] = useState(true);
 
     sessionStorage.clear();
+    localStorage.clear();
 
     const submitHandler = async (event) => {
         event.preventDefault();

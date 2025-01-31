@@ -43,14 +43,25 @@ const EditEmployee = () => {
 		navigate("/layout/WebContentLayout/employees/all");
 	};
 
-	const submitHandler = (event) => {
+	const submitHandler = async (event) => {
 		event.preventDefault();
 
-		// Update the new permissions allowed by the admin to the permissions json file
-		const url = "http://localhost:3000/permissions/update";
-		axios.put(url, { employeeId: clickedEmployee.id, permissions: clickedEmployee.permissions });
+		// URL to update the emploee with the new data entered by the admin
+		const url = "http://localhost:3000/employees/update";
 
-		// TODO: UPDATE HERE THE EMPLOYEES FILE WITH THE NEW DATA ENTERED BY THE ADMIN
+		const updatedEmployee = {
+			id: clickedEmployee.id,
+			permissions: clickedEmployee.permissions,
+			firstName: firstNameRef.current.value,
+			lastName: lastNameRef.current.value,
+			originUsername: clickedEmployee.username,
+			updatedUsername: usernameRef.current.value,
+			sessionTimeOut: sessionTimeoutRef.current.value,
+			createdDate: clickedEmployee.createdDate,
+		};
+
+		// Get back all the updated data
+		const resp = await axios.put(url, { employee: updatedEmployee });
 
 		localStorage.removeItem("empId");
 		navigate("/layout/WebContentLayout/employees/all");
@@ -78,7 +89,12 @@ const EditEmployee = () => {
 			}
 		}
 
-		dispatch(employeesActions.editPermissions({ id: clickedEmployee.id, permissions: updatedPermissions }));
+		dispatch(
+			employeesActions.editPermissions({
+				id: clickedEmployee.id,
+				permissions: updatedPermissions,
+			})
+		);
 	};
 
 	return (

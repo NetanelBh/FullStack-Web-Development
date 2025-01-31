@@ -35,7 +35,7 @@ http: router.post("/login", async (req, res) => {
         const employee = await authServices.login(username);
         
         // If the employee exist in DB
-        if (employee !== null) {
+        if (employee !== null) {        
             // Compare the password entered by user with the hashed password in DB.
             if (await bcrypt.compare(String(password), employee.password)) {
                 // Create token to user

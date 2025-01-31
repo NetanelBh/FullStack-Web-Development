@@ -16,15 +16,4 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Remove permission
-router.put('/update', async (req, res) => {
-    const {employeeId, permissions} = req.body;
-    try {
-        const updatedPermissions = await permissionsServices.updatePermissions(employeeId, permissions);
-        res.send({status: true, data: updatedPermissions});
-    } catch (error) {
-        res.send({ status: false, data: error.message });
-    }
-});
-
 export default router;

@@ -34,7 +34,6 @@ app.use('/auth', authRouter);
 
 // Middleware Check here if the the user is authenticated after he sent the token he got and if the session not expired
 app.use((req, res, next) => {
-    console.log(req.session);
     next();
 });
 

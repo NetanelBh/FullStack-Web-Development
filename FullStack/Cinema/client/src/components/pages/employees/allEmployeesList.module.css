@@ -14,7 +14,7 @@
     margin-top: 0;
     width: 40%;
     height: 75vh;
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 
 .all_emp_card {
