@@ -28,19 +28,20 @@ router.post("/add", async (req, res) => {
 		};
 		const resp = await employeesServices.addEmployeeToDb(dbEmployee);
 
-		// // Add the new employee also to the employee's json file.
-		// const emloyeeToJsonFile = {
-		//     id: resp.id,
-		//     firstName: userData.first_name,
-		//     lastName: userData.last_name,
-		//     CreatedDate: new Date().toLocaleDateString(),
-		//     sessionTimeOut: userData.session_timeout,
-		// };
-		// await employeesServices.addEmployeeToFile(emloyeeToJsonFile);
+		// Add the new employee also to the employee's json file.
+		const emloyeeToJsonFile = {
+			id: resp.id,
+			firstName: userData.first_name,
+			lastName: userData.last_name,
+			CreatedDate: (new Date().toLocaleDateString()).replaceAll(".", "/"),
+			sessionTimeOut: userData.session_timeout,
+		};
+		await employeesServices.addEmployeeToFile(emloyeeToJsonFile);
 
-		// // Add the new employee also to the employee's permissions json file.
-		// const permissions = { id: resp.id, permissions: userData.permissions };
-		// await permissionsServices.addEmployee(permissions);
+		// Add the new employee also to the employee's permissions json file.
+		const permissions = { id: resp.id, permissions: userData.permissions };
+		
+		await permissionsServices.addEmployee(permissions);
 		res.send({ status: true, data: resp });
 	} catch (error) {
 		res.send({ status: false, data: error.message });
@@ -87,7 +88,7 @@ router.put("/update", async (req, res) => {
 			sessionTimeOut: employee.sessionTimeOut,
 		};
 		const updatedJsonEmployee = await employeesServices.updateEmployeeInFile(employeeToJson);
-        
+
 		const user = await employeesServices.updateEmployeeUsername(employee.originUsername, employee.updatedUsername);
 
 		const returnData = { permissions: updatedPermissions, jsonEmployees: updatedJsonEmployee, username: user };

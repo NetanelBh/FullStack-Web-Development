@@ -1,14 +1,19 @@
 import styles from "./allEmployeesList.module.css";
+
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { employeesActions } from "../../store/slices/employeesSlice";
 
 import Card from "../../UI/card/card";
 import Button from "../../UI/button/button";
-import { useSelector } from "react-redux";
 
 const AllEmployeesList = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const allEmployees = useSelector((state) => state.employees.employees);
-
+    // console.log(allEmployees);
+    
     const editHandler = (employee) => {  
         // Save it to localStorage to parse it in the edit employee page  
         localStorage.setItem("empId", JSON.stringify(employee.id));
@@ -16,7 +21,20 @@ const AllEmployeesList = () => {
         navigate("/layout/editEmployee");
     };
 
-    const deleteHandler = () => {};
+    const deleteHandler = async (id) => {
+        const url = `http://localhost:3000/employees/${id}`;
+        try {
+            const resp = await axios.delete(url, {id});
+            // If the deletion from the DB succeeded, will remove also from the redux
+            if (resp.status) {
+                dispatch(employeesActions.remove({id, readFromDb: false}));
+            }
+
+            navigate("/layout/WebContentLayout/employees/all");
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
 
     return (
         <ul className={styles.all_emp_list_ul}>
@@ -37,7 +55,7 @@ const AllEmployeesList = () => {
                             <span className={styles.details_wrapper}>
                                 Created date:{" "}
                                 <span className={styles.employee_data_content}>
-                                    {employee.createdDate.replaceAll(".", "/")}
+                                    {employee.createdDate}
                                 </span>
                             </span>
                             <span className={`${styles.all_emp_permissions} ${styles.details_wrapper}`}>
@@ -60,7 +78,7 @@ const AllEmployeesList = () => {
                                     className={`${styles.all_emp_list_action_buttons} ${styles.delete_btn}`}
                                     text="Delete"
                                     type="button"
-                                    onClick={deleteHandler}
+                                    onClick={() => deleteHandler(employee.id)}
                                 />
                             </div>
                         </li>

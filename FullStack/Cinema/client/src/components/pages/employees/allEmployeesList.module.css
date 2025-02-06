@@ -4,8 +4,8 @@
     --text-color: #faffc5;
     --action-buttons-font-size: 1.2rem;
     --actions-border-color: #fa4032;
-    --delete-button-hover-color: #e4003a;
-    --action-buttons-hover-background: #fff27b;
+    --delete-button-hover-color: #f20c14;
+    --action-buttons-hover-background: #faf09a;
 }
 
 .all_emp_list_ul {
@@ -14,7 +14,6 @@
     margin-top: 0;
     width: 40%;
     height: 75vh;
-    /* overflow-y: auto; */
 }
 
 .all_emp_card {
@@ -89,6 +88,7 @@
 
 .all_emp_list_action_buttons:hover {
     background-color: var(--action-buttons-hover-background);
+    border-color: var(--text-color);
 }
 
 .delete_btn:hover {

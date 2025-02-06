@@ -31,7 +31,7 @@ const EditEmployee = () => {
 	const employeeId = JSON.parse(localStorage.getItem("empId"));
 
 	// Split the full name from the employee object to first and last names
-	const clickedEmployee = allEmployees.filter((employee) => employee.id === employeeId)[0];
+	const clickedEmployee = allEmployees.filter((employee) => employee.id === employeeId)[0];	
 	const delimiterIndex = clickedEmployee.name.indexOf(" ");
 	const firstName = clickedEmployee.name.slice(0, delimiterIndex);
 	const lastName = clickedEmployee.name.slice(delimiterIndex + 1);
@@ -45,25 +45,49 @@ const EditEmployee = () => {
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
-
+		
+		// Uses for both sending updates to DB or just updating the redux 
+		const basicEmployee = {
+			id: clickedEmployee.id,
+			createdDate: clickedEmployee.createdDate,
+			permissions: clickedEmployee.permissions,
+			sessionTimeOut: sessionTimeoutRef.current.value,
+		};
+		
 		// URL to update the emploee with the new data entered by the admin
 		const url = "http://localhost:3000/employees/update";
 
+		// Employee's template to send to server to update the DB and the json files
 		const updatedEmployee = {
-			id: clickedEmployee.id,
-			permissions: clickedEmployee.permissions,
+			...basicEmployee,
 			firstName: firstNameRef.current.value,
 			lastName: lastNameRef.current.value,
 			originUsername: clickedEmployee.username,
 			updatedUsername: usernameRef.current.value,
-			sessionTimeOut: sessionTimeoutRef.current.value,
-			createdDate: clickedEmployee.createdDate,
 		};
 
 		// Get back all the updated data
 		const resp = await axios.put(url, { employee: updatedEmployee });
 
-		localStorage.removeItem("empId");
+		// If the username changed by the admin, will read the new updated data from the DB
+		if (resp.status && clickedEmployee.username !== usernameRef.current.value) {
+			dispatch(employeesActions.userNameChange(true));
+			// If the username not changed by the admin, will store the changes in redux
+		} else {
+			const reduxEmployee = {
+				...basicEmployee,
+				username: clickedEmployee.username,
+				name: resp.data.data.jsonEmployees.firstName + " " + resp.data.data.jsonEmployees.lastName,
+			};
+
+			dispatch(
+				employeesActions.editEmployee({
+					employee: reduxEmployee,
+					readFromDb: false,
+				})
+			);
+		}
+
 		navigate("/layout/WebContentLayout/employees/all");
 	};
 
@@ -93,6 +117,7 @@ const EditEmployee = () => {
 			employeesActions.editPermissions({
 				id: clickedEmployee.id,
 				permissions: updatedPermissions,
+				readFromDb: false,
 			})
 		);
 	};

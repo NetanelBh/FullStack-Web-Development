@@ -15,7 +15,10 @@ const EMP_DATA_FILE_URL = "http://localhost:3000/employees/file";
 const AllEmployees = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
-	const allEmployees = useSelector((state) => state.employees.employees);
+	const allEmployees = useSelector((state) => state.employees);
+
+	// First, remove the last clicked employeeId from the local store(if store from the edit employee page)
+	localStorage.removeItem("empId");
 
 	const createEmployeesList = useCallback((employees, permissions, employeeData) => {
 		const employeesList = employees.data.map((emp) => {
@@ -32,7 +35,7 @@ const AllEmployees = () => {
 			});
 
 			// Get the employee data from the employees jsom file
-			employeeData.data.employees.forEach((empData) => {
+			employeeData.data.employees.forEach((empData) => {				
 				if (empData.id === emp._id) {
 					empObj["name"] = empData.firstName + " " + empData.lastName;
 					empObj["createdDate"] = empData.createdDate;
@@ -43,11 +46,11 @@ const AllEmployees = () => {
 			return empObj;
 		});
 
-		dispatch(employeesActions.load({ employees: employeesList }));
+		dispatch(employeesActions.load({ employees: employeesList, readFromDb: false }));
 	}, []);
 
 	useEffect(() => {
-		if (allEmployees.length === 0) {
+		if (allEmployees.employees.length === 0 || allEmployees.readFromDb) {
 			const fetchedData = async () => {
 				try {
 					setIsLoading(true);
@@ -74,7 +77,7 @@ const AllEmployees = () => {
 
 			fetchedData();
 		}
-	}, [createEmployeesList]);
+	}, [createEmployeesList, allEmployees.readFromDb]);
 
 	return (
 		<div className={styles.all_emp_container}>
