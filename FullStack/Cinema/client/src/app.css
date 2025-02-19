@@ -1,0 +1,17 @@
+:root {
+    --input-font-size: 1.1rem;
+    --label-font-size: 1.5rem;
+}
+
+input {
+    /* when some property value is changed here, it will take 0.5s  */
+    transition: 0.5s ease-out;
+    font-size: var(--input-font-size);
+    padding: 3px;
+    outline: none;
+}
+
+label {
+    margin-bottom: 0.2rem;
+    font-size: var(--label-font-size);
+}

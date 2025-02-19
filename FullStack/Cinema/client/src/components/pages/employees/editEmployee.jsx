@@ -10,11 +10,7 @@ import Input from "../../genericComp/input";
 import Button from "../../UI/button/button";
 import PermissionsList from "./permissionsList";
 
-// Conditions that require to check the view permission
-const CONDITIONAL_SUBSCRIPTION_PERMISSIONS = ["Create Subscriptions", "Delete Subscriptions", "Update Subscription"];
-
-// Conditions that require to check the view permission
-const CONDITIONAL_MOVIE_PERMISSIONS = ["Create Movies", "Delete Movies", "Update Movie"];
+import updatedPermissionsCheckboxes from "../../utils/updated_permissions_checkboxes";
 
 const EditEmployee = () => {
 	const firstNameRef = useRef();
@@ -92,27 +88,8 @@ const EditEmployee = () => {
 	};
 
 	const checkboxClickHandler = (clickedOption) => {
-		let updatedPermissions = [...clickedEmployee.permissions];
-		if (!clickedOption.isChecked) {
-			updatedPermissions = updatedPermissions.filter((perm) => clickedOption.permission !== perm);
-		} else {
-			// Insert the clicked permission to the employee permissions list
-			updatedPermissions.push(clickedOption.permission);
-
-			// Check if one of the conditional permissions is checked for check the view permission automatically
-			if (CONDITIONAL_SUBSCRIPTION_PERMISSIONS.includes(clickedOption.permission)) {
-				const viewPerm = "View Subscription";
-				if (!clickedEmployee.permissions.includes(viewPerm)) {
-					updatedPermissions.push(viewPerm);
-				}
-			} else if (CONDITIONAL_MOVIE_PERMISSIONS.includes(clickedOption.permission)) {
-				const viewPerm = "View Movies";
-				if (!clickedEmployee.permissions.includes(viewPerm)) {
-					updatedPermissions.push(viewPerm);
-				}
-			}
-		}
-
+		const updatedPermissions = updatedPermissionsCheckboxes(clickedOption, clickedEmployee.permissions);
+	
 		dispatch(
 			employeesActions.editPermissions({
 				id: clickedEmployee.id,

@@ -31,16 +31,6 @@
 
 .input_container input {
     border-color: rgb(178, 182, 186);
-    /* when some property value is changed here, it will take 0.5s  */
-    transition: 0.5s ease-out;
-    font-size: 1rem;
-    padding: 3px;
-    outline: none;
-}
-
-.input_container label {
-    margin-bottom: 0.2rem;
-    font-size: 1.5rem;
 }
 
 .input_container input:focus {
@@ -48,7 +38,7 @@
     border-color: #87A2FF;
 }
 
-p {
+.input_container p {
     margin: 0.5rem 0 0 0;
     color: red;
 }

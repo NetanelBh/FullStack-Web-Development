@@ -1,4 +1,5 @@
 import { RouterProvider } from 'react-router-dom';
+import './app.css';
 
 import CreateRouter from './components/utils/createRouter';
 

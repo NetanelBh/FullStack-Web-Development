@@ -30,21 +30,12 @@
 }
 
 .input_container input {
-    transition: 0.5s ease-out;
-    font-size: 1rem;
-    padding: 3px;
-    outline: none;
     border-color: rgb(178, 182, 186);
 }
 
 .input_container input:focus {
     background-color: #C4D7FF;
     border-color: #87A2FF;
-}
-
-.input_container label {
-    margin-bottom: 0.2rem;
-    font-size: 1.5rem;
 }
 
 .button {
@@ -73,7 +64,7 @@
     pointer-events: none; /* Disable interactions with the background */
 }
 
-p {
+.input_container p {
     margin: 0.5rem 0 0 0;
     color: red;
 }

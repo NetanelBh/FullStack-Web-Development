@@ -7,7 +7,7 @@ const Input = forwardRef(({ title, type, className, value="" }, ref) => {
     return (
         <div className={classes}>
             <label htmlFor={title}>{title}:</label>
-            <input type={type} id={title} ref={ref} autoComplete="off" defaultValue={value}/>
+            <input type={type} id={title} ref={ref} autoComplete="off" defaultValue={value} />
         </div>
     );
 });

@@ -28,7 +28,6 @@
 .edit_employee_input input {
     padding-left: 5px;
     margin-left: 0.5rem;
-    font-size: var(--general-font-size);
     background-color: var(--input-background-color);
 }
 
