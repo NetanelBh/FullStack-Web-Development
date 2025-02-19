@@ -1,8 +1,10 @@
 import styles from "./addEmployee.module.css";
 
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Input from "../../genericComp/input";
+import Button from "../../UI/button/button";
 import PermissionsList from "./permissionsList";
 import updatedPermissionsCheckboxes from "../../utils/updated_permissions_checkboxes";
 
@@ -11,6 +13,7 @@ const AddEmployee = () => {
 	const lastNameRef = useRef();
 	const usernameRef = useRef();
 	const timeoutRef = useRef();
+  const navigate = useNavigate();
 
 	const [permissions, setPermissions] = useState([]);
 
@@ -18,6 +21,10 @@ const AddEmployee = () => {
     const updatedCheckboxes = updatedPermissionsCheckboxes(clickedOption, permissions);
 
     setPermissions(updatedCheckboxes);
+  };
+
+  const cancelHandler = () => {
+    navigate("/layout/WebContentLayout/employees/all");
   };
 
 	return (
@@ -34,7 +41,17 @@ const AddEmployee = () => {
 
 			<p>Permissions :</p>
 			<PermissionsList userPermissions={permissions} onChange={checkboxClickHandler} />
-		</form>
+		
+      <div className={styles.add_employee_actions}>
+				<Button className={styles.add_employee_action_buttons} text="Save" type="submit" />
+				<Button
+					className={styles.add_employee_action_buttons}
+					text="Cancel"
+					type="button"
+					onClick={cancelHandler}
+				/>
+			</div>
+    </form>
 	);
 };
 
