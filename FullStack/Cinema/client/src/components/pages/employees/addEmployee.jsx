@@ -68,7 +68,7 @@ const AddEmployee = () => {
 
 	return (
 		<div>
-			<form className={styles.add_employee_form_container} onSubmit={addEmployeeHandler}>
+			<form id="form_container" onSubmit={addEmployeeHandler}>
 				<Input title="First Name" type="text" className={styles.add_employee_input} ref={firstNameRef} />
 				<Input title="Last Name" type="text" className={styles.add_employee_input} ref={lastNameRef} />
 				<Input title="User Name" type="text" className={styles.add_employee_input} ref={usernameRef} />

@@ -1,0 +1,7 @@
+.all_movies_list_ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+    width: max-content;
+    height: 65vh;
+}

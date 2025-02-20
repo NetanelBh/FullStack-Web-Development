@@ -30,7 +30,6 @@ const Register = () => {
         const url = "http://localhost:3000/employees/register";
         try {
             const resp = (await axios.patch(url, { username, password })).data;
-            console.log(resp);
             
             if (resp.status) {
                 setShowDialog(true);

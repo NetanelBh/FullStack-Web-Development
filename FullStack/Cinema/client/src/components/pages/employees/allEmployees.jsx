@@ -1,4 +1,3 @@
-import styles from "./allEmployees.module.css";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import axios from "axios";
 
@@ -46,8 +45,6 @@ const AllEmployees = () => {
 			return empObj;
 		});
 
-		console.log(employeesList);
-
 		dispatch(employeesActions.load({ employees: employeesList, readFromDb: false }));
 	}, []);
 
@@ -82,7 +79,8 @@ const AllEmployees = () => {
 	}, [createEmployeesList, allEmployees.readFromDb]);
 
 	return (
-		<div className={styles.all_emp_container}>
+		// Get the style from the app.css because the style is the same like other pages
+		<div id="list_container">
 			{isLoading && <PacmanLoading color="#87a2ff" />}
 			{!isLoading && <AllEmployeesList />}
 		</div>

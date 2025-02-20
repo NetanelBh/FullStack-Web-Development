@@ -1,6 +1,5 @@
 :root {
     --box-shadow-color: #eeeeee;
-    --border-color: #a9bfa8;
     --text-color: #faffc5;
     --action-buttons-font-size: 1.2rem;
     --actions-border-color: #fa4032;
@@ -16,16 +15,7 @@
     height: 75vh;
 }
 
-.all_emp_card {
-    margin: 1rem 15px 1.2rem 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    padding: 10px 10px 0 10px;
-    animation: wow 1.5s linear infinite;
-    display: flex;
-}
-
-.all_emp_card li {
+.all_employees_li {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -39,18 +29,6 @@
 
 .employee_data_content {
     color: var(--text-color);
-}
-
-@keyframes wow {
-    0% {
-        box-shadow: 0 0 5px var(--box-shadow-color);
-    }
-    50% {
-        box-shadow: 0 0 10px var(--box-shadow-color);
-    }
-    100% {
-        box-shadow: 0 0 5px var(--box-shadow-color);
-    }
 }
 
 .all_emp_permissions {

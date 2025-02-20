@@ -98,7 +98,7 @@ const EditEmployee = () => {
 	};
 
 	return (
-		<form className={styles.edit_employee_form_container} onSubmit={submitHandler}>
+		<form id="form_container" onSubmit={submitHandler}>
 			<Input
 				title="First Name "
 				type="text"

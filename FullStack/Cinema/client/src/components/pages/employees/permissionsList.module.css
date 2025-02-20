@@ -10,6 +10,6 @@
     gap: 10px;
 }
 
-.permissions_list_li input {
+.perm_input {
     transform: scale(1.3);
 }

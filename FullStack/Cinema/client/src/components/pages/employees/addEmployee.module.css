@@ -1,19 +1,8 @@
 :root {
-    --labels-font-size: 1.5rem;
-    --labels-color: #fffdf0;
     --general-font-size: 1.2rem;
     --focus-background-color: #fff6a4;
     --input-background-color: #BCCCDC;
     --action-buttons-hover-background: #fff27b;
-}
-
-.add_employee_form_container {
-    margin-left: 1rem;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    font-size: var(--labels-font-size);
-    color: var(--labels-color);
 }
 
 .add_employee_input {
@@ -24,11 +13,6 @@
     padding-left: 5px;
     margin-left: 0.5rem;
     background-color: var(--input-background-color);
-}
-
-.add_employee_form_container p {
-    color: var(--labels-color);
-    margin: 0 0 0.5rem 0;
 }
 
 .add_employee_input input:focus {

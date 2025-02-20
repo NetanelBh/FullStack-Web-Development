@@ -12,7 +12,6 @@ const AllEmployeesList = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const allEmployees = useSelector((state) => state.employees.employees);
-    // console.log(allEmployees);
     
     const editHandler = (employee) => {  
         // Save it to localStorage to parse it in the edit employee page  
@@ -40,8 +39,8 @@ const AllEmployeesList = () => {
         <ul className={styles.all_emp_list_ul}>
             {allEmployees.map((employee) => {
                 return (
-                    <Card className={styles.all_emp_card} key={employee.id}>
-                        <li>
+                    <Card className="generic_card" key={employee.id}>
+                        <li className={styles.all_employees_li}>
                             <span className={styles.details_wrapper}>
                                 Name: <span className={styles.employee_data_content}>{employee.name}</span>
                             </span>
