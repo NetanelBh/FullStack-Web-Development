@@ -10,19 +10,18 @@ const employeesSlice = createSlice({
         // Load the employees list at the beginning from the database and the data json files
 		load(state, action) {
 			state.employees = action.payload.employees;
-            state.readFromDb = action.payload.readFromDb;
+            state.readFromDb = false;
 		},
-		// Add a new employee to the employees list
-		add(state, action) {
-			state.employees.push(action.payload.employee);
-            state.readFromDb = action.payload.readFromDb;
+		// When added employee, read again from the DB to update the new employee with the created MONGO's id
+		add(state) {
+            state.readFromDb = true;
 		},
 		// Remove employee from the employees list
 		remove(state, action) {
 			const index = state.employees.findIndex((emp) => emp.id === action.payload.id);
 			if (index !== -1) {
 				state.employees.splice(index, 1);
-                state.readFromDb = action.payload.readFromDb;
+                state.readFromDb = false;
 			}
 		},
 		// action.payload gets the employee id and the permissions updated array
@@ -30,7 +29,7 @@ const employeesSlice = createSlice({
 			const index = state.employees.findIndex((emp) => emp.id === action.payload.id);
 			if (index !== -1) {
 				state.employees[index].permissions = action.payload.permissions;
-                state.readFromDb = action.payload.readFromDb;
+                state.readFromDb = false;
 			}
 		},
         // Edit employee object in employees list
@@ -39,11 +38,11 @@ const employeesSlice = createSlice({
             if (index !== -1) {
                 state.employees[index] = action.payload.employee;
             }
-            state.readFromDb = action.payload.readFromDb;
+            state.readFromDb = false;
         },
         // If the admin changed the username, will call this fuction to read the updated data from the DB
-        userNameChange(state, action) {
-            state.readFromDb = action.payload;
+        userNameChange(state) {
+            state.readFromDb = true;
         }
 
 	},

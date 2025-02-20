@@ -31,10 +31,10 @@ router.post("/add", async (req, res) => {
 		// Add the new employee also to the employee's json file.
 		const emloyeeToJsonFile = {
 			id: resp.id,
-			firstName: userData.first_name,
-			lastName: userData.last_name,
-			CreatedDate: (new Date().toLocaleDateString()).replaceAll(".", "/"),
-			sessionTimeOut: userData.session_timeout,
+			firstName: userData.firstName,
+			lastName: userData.lastName,
+			createdDate: (new Date().toLocaleDateString()).replaceAll(".", "/"),
+			sessionTimeOut: userData.sessionTimeOut,
 		};
 		await employeesServices.addEmployeeToFile(emloyeeToJsonFile);
 

@@ -46,6 +46,8 @@ const AllEmployees = () => {
 			return empObj;
 		});
 
+		console.log(employeesList);
+
 		dispatch(employeesActions.load({ employees: employeesList, readFromDb: false }));
 	}, []);
 

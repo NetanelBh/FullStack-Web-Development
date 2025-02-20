@@ -27,7 +27,7 @@ const AllEmployeesList = () => {
             const resp = await axios.delete(url, {id});
             // If the deletion from the DB succeeded, will remove also from the redux
             if (resp.status) {
-                dispatch(employeesActions.remove({id, readFromDb: false}));
+                dispatch(employeesActions.remove({id}));
             }
 
             navigate("/layout/WebContentLayout/employees/all");

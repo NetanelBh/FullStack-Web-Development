@@ -10,7 +10,7 @@ import Input from "../../genericComp/input";
 import Button from "../../UI/button/button";
 import PermissionsList from "./permissionsList";
 
-import updatedPermissionsCheckboxes from "../../utils/updated_permissions_checkboxes";
+import updatedPermissionsCheckboxes from "../../utils/updatedPermissionsCheckboxes";
 
 const EditEmployee = () => {
 	const firstNameRef = useRef();
@@ -27,7 +27,7 @@ const EditEmployee = () => {
 	const employeeId = JSON.parse(localStorage.getItem("empId"));
 
 	// Split the full name from the employee object to first and last names
-	const clickedEmployee = allEmployees.filter((employee) => employee.id === employeeId)[0];	
+	const clickedEmployee = allEmployees.filter((employee) => employee.id === employeeId)[0];
 	const delimiterIndex = clickedEmployee.name.indexOf(" ");
 	const firstName = clickedEmployee.name.slice(0, delimiterIndex);
 	const lastName = clickedEmployee.name.slice(delimiterIndex + 1);
@@ -41,15 +41,15 @@ const EditEmployee = () => {
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
-		
-		// Uses for both sending updates to DB or just updating the redux 
+
+		// Uses for both sending updates to DB or just updating the redux
 		const basicEmployee = {
 			id: clickedEmployee.id,
 			createdDate: clickedEmployee.createdDate,
 			permissions: clickedEmployee.permissions,
 			sessionTimeOut: sessionTimeoutRef.current.value,
-		};
-		
+		}
+
 		// URL to update the emploee with the new data entered by the admin
 		const url = "http://localhost:3000/employees/update";
 
@@ -67,7 +67,7 @@ const EditEmployee = () => {
 
 		// If the username changed by the admin, will read the new updated data from the DB
 		if (resp.status && clickedEmployee.username !== usernameRef.current.value) {
-			dispatch(employeesActions.userNameChange(true));
+			dispatch(employeesActions.userNameChange());
 			// If the username not changed by the admin, will store the changes in redux
 		} else {
 			const reduxEmployee = {
@@ -79,7 +79,6 @@ const EditEmployee = () => {
 			dispatch(
 				employeesActions.editEmployee({
 					employee: reduxEmployee,
-					readFromDb: false,
 				})
 			);
 		}
@@ -89,12 +88,11 @@ const EditEmployee = () => {
 
 	const checkboxClickHandler = (clickedOption) => {
 		const updatedPermissions = updatedPermissionsCheckboxes(clickedOption, clickedEmployee.permissions);
-	
+
 		dispatch(
 			employeesActions.editPermissions({
 				id: clickedEmployee.id,
 				permissions: updatedPermissions,
-				readFromDb: false,
 			})
 		);
 	};
