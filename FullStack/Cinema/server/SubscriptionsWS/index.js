@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import DbConnection from "./config/DBConnection.js";
+import moviesRouter from './routers/moviesRouter.js';
 // import initializeDB from './utils/initDb.js';
 
 const app = express();
@@ -17,6 +18,8 @@ DbConnection();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/movies', moviesRouter);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

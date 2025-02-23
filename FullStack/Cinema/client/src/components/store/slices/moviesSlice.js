@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {movies: []};
+const initialState = {movies: [], readFromDb: false};
 
 const moviesSlice = createSlice({
     name: "movies",
@@ -8,6 +8,7 @@ const moviesSlice = createSlice({
     reducers: {
         load(state, action) {
             state.movies = action.payload;
+            state.readFromDb = false;
         },
         edit(state, action) {},
         delete(state, action) {}

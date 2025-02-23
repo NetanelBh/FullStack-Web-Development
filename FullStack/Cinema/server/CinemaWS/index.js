@@ -10,6 +10,7 @@ import DbConnection from "./config/DBConnection.js";
 import authRouter from './routers/authRouter.js';
 import employeesRouter from './routers/employeesRouter.js';
 import permissionsRouter from './routers/permissionsRouter.js';
+import subscriptionsRouter from './routers/subscriptionsRouter.js';
 
 const app = express();
 const port = process.env.PORT;
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
 
 app.use('/employees', employeesRouter);
 app.use('/permissions', permissionsRouter);
+app.use('/subscriptions', subscriptionsRouter);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
