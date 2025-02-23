@@ -20,7 +20,7 @@ const MainLayout = () => {
 
     return (
         <>
-            <div className={styles.bar_container}>
+            <div className={styles.main_layout_bar_container}>
                 <NavigationBar data={navButtons} />
                 <img src="/logout.png" alt="logout image" className={styles.logout} onClick={logoutHandler}></img>
             </div>

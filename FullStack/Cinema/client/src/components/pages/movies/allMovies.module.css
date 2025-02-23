@@ -1,4 +1,5 @@
 :root {
+    --div-background-color: #31363F;
     --font-color: #fffdf0;
     --input-background-color: #BCCCDC;
     --focus-background-color: #fff6a4;
@@ -7,7 +8,12 @@
 .all_movies_search {
     display: flex;
     justify-content: center;
+    position: sticky;
+    top: 8rem;
     gap: 10px;
+    background: var(--div-background-color);
+    height: 3.5rem;
+    box-shadow: 0 1px 1px white;
 }
 
 .all_movies_search label {
@@ -17,6 +23,7 @@
 .all_movies_search input {
     background-color: var(--input-background-color);
     padding-left: 5px;
+    height: 1.3rem;
 }
 
 .all_movies_search input:focus {

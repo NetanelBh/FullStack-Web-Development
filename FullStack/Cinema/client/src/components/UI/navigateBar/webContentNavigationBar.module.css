@@ -1,6 +1,7 @@
 .web_content_nav_container {
     position: sticky;
     top: 4rem;
+    background: #31363F;
 }
 
 .ul {

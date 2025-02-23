@@ -4,7 +4,7 @@
     --labels-color: #fffdf0;
 
     /* For Card */
-    --border-color: #a9bfa8;
+    --border-color: #ec7575;
 }
 
 input {
@@ -24,8 +24,6 @@ label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
-    overflow: auto;
     margin-bottom: 0.5rem;
 }
 
@@ -50,22 +48,22 @@ form > p {
 }
 
 .generic_card {
+    display: flex;
     margin: 1rem 15px 1.2rem 15px;
     border: 1px solid var(--border-color);
     border-radius: 5px;
     padding: 10px 10px 0 10px;
     animation: wow 1.5s linear infinite;
-    display: flex;
 }
 
 @keyframes wow {
     0% {
-        box-shadow: 0 0 5px var(--box-shadow-color);
+        box-shadow: 0 0 5px var(--border-color);
     }
     50% {
-        box-shadow: 0 0 10px var(--box-shadow-color);
+        box-shadow: 0 0 10px var(--border-color);
     }
     100% {
-        box-shadow: 0 0 5px var(--box-shadow-color);
+        box-shadow: 0 0 5px var(--border-color);
     }
 }
