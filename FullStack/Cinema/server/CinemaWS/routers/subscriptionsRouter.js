@@ -6,17 +6,24 @@ const router = express.Router();
 // Entry point: http://localhost:3000/subscriptions
 
 router.get("/movies", async (req, res) => {
-	try {
-		const url = "http://localhost:3001/movies/get";
-		const resp = await axios.get(url);
-		if (resp.status) {
-			res.send({ status: true, data: resp.data });
-		} else {
-			res.send({ status: false, data: "No movies found" });
-		}
-	} catch (error) {
-		res.send({ status: false, data: error.message });
-	}
+	const url = "http://localhost:3001/movies/get";
+
+	const resp = await axios.get(url);
+	res.send(resp.data);
+});
+
+router.get("/members", async (req, res) => {
+	const url = "http://localhost:3001/members/get";
+
+	const resp = await axios.get(url);
+	res.send(resp.data);
+});
+
+router.get("/subscriptions", async (req, res) => {
+	const url = "http://localhost:3001/subscriptions/get";
+
+	const resp = await axios.get(url);
+	res.send(resp.data);
 });
 
 export default router;

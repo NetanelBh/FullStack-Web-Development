@@ -5,3 +5,7 @@ export const addMember = (member) => {
 
   return newMember.save();
 };
+
+export const getMembers = () => {
+  return membersModel.find();
+};

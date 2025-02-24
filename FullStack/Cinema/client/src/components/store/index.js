@@ -6,8 +6,10 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from 'redux';
 
-import employeesReducer from "./slices/employeesSlice.js";
 import moviesReducer from "./slices/moviesSlice.js";
+import membersReducer from "./slices/membersSlice.js";
+import employeesReducer from "./slices/employeesSlice.js";
+import subscriptionsReducer from "./slices/subscriptionsSlice.js";
 
 const persistConfig = {
     // Key to use in storage
@@ -18,8 +20,10 @@ const persistConfig = {
 // Combine Reducers
 const rootReducer = combineReducers({
     // My reducers
+    movies: moviesReducer,
+    members: membersReducer,
     employees: employeesReducer,
-    movies: moviesReducer
+    subscriptions: subscriptionsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

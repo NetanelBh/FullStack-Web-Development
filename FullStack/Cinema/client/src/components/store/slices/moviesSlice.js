@@ -11,6 +11,9 @@ const moviesSlice = createSlice({
         },
         edit(state, action) {},
         delete(state, action) {},
+        clear(state, action) {
+            state.movies = [];
+        }
     }
 })
 

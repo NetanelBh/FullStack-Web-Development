@@ -8,3 +8,7 @@ export const getMembersFromWeb = (url) => {
 export const addMember = (member) => { 
     return membersDbRepo.addMember(member);
 };
+
+export const getMembersFromDb = () => {
+    return membersDbRepo.getMembers();
+};

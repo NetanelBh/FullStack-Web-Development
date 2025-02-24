@@ -4,6 +4,8 @@ import * as moviesServices from "../services/moviesServices.js";
 
 const router = express.Router();
 
+// Entry point: http://localhost:3001/movies
+
 router.get("/get", async (req, res) => {
 	try {
 		const resp = await moviesServices.getMoviesFromDb();

@@ -5,3 +5,7 @@ export const addSubscription = (subscription) => {
 
   return newSubscription.save();
 };
+
+export const getSubscriptions = () => {
+  return subscriptionModel.find();
+};
