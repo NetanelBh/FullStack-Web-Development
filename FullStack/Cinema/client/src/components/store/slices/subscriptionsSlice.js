@@ -14,9 +14,6 @@ const subscriptionsSlice = createSlice({
 		},
 		remove(state, action) {
             state.subscriptions = state.subscriptions.filter((sub) => sub.memberId !== action.payload);
-        },
-        clear(state, action) {
-            state.subscriptions = [];
         }
 	},
 });

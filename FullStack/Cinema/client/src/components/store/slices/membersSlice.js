@@ -8,9 +8,6 @@ const membersSlice = createSlice({
     reducers: {
         load(state, action) {
             state.members = action.payload;
-        },
-        clear(state, action) {
-            state.members = [];
         }
     },
 });

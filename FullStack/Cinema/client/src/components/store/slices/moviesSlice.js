@@ -10,10 +10,7 @@ const moviesSlice = createSlice({
             state.movies = action.payload;
         },
         edit(state, action) {},
-        delete(state, action) {},
-        clear(state, action) {
-            state.movies = [];
-        }
+        delete(state, action) {}
     }
 })
 
