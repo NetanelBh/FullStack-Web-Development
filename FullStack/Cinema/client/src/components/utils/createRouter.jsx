@@ -4,17 +4,17 @@ import Login from "../pages/login/login";
 import Register from "../pages/register/register";
 
 import MainLayout from "../UI/layouts/mainLayout";
+import WebContentLayout from "../UI/layouts/WebContentLayout";
+
+import AddEmployee from "../pages/employees/addEmployee";
+import AllEmployees from "../pages/employees/AllEmployees";
+import EditEmployee from "../pages/employees/editEmployee";
 
 import AllMovies from "../pages/movies/allMovies";
 import AddMovie from "../pages/movies/addMovie";
 
 import AllSubscriptions from "../pages/subscriptions/allSubscriptions";
 import AddSubscription from "../pages/subscriptions/addSubscription";
-
-import WebContentLayout from "../UI/layouts/WebContentLayout";
-import AddEmployee from "../pages/employees/addEmployee";
-import AllEmployees from "../pages/employees/AllEmployees";
-import EditEmployee from "../pages/employees/editEmployee";
 
 const CreateRouter = () => {
     const router = createBrowserRouter([

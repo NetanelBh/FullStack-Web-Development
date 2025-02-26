@@ -1,0 +1,47 @@
+.all_movies_list_li {
+    color: var(--font-color);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.all_movies_list_li span {
+    margin-bottom: 0.5rem;
+}
+
+.all_movies_list_movie_name {
+    font-size: var(--movie-name-size);
+    font-weight: bold;
+}
+
+.all_movies_list_genre {
+    font-size: var(--font-size);
+}
+
+.all_movies_list_image_subscription_container {
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0 0.5rem 0;
+    width: 100%;
+}
+
+.all_movies_list_image {
+    width: 150px;
+    height: 200px;
+    box-shadow: 0 0 5px 1.5px var(--font-color);
+    flex: 1;
+}
+
+.all_movies_list_subscriptions_container {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 5px 1.5px var(--font-color);
+    flex: 4
+}
+
+.all_movies_list_subscriptions_container span {
+    font-size: var(--font-size);
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+}
