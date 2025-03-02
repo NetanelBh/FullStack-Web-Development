@@ -5,9 +5,8 @@ import { useSelector } from "react-redux";
 import Card from "../../UI/card/card";
 import MovieListItem from "./movieListItem";
 
-const AllMoviesList = () => {
-	const movies = useSelector((state) => state.movies.movies);
-
+const AllMoviesList = ({movies}) => {
+	// The movies sent as parameter for cases we need to filter the movies list according to the user search
 	return (
 		<ul className={styles.all_movies_list_ul}>
 			{movies.map((movie) => {

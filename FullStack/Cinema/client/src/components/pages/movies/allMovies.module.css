@@ -3,6 +3,10 @@
     --font-color: #fffdf0;
     --input-background-color: #BCCCDC;
     --focus-background-color: #fff6a4;
+    --delete-button-hover-color: #f20c14;
+    --movie-name-size: 2rem;
+    --font-size: 1.5rem;
+    --inner-font-size: 1.2rem
 }
 
 .all_movies_search {
@@ -29,4 +33,9 @@
 .all_movies_search input:focus {
     background-color: var(--focus-background-color);
     transition: 0.5s ease-in-out;
+}
+
+.all_movies_no_movies {
+    font-size: var(--font-size);
+    color: var(--focus-background-color);
 }

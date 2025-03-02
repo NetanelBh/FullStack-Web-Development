@@ -58,23 +58,31 @@ const AllMovies = () => {
 		}
 	}, [fetchData]);
 
-	const searchChangeCharacterHandler = (event) => {
+	const findMovieHandler = (event) => {
 		setSearchCharacters(event.target.value);
 	};
+
+	// Filter the movies list according to the user search
+	let filteredMovies = [...movies];
+	if (searchCharacters !== '') {
+		filteredMovies = movies.filter((movie) => {
+			return movie.name.toLocaleLowerCase().startsWith(searchCharacters.toLocaleLowerCase());
+		});
+	}
 
 	return (
 		<>
 			{!isLoading && (
 				<div className={styles.all_movies_search}>
 					<label htmlFor="search">Find Movie:</label>
-					<input id="search" type="text" onChange={searchChangeCharacterHandler} value={searchCharacters} />
+					<input id="search" type="text" onChange={findMovieHandler} value={searchCharacters} />
 				</div>
 			)}
 
 			<div id="list_container">
 				{isLoading && <PacmanLoading color="#87a2ff" />}
-				{!isLoading && <AllMoviesList />}
-				{!isLoading && movies.length === 0 && <p>No movies to Show</p>}
+				{!isLoading && <AllMoviesList movies={filteredMovies}/>}
+				{!isLoading && filteredMovies.length === 0 && <p className={styles.all_movies_no_movies}>No movies to Show</p>}
 			</div>
 		</>
 	);

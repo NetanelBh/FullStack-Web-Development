@@ -12,9 +12,11 @@ import EditEmployee from "../pages/employees/editEmployee";
 
 import AllMovies from "../pages/movies/allMovies";
 import AddMovie from "../pages/movies/addMovie";
+import EditMovie from "../pages/movies/editMovie";
 
 import AllSubscriptions from "../pages/subscriptions/allSubscriptions";
 import AddSubscription from "../pages/subscriptions/addSubscription";
+import EditSubscription from "../pages/subscriptions/editSubscription";
 
 const CreateRouter = () => {
     const router = createBrowserRouter([
@@ -37,6 +39,8 @@ const CreateRouter = () => {
                     ],
                 },
                 {path: "/layout/editEmployee", element: <EditEmployee />},
+                {path: "/layout/editMovie", element: <EditMovie />},
+                {path: "/layout/editSubscription", element: <EditSubscription />},
             ],
         },
     ]);

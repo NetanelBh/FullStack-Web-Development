@@ -1,9 +1,3 @@
-:root {
-    --font-color: #fffdf0;
-    --movie-name-size: 2rem;
-    --font-size: 1.5rem;
-}
-
 .all_movies_list_ul {
     list-style: none;
     padding: 0;
