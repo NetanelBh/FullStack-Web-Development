@@ -12,6 +12,19 @@ router.get("/movies", async (req, res) => {
 	res.send(resp.data);
 });
 
+router.post("/movie/add", async (req, res) => {
+	const url = "http://localhost:3001/movies/add";
+	const movie = req.body;
+	
+	try {
+		const resp = await axios.post(url, movie);
+		
+		res.send({ status: true, data: resp.data });
+	} catch (error) {
+		res.send({ status: false, data: error.message });
+	}
+});
+
 router.get("/members", async (req, res) => {
 	const url = "http://localhost:3001/members/get";
 

@@ -9,6 +9,9 @@ const moviesSlice = createSlice({
         load(state, action) {
             state.movies = action.payload;
         },
+        add(state, action) {          
+            state.movies.push(action.payload);
+        },
         edit(state, action) {},
         delete(state, action) {}
     }

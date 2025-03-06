@@ -1,7 +1,5 @@
 import styles from "./allMoviesList.module.css";
 
-import { useSelector } from "react-redux";
-
 import Card from "../../UI/card/card";
 import MovieListItem from "./movieListItem";
 

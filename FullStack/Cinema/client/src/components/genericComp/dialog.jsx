@@ -21,8 +21,8 @@ const CustomDialog = ({ title, text, buttonsArray, open }) => {
                 keepMounted
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>{title}</DialogTitle>
-                <DialogContent>
+                <DialogTitle >{title}</DialogTitle>
+                <DialogContent >
                     <DialogContentText id="alert-dialog-slide-description">{text}</DialogContentText>
                 </DialogContent>
                 <DialogActions>

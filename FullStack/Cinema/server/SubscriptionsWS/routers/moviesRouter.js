@@ -19,4 +19,16 @@ router.get("/get", async (req, res) => {
 	}
 });
 
+router.post("/add", async (req, res) => {
+	const movie = req.body;
+	
+	try {
+		const resp = await moviesServices.addMovie(movie);
+		
+		res.send({ status: true, data: resp });
+	} catch (error) {
+		res.send({ status: false, data: error.message });
+	}
+});
+
 export default router;

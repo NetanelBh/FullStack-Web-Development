@@ -6,6 +6,6 @@ export const getMovies = () => {
 
 export const addMovie = (movie) => {
   const newMovie = moviesModel(movie);
-
+  
   return newMovie.save();
 };
