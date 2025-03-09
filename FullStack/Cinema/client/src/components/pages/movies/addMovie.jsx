@@ -57,16 +57,16 @@ const AddMovie = () => {
 	return (
 		<>
 			<form onSubmit={saveMovieHandler} className={styles.add_movie_form_container}>
-				<Input title="Name" type="text" className="" value="Avatar" ref={movieNameRef} />
-				<Input title="Genres" type="text" className="" value="Science fiction" ref={genresRef} />
+				<Input title="Name" type="text" className="" value="" ref={movieNameRef} />
+				<Input title="Genres" type="text" className="" value="" ref={genresRef} />
 				<Input
 					title="Image URL"
 					type="text"
 					className=""
-					value="https://en.wikipedia.org/wiki/Avatar_%282009_film%29#/media/File:Avatar_(2009_film)_poster.jpg"
+					value=""
 					ref={imageRef}
 				/>
-				<Input title="Premiered" type="text" className="" value="2009-12-10" ref={premieredRef} />
+				<Input title="Premiered" type="text" className="" value="" ref={premieredRef} />
 
 				<div className={styles.add_movie_actions}>
 					<Button className={styles.add_movie_button} text="Save" type="submit" />

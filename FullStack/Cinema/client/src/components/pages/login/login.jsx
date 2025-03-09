@@ -42,6 +42,7 @@ const Login = () => {
                 sessionStorage.setItem("token", resp.data.token);
                 sessionStorage.setItem("username", username);
                 sessionStorage.setItem("fullName", resp.data.fullName);
+                sessionStorage.setItem("id", resp.data.id);
 
                 // Create the navigations bar headers for the main layout component
                 const mainHeadersBar = {

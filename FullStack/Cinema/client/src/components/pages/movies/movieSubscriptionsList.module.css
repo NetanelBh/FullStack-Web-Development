@@ -3,6 +3,19 @@
     overflow: auto;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--font-color); /* Light gray track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--div-background-color); /* Dark gray scrollbar handle */
+    border-radius: 5px;
+}
+
 .movies_subscriptions_list_ul_li {
     margin: 0.5rem auto 0.5rem auto;
 }

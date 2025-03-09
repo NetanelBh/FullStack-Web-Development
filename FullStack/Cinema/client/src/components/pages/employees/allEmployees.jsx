@@ -1,11 +1,10 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import AllEmployeesList from "./allEmployeesList";
 import axios from "axios";
 
+import { useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { employeesActions } from "../../store/slices/employeesSlice";
-
-import PacmanLoading from "../../UI/loading/pacmanLoading";
-import AllEmployeesList from "./allEmployeesList";
+import PacmanLoader from "../../UI/loading/pacmanLoading";
 
 const DB_EMPLOYEES_URL = "http://localhost:3000/employees/db";
 const PERMISSIONS_FILE_URL = "http://localhost:3000/permissions";
@@ -15,8 +14,7 @@ const AllEmployees = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 	const allEmployees = useSelector((state) => state.employees);
-
-	// First, remove the last clicked employeeId from the local store(if store from the edit employee page)
+	// First, remove the last clicked employeeId from the local store(if stored from the edit employee page)
 	localStorage.removeItem("empId");
 
 	const createEmployeesList = useCallback((employees, permissions, employeeData) => {
@@ -49,8 +47,9 @@ const AllEmployees = () => {
 	}, []);
 
 	useEffect(() => {
-		if (allEmployees.employees.length === 0 || allEmployees.readFromDb) {
-			const fetchedData = async () => {
+		// Read from database in this component only if the flag set to true(means that we added a new employee)
+		if (allEmployees.readFromDb) {
+			const fetchEmployeesData = async () => {
 				try {
 					setIsLoading(true);
 					const empResp = axios.get(DB_EMPLOYEES_URL);
@@ -74,15 +73,15 @@ const AllEmployees = () => {
 				setIsLoading(false);
 			};
 
-			fetchedData();
+			fetchEmployeesData();
 		}
 	}, [createEmployeesList, allEmployees.readFromDb]);
 
 	return (
 		// Get the style from the app.css because the style is the same like other pages
 		<div id="list_container">
-			{isLoading && <PacmanLoading color="#87a2ff" />}
-			{!isLoading && <AllEmployeesList />}
+			{isLoading && <PacmanLoader />}
+			{!isLoading &&<AllEmployeesList />}
 		</div>
 	);
 };

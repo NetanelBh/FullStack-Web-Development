@@ -7,8 +7,6 @@ const MmovieSubscriptionsList = ({ movie }) => {
 	const members = useSelector((state) => state.members.members);
 	const subscriptions = useSelector((state) => state.subscriptions.subscriptions);
 
-    // TODO: ADD THE PROPERTY "TO" TO NAVIGATE FROM NAVLINK TO THE USER SUBSCRIPTION'S EDIT PAGE
-
 	return (
 		<ul className={styles.movies_subscriptions_list_ul}>
 			{subscriptions.map((subscription) => {
