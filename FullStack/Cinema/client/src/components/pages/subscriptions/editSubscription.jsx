@@ -9,7 +9,7 @@ const EditSubscription = () => {
   const subscriptionId = location.state;
 
   return (
-    <div>EditSubscription</div>
+    <div className={styles.bla}>EditSubscription</div>
   )
 }
 
