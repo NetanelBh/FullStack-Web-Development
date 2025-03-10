@@ -1,6 +1,6 @@
 import styles from "./movieListItem.module.css";
 
-import MmovieSubscriptionsList from "./movieSubscriptionsList";
+import MovieSubscriptionsList from "./movieSubscriptionsList";
 import Button from "../../UI/button/button";
 import { useNavigate } from "react-router-dom";
 
@@ -30,7 +30,7 @@ const MovieListItem = ({ movie }) => {
 				<img src={movie.image} alt="Movie Image" className={styles.all_movies_list_image} />
 				<div className={styles.all_movies_list_subscriptions_container}>
 					<span>Subscriptions Watched:</span>
-					<MmovieSubscriptionsList movie={movie} />
+					<MovieSubscriptionsList movie={movie} />
 				</div>
 			</div>
 

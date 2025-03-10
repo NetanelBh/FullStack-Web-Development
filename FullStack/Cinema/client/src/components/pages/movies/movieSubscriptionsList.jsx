@@ -3,7 +3,7 @@ import styles from "./movieSubscriptionsList.module.css";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-const MmovieSubscriptionsList = ({ movie }) => {
+const MovieSubscriptionsList = ({ movie }) => {
 	const members = useSelector((state) => state.members.members);
 	const subscriptions = useSelector((state) => state.subscriptions.subscriptions);
 
@@ -27,4 +27,4 @@ const MmovieSubscriptionsList = ({ movie }) => {
 	);
 };
 
-export default MmovieSubscriptionsList;
+export default MovieSubscriptionsList;
