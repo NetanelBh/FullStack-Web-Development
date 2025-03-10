@@ -3,8 +3,10 @@ import styles from "./addMovie.module.css";
 import axios from "axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { moviesActions } from "../../store/slices/moviesSlice";
+
+import { isShowPermission } from "../../utils/moviesPermissions";
 
 import Input from "../../genericComp/input";
 import Button from "../../UI/button/button";
@@ -18,6 +20,8 @@ const AddMovie = () => {
 	const [showDialog, setShowDialog] = useState(false);
 	const dispatch = useDispatch();
 
+	const employees = useSelector((state) => state.employees.employees);
+
 	const navigate = useNavigate();
 
 	const saveMovieHandler = async (event) => {
@@ -30,7 +34,7 @@ const AddMovie = () => {
 			image: imageRef.current.value,
 			premiered: premieredRef.current.value,
 		};
-
+		
 		// Save the movie in DB
 		try {
 			const resp = (await axios.post("http://localhost:3000/subscriptions/movie/add", movie)).data.data;
@@ -54,25 +58,37 @@ const AddMovie = () => {
 		navigate("/layout/WebContentLayout/movies/all");
 	};
 
+	// Get the id of the loged in user from the local storage
+	const employeeId = sessionStorage.getItem("id");
+	const addPermission = "Create Movies";
+	const isAddPermissions = isShowPermission(employees, employeeId, addPermission);
+
 	return (
 		<>
-			<form onSubmit={saveMovieHandler} className={styles.add_movie_form_container}>
-				<Input title="Name" type="text" className="" value="" ref={movieNameRef} />
-				<Input title="Genres" type="text" className="" value="" ref={genresRef} />
-				<Input
-					title="Image URL"
-					type="text"
-					className=""
-					value=""
-					ref={imageRef}
-				/>
-				<Input title="Premiered" type="text" className="" value="" ref={premieredRef} />
+			{isAddPermissions && (
+				<form onSubmit={saveMovieHandler} className={styles.add_movie_form_container}>
+					<Input title="Name" type="text" className="" value="" ref={movieNameRef} />
+					<Input title="Genres" type="text" className="" value="" ref={genresRef} />
+					<Input title="Image URL" type="text" className="" value="" ref={imageRef} />
+					<Input title="Premiered" type="date" className="" value="" ref={premieredRef} />
 
-				<div className={styles.add_movie_actions}>
-					<Button className={styles.add_movie_button} text="Save" type="submit" />
-					<Button className={styles.add_movie_button} text="Cancle" type="button" onClick={cancelHandler} />
+					<div className={styles.add_movie_actions}>
+						<Button className={styles.add_movie_button} text="Save" type="submit" />
+						<Button
+							className={styles.add_movie_button}
+							text="Cancle"
+							type="button"
+							onClick={cancelHandler}
+						/>
+					</div>
+				</form>
+			)}
+
+			{!isAddPermissions && (
+				<div id="list_container">
+					<p className={styles.add_movie_no_permission}>No permission to add movies</p>
 				</div>
-			</form>
+			)}
 
 			<CustomDialog
 				title="Add Movie"

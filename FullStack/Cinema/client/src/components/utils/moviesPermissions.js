@@ -1,7 +1,7 @@
-export const isShowMoviePermission = (employees, employeeId) => {            
+export const isShowPermission = (employees, employeeId, permissionType) => {            
     const emp = employees.find(employee => employee.id === employeeId);
     if (emp) {
-        return emp.permissions.includes("View Movies");
+        return emp.permissions.includes(permissionType);
     }
     return false;
 };

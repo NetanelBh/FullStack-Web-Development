@@ -11,7 +11,7 @@ import { membersActions } from "../../store/slices/membersSlice";
 import { employeesActions } from "../../store/slices/employeesSlice";
 import { subscriptionsActions } from "../../store/slices/subscriptionsSlice";
 
-import { isShowMoviePermission } from "../../utils/moviesPermissions";
+import { isShowPermission } from "../../utils/moviesPermissions";
 
 const DB_EMPLOYEES_URL = "http://localhost:3000/employees/db";
 const PERMISSIONS_FILE_URL = "http://localhost:3000/permissions";
@@ -29,9 +29,6 @@ const AllMovies = () => {
 	const members = useSelector((state) => state.members.members);
 	const allEmployees = useSelector((state) => state.employees.employees);
 	const subscriptions = useSelector((state) => state.subscriptions.subscriptions);
-
-	// Get the id of the loged in user from the local storage
-	const employeeId = sessionStorage.getItem("id");
 
 	const createEmployeesList = useCallback((employees, permissions, employeeData) => {
 		const employeesList = employees.data.map((emp) => {
@@ -138,8 +135,11 @@ const AllMovies = () => {
 		});
 	}
 
+	// Get the id of the loged in user from the local storage
+	const employeeId = sessionStorage.getItem("id");
+	const viewPermission = "View Movies";
 	// Check if there is permission to user to see the movies list with the registered subscriptions
-	const showMoviePermission = isShowMoviePermission(allEmployees, employeeId);
+	const showMoviePermission = isShowPermission(allEmployees, employeeId, viewPermission);
 
 	return (
 		<>

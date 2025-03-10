@@ -35,3 +35,8 @@
 .add_movie_button:hover {
     background-color: var(--focus-background-color);
 }
+
+.add_movie_no_permission {
+    font-size: var(--font-size);
+    color: var(--focus-background-color);
+}

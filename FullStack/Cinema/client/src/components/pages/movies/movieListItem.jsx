@@ -3,19 +3,30 @@ import styles from "./movieListItem.module.css";
 import MovieSubscriptionsList from "./movieSubscriptionsList";
 import Button from "../../UI/button/button";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { isShowPermission } from "../../utils/moviesPermissions";
 
 const MovieListItem = ({ movie }) => {
 	const navigate = useNavigate();
+	const employees = useSelector((state) => state.employees.employees);
 
 	const deleteMovieHandler = (movie) => {
 		console.log(movie);
-		
 	};
 
 	const editMovieHandler = (movie) => {
 		localStorage.setItem("movieId", movie._id);
 		navigate("/layout/editMovie");
 	};
+
+	const employeeId = sessionStorage.getItem("id");
+	const editPermission = "Update Movie"
+	const deletePermission = "Delete Movies";
+
+	// Determine whether the employee has the permissin to edit or remove movies
+	const isEditPermission = isShowPermission(employees, employeeId, editPermission);
+	const isDeletePermission = isShowPermission(employees, employeeId, deletePermission);
 
 	return (
 		<li className={styles.all_movies_list_li}>
@@ -34,15 +45,15 @@ const MovieListItem = ({ movie }) => {
 				</div>
 			</div>
 
-			<div className={styles.all_movies_list_item_actions}>
+			<div className={styles.all_movies_list_item_actions}>			
 				<Button
-					className={styles.all_movies_list_item_actions_edit}
+					className={isEditPermission ? styles.all_movies_list_item_actions_edit : styles.no_permission}
 					text="Edit"
 					type="button"
 					onClick={editMovieHandler.bind(null, movie)}
 				/>
 				<Button
-					className={styles.all_movies_list_item_actions_delete}
+					className={isDeletePermission ? styles.all_movies_list_item_actions_delete : styles.no_permission}
 					text="Delete"
 					type="button"
 					onClick={deleteMovieHandler.bind(null, movie)}
