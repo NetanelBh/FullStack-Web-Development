@@ -12,8 +12,15 @@ const moviesSlice = createSlice({
         add(state, action) {          
             state.movies.push(action.payload);
         },
-        edit(state, action) {},
-        delete(state, action) {}
+        edit(state, action) {
+            const index = state.movies.findIndex(movie => movie._id === action.payload._id);
+            if(index!==-1) {
+                state.movies[index] = action.payload;
+            }
+        },
+        delete(state, action) {
+            state.movies = state.movies.filter(movie => movie._id !== action.payload);
+        }
     }
 })
 

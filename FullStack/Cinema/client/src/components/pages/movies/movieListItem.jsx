@@ -1,18 +1,31 @@
 import styles from "./movieListItem.module.css";
+import axios from "axios";
 
 import MovieSubscriptionsList from "./movieSubscriptionsList";
 import Button from "../../UI/button/button";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
+import { moviesActions } from "../../store/slices/moviesSlice";
 import { isShowPermission } from "../../utils/moviesPermissions";
 
 const MovieListItem = ({ movie }) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
 	const employees = useSelector((state) => state.employees.employees);
 
-	const deleteMovieHandler = (movie) => {
-		console.log(movie);
+	const deleteMovieHandler = async (movie) => {
+		const url = `http://localhost:3000/subscriptions/movie/delete/${movie._id}`;
+		try {
+			const resp = (await axios.delete(url)).data;
+			if (resp.status) {
+				dispatch(moviesActions.delete(movie._id));
+				navigate("/layout/WebContentLayout/movies/all");
+			}
+		} catch (error) {
+			console.log(error.message);
+		}
 	};
 
 	const editMovieHandler = (movie) => {

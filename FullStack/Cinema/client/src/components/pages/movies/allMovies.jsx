@@ -30,6 +30,9 @@ const AllMovies = () => {
 	const allEmployees = useSelector((state) => state.employees.employees);
 	const subscriptions = useSelector((state) => state.subscriptions.subscriptions);
 
+	// Remove the last saved movieId from the edit ID page(after navigate back to this page).
+	localStorage.removeItem("movieId");
+
 	const createEmployeesList = useCallback((employees, permissions, employeeData) => {
 		const employeesList = employees.data.map((emp) => {
 			const empObj = {
@@ -58,6 +61,11 @@ const AllMovies = () => {
 
 		dispatch(employeesActions.load({ employees: employeesList, readFromDb: false }));
 	}, []);
+
+	useEffect(() => {
+		// When navigate back from other page, remove the characters from the search bar(when delete it will no find it)
+		setSearchCharacters("");
+	}, [movies.length]);
 
 	useEffect(() => {
 		if (allEmployees.length === 0 || allEmployees.readFromDb) {

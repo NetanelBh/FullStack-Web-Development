@@ -21,14 +21,46 @@ router.get("/get", async (req, res) => {
 
 router.post("/add", async (req, res) => {
 	const movie = req.body;
-	
 	try {
 		const resp = await moviesServices.addMovie(movie);
-		
-		res.send({ status: true, data: resp });
+		if (resp) {
+			res.send({ status: true, data: resp });
+		} else {
+			res.send({ status: false, data: "Added movie failed" });
+		}
 	} catch (error) {
 		res.send({ status: false, data: error.message });
 	}
+});
+
+router.put("/update", async (req, res) => {
+	const movie = req.body;
+	
+    try {
+        const resp = await moviesServices.updateMovie(movie);
+        if (resp) {
+			res.send({ status: true, data: resp });
+		} else {
+			res.send({ status: false, data: "No movie found with this ID" });
+		}
+    } catch (error) {
+        res.send({ status: false, data: error.message });
+    }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+	const id = req.params.id;
+
+    try {
+        const resp = await moviesServices.deleteMovie(id);
+		if (resp !== null) {	
+			res.send({ status: true, data: resp });
+		} else {
+			res.send({ status: false, data: "No movie found with this ID" });
+		}
+    } catch (error) {
+        res.send({ status: false, data: error.message });
+    }
 });
 
 export default router;
