@@ -7,6 +7,10 @@ const MovieSubscriptionsList = ({ movie }) => {
 	const members = useSelector((state) => state.members.members);
 	const subscriptions = useSelector((state) => state.subscriptions.subscriptions);
 
+	const subscriptionclicked = (subscriptionId) => {
+		localStorage.setItem("subscriptionId", subscriptionId);
+	};
+
 	return (
 		<ul className={styles.movies_subscriptions_list_ul}>
 			{subscriptions.map((subscription) => {
@@ -17,8 +21,14 @@ const MovieSubscriptionsList = ({ movie }) => {
 					const watchedMember = members.find((member) => member._id === subscription.memberId);
 					return (
 						<li key={subscription.memberId} className={styles.movies_subscriptions_list_ul_li}>
-							<NavLink to="/layout/editSubscription" state={subscription.memberId} className={StyleSheet.movies_subscriptions_list_li}>{watchedMember.name}</NavLink>,{" "}
-							<span>{subscriptionWatchedMovie.date}</span>
+							<NavLink
+								to="/layout/editSubscription"
+								onClick={() => subscriptionclicked(subscription.memberId)}
+								className={StyleSheet.movies_subscriptions_list_li}
+							>
+								{watchedMember.name}
+							</NavLink>
+							, <span>{subscriptionWatchedMovie.date}</span>
 						</li>
 					);
 				}

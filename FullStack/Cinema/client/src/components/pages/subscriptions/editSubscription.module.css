@@ -1,3 +1,9 @@
-.bla {
-    color: white;
+#header {
+    margin-left: 1.5rem;
+    color: var(--font-color);
+    text-decoration: underline;
+}
+
+.edit_subscription_input {
+    gap: 0.5rem
 }

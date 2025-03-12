@@ -37,3 +37,9 @@
 .edit_movie_button:hover {
     background-color: var(--focus-background-color);
 }
+
+#header {
+    margin-left: 1.5rem;
+    color: var(--font-color);
+    text-decoration: underline;
+}

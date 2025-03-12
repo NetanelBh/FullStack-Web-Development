@@ -1,16 +1,32 @@
-import styles from './editSubscription.module.css';
+import styles from "./editSubscription.module.css";
 
-import { useLocation } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { useRef } from "react";
+
+import Input from "../../genericComp/input";
+// TODO: DELETE THE SUBSCRIPTION ID AFTER UPDATE OR CANCLE FROM LOCALSTORAGE
 
 const EditSubscription = () => {
-  const location = useLocation();
+	const subscriptionId = localStorage.getItem("subscriptionId");
+	const members = useSelector((state) => state.members.members);
+	
+  const clickedSubscription = members.find((member) => member._id === subscriptionId);
+  
+  const nameRef = useRef(clickedSubscription.name);
+  const emailRef = useRef(clickedSubscription.email);
+  const cityRef = useRef(clickedSubscription.city);
 
-  // Get the clicked member id from the state that sent via navLink from movieSubscription component
-  const subscriptionId = location.state;
+	return (
+		<>
+			<h1 id={styles.header}>Edit Member: {clickedSubscription.name}</h1>
+			<form id="form_container">
+				<Input title="Name" type="text" className={styles.edit_subscription_input} value={nameRef.current} ref={nameRef} />
+				<Input title="Email" type="text" className={styles.edit_subscription_input} value={emailRef.current} ref={emailRef} />
+				<Input title="City" type="text" className={styles.edit_subscription_input} value={cityRef.current} ref={cityRef} />
 
-  return (
-    <div className={styles.bla}>EditSubscription</div>
-  )
-}
+			</form>
+		</>
+	);
+};
 
-export default EditSubscription
+export default EditSubscription;

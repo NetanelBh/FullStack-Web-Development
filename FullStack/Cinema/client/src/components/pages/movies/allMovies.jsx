@@ -32,6 +32,8 @@ const AllMovies = () => {
 
 	// Remove the last saved movieId from the edit ID page(after navigate back to this page).
 	localStorage.removeItem("movieId");
+	// Remove the last saved subscriptionId(if we come back to this page from the edit subscriptions when click on back)
+	localStorage.removeItem("subscriptionId");
 
 	const createEmployeesList = useCallback((employees, permissions, employeeData) => {
 		const employeesList = employees.data.map((emp) => {

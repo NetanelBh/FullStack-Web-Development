@@ -37,3 +37,9 @@
     background-color: var(--action-buttons-hover-background);
     border-color: var(--action-buttons-hover-background);
 }
+
+#header {
+    margin-left: 1.5rem;
+    color: var(--font-color);
+    text-decoration: underline;
+}

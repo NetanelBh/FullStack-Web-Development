@@ -43,7 +43,7 @@ const EditMovie = () => {
 			const resp = (await axios.put(url, updatedMovie)).data.data;
 			if (resp.status) {
 				dispatch(moviesActions.edit(resp.data));
-        navigate("/layout/WebContentLayout/movies/all");
+				navigate("/layout/WebContentLayout/movies/all");
 			}
 		} catch (error) {}
 	};
@@ -52,17 +52,20 @@ const EditMovie = () => {
 	const selectedMovie = movies.find((m) => m._id === clickedMovieId);
 
 	return (
-		<form onSubmit={updateMovieHandler} className={styles.edit_movie_form_container}>
-			<Input title="Name" type="text" className="" value={selectedMovie.name} ref={movieNameRef} />
-			<Input title="Genres" type="text" className="" value={selectedMovie.genre.join(",")} ref={genresRef} />
-			<Input title="Image URL" type="text" className="" value={selectedMovie.image} ref={imageRef} />
-			<Input title="Premiered" type="date" className="" value={selectedMovie.premiered} ref={premieredRef} />
+		<>
+			<h1 id={styles.header}>Edit Movie:</h1>
+			<form onSubmit={updateMovieHandler} className={styles.edit_movie_form_container}>
+				<Input title="Name" type="text" className="" value={selectedMovie.name} ref={movieNameRef} />
+				<Input title="Genres" type="text" className="" value={selectedMovie.genre.join(",")} ref={genresRef} />
+				<Input title="Image URL" type="text" className="" value={selectedMovie.image} ref={imageRef} />
+				<Input title="Premiered" type="date" className="" value={selectedMovie.premiered} ref={premieredRef} />
 
-			<div className={styles.edit_movie_actions}>
-				<Button className={styles.edit_movie_button} text="Update" type="submit" />
-				<Button className={styles.edit_movie_button} text="Cancle" type="button" onClick={cancelHandler} />
-			</div>
-		</form>
+				<div className={styles.edit_movie_actions}>
+					<Button className={styles.edit_movie_button} text="Update" type="submit" />
+					<Button className={styles.edit_movie_button} text="Cancle" type="button" onClick={cancelHandler} />
+				</div>
+			</form>
+		</>
 	);
 };
 

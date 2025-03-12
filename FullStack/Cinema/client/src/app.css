@@ -28,12 +28,14 @@ label {
 }
 
 #form_container {
-    margin-left: 1rem;
     display: flex;
     flex-direction: column;
+    margin: 1.5rem auto auto 1.5rem;
     padding: 10px;
+    gap: 0.5rem;
     font-size: var(--labels-font-size);
     color: var(--labels-color);
+    min-height: 100vh;
 }
 
 /* For the text in add and edit employee pages */

@@ -98,6 +98,8 @@ const EditEmployee = () => {
 	};
 
 	return (
+		<>
+		<h1 id={styles.header}>Edit Employees:</h1>
 		<form id="form_container" onSubmit={submitHandler}>
 			<Input
 				title="First Name "
@@ -143,6 +145,7 @@ const EditEmployee = () => {
 				/>
 			</div>
 		</form>
+		</>
 	);
 };
 
