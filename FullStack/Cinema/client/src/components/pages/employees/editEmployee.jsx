@@ -135,7 +135,7 @@ const EditEmployee = () => {
 			<p>Permissions :</p>
 			<PermissionsList userPermissions={clickedEmployee.permissions} onChange={checkboxClickHandler} />
 
-			<div className={styles.edit_employee_actions}>
+			<div id="action_buttons" className={styles.edit_employee_actions}>
 				<Button className={styles.edit_employee_action_buttons} text="Update" type="submit" />
 				<Button
 					className={styles.edit_employee_action_buttons}

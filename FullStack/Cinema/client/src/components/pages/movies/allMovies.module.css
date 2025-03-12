@@ -1,8 +1,5 @@
 :root {
     --div-background-color: #31363F;
-    --font-color: #fffdf0;
-    --input-background-color: #BCCCDC;
-    --focus-background-color: #fff6a4;
     --delete-button-hover-color: #f20c14;
     --movie-name-size: 2rem;
     --font-size: 1.5rem;
@@ -21,21 +18,10 @@
 }
 
 .all_movies_search label {
-    color: var(--font-color);
-}
-
-.all_movies_search input {
-    background-color: var(--input-background-color);
-    padding-left: 5px;
-    height: 1.3rem;
-}
-
-.all_movies_search input:focus {
-    background-color: var(--focus-background-color);
-    transition: 0.5s ease-in-out;
+    color: var(--labels-color);
 }
 
 .all_movies_no_movies {
-    font-size: var(--font-size);
+    font-size: var(--label-font-size);
     color: var(--focus-background-color);
 }

@@ -2,6 +2,8 @@
     --input-font-size: 1.1rem;
     --label-font-size: 1.5rem;
     --labels-color: #fffdf0;
+    --focus-background-color: #fff6a4;
+    --background-color: #ccd9ec;
 
     /* For Card */
     --border-color: #ec7575;
@@ -10,9 +12,16 @@
 input {
     /* when some property value is changed here, it will take 0.5s  */
     transition: 0.5s ease-out;
+    background-color: var(--background-color);
     font-size: var(--input-font-size);
     padding: 3px;
     outline: none;
+    height: 1.3rem;
+    margin-left: 0.5rem;
+}
+
+input:focus {
+    background-color: var(--focus-background-color);
 }
 
 label {
@@ -35,7 +44,7 @@ label {
     gap: 0.5rem;
     font-size: var(--labels-font-size);
     color: var(--labels-color);
-    min-height: 100vh;
+    min-height: 50vh;
 }
 
 /* For the text in add and edit employee pages */
@@ -68,4 +77,11 @@ form > p {
     100% {
         box-shadow: 0 0 5px var(--border-color);
     }
+}
+
+#action_buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
 }

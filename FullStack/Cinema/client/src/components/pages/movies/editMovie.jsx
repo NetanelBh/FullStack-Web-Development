@@ -54,13 +54,13 @@ const EditMovie = () => {
 	return (
 		<>
 			<h1 id={styles.header}>Edit Movie:</h1>
-			<form onSubmit={updateMovieHandler} className={styles.edit_movie_form_container}>
+			<form onSubmit={updateMovieHandler} id="form_container" className={styles.edit_movie_form_container}>
 				<Input title="Name" type="text" className="" value={selectedMovie.name} ref={movieNameRef} />
 				<Input title="Genres" type="text" className="" value={selectedMovie.genre.join(",")} ref={genresRef} />
 				<Input title="Image URL" type="text" className="" value={selectedMovie.image} ref={imageRef} />
 				<Input title="Premiered" type="date" className="" value={selectedMovie.premiered} ref={premieredRef} />
 
-				<div className={styles.edit_movie_actions}>
+				<div id="action_buttons">
 					<Button className={styles.edit_movie_button} text="Update" type="submit" />
 					<Button className={styles.edit_movie_button} text="Cancle" type="button" onClick={cancelHandler} />
 				</div>
