@@ -20,8 +20,6 @@ const EditSubscription = () => {
 	const navigate = useNavigate();
 
 	const clickedSubscription = members.find((member) => member._id === subscriptionId);
-	console.log(clickedSubscription);
-	
 
 	const nameRef = useRef();
 	const emailRef = useRef();
@@ -57,8 +55,6 @@ const EditSubscription = () => {
 	const closeDialogHandler = () => {
 		// Update the state back to false to avoid automatic dialog popup in the next page's visit
 		setShowDialog(false);
-		// Remove the subscriptionId from the local storage because we redirect to other page after the save
-		localStorage.removeItem("subscriptionId");
 
 		navigate("/layout/WebContentLayout/subscriptions/all");
 	};

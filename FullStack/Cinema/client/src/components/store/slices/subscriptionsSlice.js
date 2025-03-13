@@ -14,7 +14,11 @@ const subscriptionsSlice = createSlice({
 		},
 		remove(state, action) {
             state.subscriptions = state.subscriptions.filter((sub) => sub.memberId !== action.payload);
-        }
+        },
+		update(state, action) {
+			// TODO: in payload I have movieId and the subscriptions list. find in the list who have the removed movie
+			// 		and update the moviesList of the subscriptions that watched this movie
+		}
 	},
 });
 

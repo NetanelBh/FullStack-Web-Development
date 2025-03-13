@@ -18,4 +18,6 @@ router.get("/get", async (req, res) => {
     }
 });
 
+router.patch('/update', async (req, res) => {});
+
 export default router;

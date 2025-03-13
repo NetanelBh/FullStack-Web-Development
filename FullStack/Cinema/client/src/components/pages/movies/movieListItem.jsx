@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { moviesActions } from "../../store/slices/moviesSlice";
+import { subscriptionsActions } from "../../store/slices/subscriptionsSlice";
 import { isShowPermission } from "../../utils/moviesPermissions";
 
 const MovieListItem = ({ movie }) => {
@@ -14,15 +15,25 @@ const MovieListItem = ({ movie }) => {
 	const dispatch = useDispatch();
 
 	const employees = useSelector((state) => state.employees.employees);
+	const subscriptions = useSelector((state) => state.subscriptions.subscriptions);
 
 	const deleteMovieHandler = async (movie) => {
-		const url = `http://localhost:3000/subscriptions/movie/delete/${movie._id}`;
+		// When delete the movie, will delete also the subscriptions that watched the movie
+		const deleteUrl = `http://localhost:3000/subscriptions/movie/delete/${movie._id}`;
+		const updateUrl = `http://localhost:3000/subscriptions/subscription/update`
 		try {
-			const resp = (await axios.delete(url)).data;
-			if (resp.status) {
+			const deleteResp = (await axios.delete(deleteUrl)).data;
+			if (deleteResp.status) {
 				dispatch(moviesActions.delete(movie._id));
-				navigate("/layout/WebContentLayout/movies/all");
 			}
+			
+			// Send the removed movie id and the subscriptions list to remove the movie from the watchers in DB
+			const subscriptionsResp = (await axios.post(updateUrl, {movieId: movie._id, subscriptions})).data;
+			if (subscriptionsResp.status) {
+				// Update the redux with the new retured list
+				dispatch(subscriptionsActions.update({data: subscriptionsResp.data, movieId: movie._id}))
+			}
+			navigate("/layout/WebContentLayout/movies/all");
 		} catch (error) {
 			console.log(error.message);
 		}

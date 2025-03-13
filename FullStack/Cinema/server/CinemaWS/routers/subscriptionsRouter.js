@@ -76,21 +76,6 @@ router.get("/members", async (req, res) => {
 	
 });
 
-router.get("/subscriptions", async (req, res) => {
-	const url = "http://localhost:3001/subscriptions/get";
-
-	try {
-		const resp = (await axios.get(url)).data;
-		if (resp.status) {
-            res.send({status: resp.status, data: resp});
-        } else {
-            res.send({status: resp.status, data: "No subscriptions found"});
-        }
-	} catch (error) {
-		res.send()
-	}
-});
-
 router.put("/member/update", async (req, res) => {
 	const url = "http://localhost:3001/members/update";
 	const member = req.body;
@@ -105,6 +90,25 @@ router.put("/member/update", async (req, res) => {
 	} catch (error) {
 		res.send({status: false, data: error.message});
 	}
+});
+
+router.get("/subscriptions", async (req, res) => {
+	const url = "http://localhost:3001/subscriptions/get";
+
+	try {
+		const resp = (await axios.get(url)).data;
+		if (resp.status) {
+			res.send({status: resp.status, data: resp});
+		} else {
+			res.send({status: resp.status, data: "No subscriptions found"});
+		}
+	} catch (error) {
+		res.send()
+	}
+});
+
+router.post('/subscription/update/:id', async (req, res) => {
+	const url = "http://localhost:3001/subscriptions/update";
 });
 
 export default router;
