@@ -9,3 +9,7 @@ export const addMember = (member) => {
 export const getMembers = () => {
   return membersModel.find();
 };
+
+export const updateMembers = (filter, member) => {  
+  return membersModel.findOneAndReplace(filter, member, { new: true });
+};

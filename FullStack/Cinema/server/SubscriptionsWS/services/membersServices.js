@@ -12,3 +12,9 @@ export const addMember = (member) => {
 export const getMembersFromDb = () => {
     return membersDbRepo.getMembers();
 };
+
+export const updateMember = (member) => {
+    const idFilter = {_id: member._id};
+
+    return membersDbRepo.updateMembers(idFilter, member);
+};

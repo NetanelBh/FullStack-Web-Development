@@ -67,9 +67,9 @@ const AddMovie = () => {
 		<>
 			{isAddPermissions && (
 				<form onSubmit={saveMovieHandler} className={styles.add_movie_form_container}>
-					<Input title="Name" type="text" className="" value="The Monkey" ref={movieNameRef} />
-					<Input title="Genres" type="text" className="" value="Comedy, Horror" ref={genresRef} />
-					<Input title="Image URL" type="text" className="" value="https://upload.wikimedia.org/wikipedia/en/9/9d/The_Monkey_film_poster.jpg" ref={imageRef} />
+					<Input title="Name" type="text" className="" value="" ref={movieNameRef} />
+					<Input title="Genres" type="text" className="" value="" ref={genresRef} />
+					<Input title="Image URL" type="text" className="" value="" ref={imageRef} />
 					<Input title="Premiered" type="date" className="" value="" ref={premieredRef} />
 
 					<div className={styles.add_movie_actions}>

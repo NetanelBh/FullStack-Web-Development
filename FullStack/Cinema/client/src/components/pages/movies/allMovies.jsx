@@ -109,7 +109,7 @@ const AllMovies = () => {
 				dispatch(moviesActions.load(moviesResp.data));
 			}
 			const membersResp = (await axios.get(MEMBERS_URL)).data;
-
+			
 			if (membersResp.status) {
 				dispatch(membersActions.load(membersResp.data));
 			}

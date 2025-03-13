@@ -1,6 +1,6 @@
 import express from 'express';
 
-import {getMembersFromDb} from '../services/membersServices.js';
+import * as membersServices from '../services/membersServices.js';
 
 const router = express.Router();
 
@@ -8,11 +8,26 @@ const router = express.Router();
 
 router.get('/get', async (req, res) => {    
     try {
-        const resp = await getMembersFromDb();         
+        const resp = await membersServices.getMembersFromDb();         
         if (resp) {
             res.send({status: true, data: resp});
         } else {
-            res.send({status: false, data: 'No members found.'});
+            res.send({status: false, data: 'No members found'});
+        }
+    } catch (error) {
+        res.send({status: false, data: error.message});
+    }
+});
+
+router.put('/update', async (req, res) => {
+    const member = req.body; 
+    
+    try {
+        const resp = await membersServices.updateMember(member);
+        if (resp) {
+            res.send({status: true, data: resp});
+        } else {
+            res.send({status: false, data: 'No member found'});
         }
     } catch (error) {
         res.send({status: false, data: error.message});

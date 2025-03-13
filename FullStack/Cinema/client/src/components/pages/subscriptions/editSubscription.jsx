@@ -1,34 +1,67 @@
 import styles from "./editSubscription.module.css";
 
-import { useSelector } from "react-redux";
-import { useRef } from "react";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { membersActions } from "../../store/slices/membersSlice";
 
 import Input from "../../genericComp/input";
 import Button from "../../UI/button/button";
+import CustomDialog from "../../genericComp/dialog";
 
 const EditSubscription = () => {
+	const [showDialog, setShowDialog] = useState(false);
 	const subscriptionId = localStorage.getItem("subscriptionId");
+
+	const dispatch = useDispatch();
 	const members = useSelector((state) => state.members.members);
-  const navigate = useNavigate();
+	
+	const navigate = useNavigate();
 
 	const clickedSubscription = members.find((member) => member._id === subscriptionId);
+	console.log(clickedSubscription);
+	
 
-	const nameRef = useRef(clickedSubscription.name);
-	const emailRef = useRef(clickedSubscription.email);
-	const cityRef = useRef(clickedSubscription.city);
+	const nameRef = useRef();
+	const emailRef = useRef();
+	const cityRef = useRef();
 
-  const updateHandler = () => {
-    // TODO: CREATE EDITED MEMBER AND UPDATE HIS DATA IN DB AND REDUX
+	const updateHandler = async (event) => {
+		event.preventDefault();
 
-    // Remove the subscriptionId from the local storage because we redirect to other page after the save
-    localStorage.removeItem("subscriptionId");
-  };
+		const url = "http://localhost:3000/subscriptions/member/update";
+		const updatedMember = {
+			_id: clickedSubscription._id,
+			name: nameRef.current.value,
+			email: emailRef.current.value,
+			city: cityRef.current.value,
+		};
 
-  const cancelHandler = () => {
-    localStorage.removeItem("subscriptionId");
-    navigate("/layout/WebContentLayout/subscriptions/all");
-  };
+		try {
+			const resp = (await axios.put(url, updatedMember)).data;
+			if (resp.status) {
+				setShowDialog(true);
+				dispatch(membersActions.update(resp.data));
+			}
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+
+	const cancelHandler = () => {
+		localStorage.removeItem("subscriptionId");
+		navigate("/layout/WebContentLayout/subscriptions/all");
+	};
+
+	const closeDialogHandler = () => {
+		// Update the state back to false to avoid automatic dialog popup in the next page's visit
+		setShowDialog(false);
+		// Remove the subscriptionId from the local storage because we redirect to other page after the save
+		localStorage.removeItem("subscriptionId");
+
+		navigate("/layout/WebContentLayout/subscriptions/all");
+	};
 
 	return (
 		<>
@@ -38,29 +71,46 @@ const EditSubscription = () => {
 					title="Name"
 					type="text"
 					className={styles.edit_subscription_input}
-					value={nameRef.current}
+					value={clickedSubscription.name}
 					ref={nameRef}
 				/>
 				<Input
 					title="Email"
 					type="text"
 					className={styles.edit_subscription_input}
-					value={emailRef.current}
+					value={clickedSubscription.email}
 					ref={emailRef}
 				/>
 				<Input
 					title="City"
 					type="text"
 					className={styles.edit_subscription_input}
-					value={cityRef.current}
+					value={clickedSubscription.city}
 					ref={cityRef}
 				/>
 
 				<div id="action_buttons">
-					<Button className={styles.edit_subscription_button} text="Update" type="text" onClick={updateHandler} />
-					<Button className={styles.edit_subscription_button} text="Cancel" type="text" onClick={cancelHandler} />
+					<Button
+						className={styles.edit_subscription_button}
+						text="Update"
+						type="text"
+						onClick={updateHandler}
+					/>
+					<Button
+						className={styles.edit_subscription_button}
+						text="Cancel"
+						type="text"
+						onClick={cancelHandler}
+					/>
 				</div>
 			</form>
+
+			<CustomDialog
+				title="Member Updated"
+				text="Member Successfully Updated!"
+				buttonsArray={[{ text: "OK", onClick: closeDialogHandler }]}
+				open={showDialog}
+			/>
 		</>
 	);
 };

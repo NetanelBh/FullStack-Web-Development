@@ -7,7 +7,7 @@ const subscriptionsSlice = createSlice({
 	initialState,
 	reducers: {
 		load(state, action) {
-			state.subscriptions = action.payload;
+			state.subscriptions = action.payload.data;
 		},
 		add(state, action) {
 			state.subscriptions.push(action.payload);

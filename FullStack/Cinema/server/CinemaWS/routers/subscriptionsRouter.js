@@ -17,9 +17,12 @@ router.post("/movie/add", async (req, res) => {
 	const movie = req.body;
 	
 	try {
-		const resp = await axios.post(url, movie);
-		
-		res.send({ status: true, data: resp.data });
+		const resp = (await axios.post(url, movie)).data;
+		if (resp.status) {
+			res.send({ status: resp.status, data: resp });
+		} else {
+			res.send({ status: resp.status, data: "Can't add a movie"});
+		}
 	} catch (error) {
 		res.send({ status: false, data: error.message });
 	}
@@ -30,9 +33,12 @@ router.put("/movie/update", async (req, res) => {
     const movie = req.body;
 	
     try {
-        const resp = await axios.put(url, movie);
-        
-        res.send({ status: true, data: resp.data });
+        const resp = (await axios.put(url, movie)).data;
+        if (resp.status) {
+			res.send({ status: resp.status, data: resp });
+		} else {
+			res.send({ status: resp.status, data: "Can't update a movie" });
+		}
     } catch (error) {
         res.send({ status: false, data: error.message });
     }
@@ -42,11 +48,11 @@ router.delete("/movie/delete/:id", async (req, res) => {
 	const id = req.params.id;
 	const url = `http://localhost:3001/movies/delete/${id}`;
 	try {
-		const resp = await axios.delete(url);
+		const resp = (await axios.delete(url)).data;
 		if (resp.status) {
-			res.send({ status: true, data: "Movie deleted successfully" });
+			res.send({ status: resp.status, data: "Movie deleted successfully" });
 		} else {
-			res.send({ status: false, data: "Failed to delete movie" });
+			res.send({ status: resp.status, data: "Failed to delete movie" });
 		}
 	} catch (error) {
 		res.send({ status: false, data: error.message });
@@ -57,15 +63,48 @@ router.delete("/movie/delete/:id", async (req, res) => {
 router.get("/members", async (req, res) => {
 	const url = "http://localhost:3001/members/get";
 
-	const resp = await axios.get(url);
-	res.send(resp.data);
+	try {
+		const resp = (await axios.get(url)).data;	
+		if (resp.status) {
+			res.send({status: resp.status, data: resp})
+		} else {
+			res.send({status: resp.status, data: "Can't fetch members data."});
+		}
+	} catch (error) {
+		res.send({status: false, data: error.message});
+	}
+	
 });
 
 router.get("/subscriptions", async (req, res) => {
 	const url = "http://localhost:3001/subscriptions/get";
 
-	const resp = await axios.get(url);
-	res.send(resp.data);
+	try {
+		const resp = (await axios.get(url)).data;
+		if (resp.status) {
+            res.send({status: resp.status, data: resp});
+        } else {
+            res.send({status: resp.status, data: "No subscriptions found"});
+        }
+	} catch (error) {
+		res.send()
+	}
+});
+
+router.put("/member/update", async (req, res) => {
+	const url = "http://localhost:3001/members/update";
+	const member = req.body;
+	
+	try {
+		const resp = (await axios.put(url, member)).data;
+		if (resp.status) {
+			res.send(resp);
+		} else {
+			res.send({status: resp.status, data: "Can't update member"});
+		}
+	} catch (error) {
+		res.send({status: false, data: error.message});
+	}
 });
 
 export default router;
