@@ -20,23 +20,40 @@ const MovieListItem = ({ movie }) => {
 	const deleteMovieHandler = async (movie) => {
 		// When delete the movie, will delete also the subscriptions that watched the movie
 		const deleteUrl = `http://localhost:3000/subscriptions/movie/delete/${movie._id}`;
-		const updateUrl = `http://localhost:3000/subscriptions/subscription/update`
-		try {
-			const deleteResp = (await axios.delete(deleteUrl)).data;
-			if (deleteResp.status) {
-				dispatch(moviesActions.delete(movie._id));
+		const updateUrl = `http://localhost:3000/subscriptions/subscription/update`;
+
+		// Filter only the subscriptions that watched the selected movie and remove the movie from their movies list
+		const watchedMovieSubscriptions = subscriptions.filter((subscription) => {
+			// Save the original movies array list length before filter to determine which subscription watch the movie
+			const numOfMoviesBeforeFilter = subscription.movies.length;			
+			
+			// Get the filtered subscription
+			const filteredSubscriptionMovies = subscription.movies.filter((m) => m.movieId !== movie._id);
+			// Check if after the filter the movies length is less than the before, if so, he watched the movie 
+			if (numOfMoviesBeforeFilter > filteredSubscriptionMovies.length) {
+				return subscription;
 			}
 			
-			// Send the removed movie id and the subscriptions list to remove the movie from the watchers in DB
-			const subscriptionsResp = (await axios.post(updateUrl, {movieId: movie._id, subscriptions})).data;
-			if (subscriptionsResp.status) {
-				// Update the redux with the new retured list
-				dispatch(subscriptionsActions.update({data: subscriptionsResp.data, movieId: movie._id}))
-			}
-			navigate("/layout/WebContentLayout/movies/all");
-		} catch (error) {
-			console.log(error.message);
-		}
+		});
+
+		// TODO: UNTIL HERE WE HAVE ONLY THE SUBSCRIPTIONS THAT WATCHED THE MOVIE AFTER WE DELETED THE MOVIE FROM HIS MOVIES LIST
+
+		// try {
+		// 	const deleteResp = (await axios.delete(deleteUrl)).data;
+		// 	if (deleteResp.status) {
+		// 		dispatch(moviesActions.delete(movie._id));
+		// 	}
+
+		// 	//
+		// 	const subscriptionsResp = (await axios.post(updateUrl, {movieId: movie._id, subscriptions})).data;
+		// 	if (subscriptionsResp.status) {
+		// 		// Update the redux with the new retured list
+		// 		dispatch(subscriptionsActions.update({data: subscriptionsResp.data, movieId: movie._id}))
+		// 	}
+		// 	navigate("/layout/WebContentLayout/movies/all");
+		// } catch (error) {
+		// 	console.log(error.message);
+		// }
 	};
 
 	const editMovieHandler = (movie) => {
@@ -45,7 +62,7 @@ const MovieListItem = ({ movie }) => {
 	};
 
 	const employeeId = sessionStorage.getItem("id");
-	const editPermission = "Update Movie"
+	const editPermission = "Update Movie";
 	const deletePermission = "Delete Movies";
 
 	// Determine whether the employee has the permissin to edit or remove movies
@@ -69,7 +86,7 @@ const MovieListItem = ({ movie }) => {
 				</div>
 			</div>
 
-			<div className={styles.all_movies_list_item_actions}>			
+			<div className={styles.all_movies_list_item_actions}>
 				<Button
 					className={isEditPermission ? styles.all_movies_list_item_actions_edit : styles.no_permission}
 					text="Edit"
