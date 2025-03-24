@@ -22,38 +22,38 @@ const MovieListItem = ({ movie }) => {
 		const deleteUrl = `http://localhost:3000/subscriptions/movie/delete/${movie._id}`;
 		const updateUrl = `http://localhost:3000/subscriptions/subscription/update`;
 
-		// Filter only the subscriptions that watched the selected movie and remove the movie from their movies list
-		const watchedMovieSubscriptions = subscriptions.filter((subscription) => {
-			// Save the original movies array list length before filter to determine which subscription watch the movie
-			const numOfMoviesBeforeFilter = subscription.movies.length;			
-			
-			// Get the filtered subscription
-			const filteredSubscriptionMovies = subscription.movies.filter((m) => m.movieId !== movie._id);
-			// Check if after the filter the movies length is less than the before, if so, he watched the movie 
-			if (numOfMoviesBeforeFilter > filteredSubscriptionMovies.length) {
-				return subscription;
+		// Filter only the subscriptions that watched the selected movie
+		const watchedMovieSubscriptions = subscriptions
+			.filter((subscription) => {
+				return subscription.movies.find((m) => m.movieId === movie._id);
+				// After we got only the subscriptions that watched the movie, will remove the movie from their movies list
+			})
+			.map((s) => {
+				const filteredMovies = s.movies.filter((m) => m.movieId !== movie._id);
+				return { ...s, movies: filteredMovies };
+			});
+
+		try {
+			// Delete the movie from the database
+			const deleteResp = (await axios.delete(deleteUrl)).data;
+			// If the movie deleted successfully from the database, will delete it also from redux.
+			if (deleteResp.status) {
+				dispatch(moviesActions.delete(movie._id));
+
+				// Only if successfully deleted from the database, remove the movie from the subscription list in DB
+				const subscriptionsResp = (
+					await axios.post(updateUrl, { movieId: movie._id, subscriptions: watchedMovieSubscriptions })
+				).data;
+
+				if (subscriptionsResp.status) {
+					// Update the redux with the new retured list
+					dispatch(subscriptionsActions.update(watchedMovieSubscriptions));
+				}
 			}
-			
-		});
-
-		// TODO: UNTIL HERE WE HAVE ONLY THE SUBSCRIPTIONS THAT WATCHED THE MOVIE AFTER WE DELETED THE MOVIE FROM HIS MOVIES LIST
-
-		// try {
-		// 	const deleteResp = (await axios.delete(deleteUrl)).data;
-		// 	if (deleteResp.status) {
-		// 		dispatch(moviesActions.delete(movie._id));
-		// 	}
-
-		// 	//
-		// 	const subscriptionsResp = (await axios.post(updateUrl, {movieId: movie._id, subscriptions})).data;
-		// 	if (subscriptionsResp.status) {
-		// 		// Update the redux with the new retured list
-		// 		dispatch(subscriptionsActions.update({data: subscriptionsResp.data, movieId: movie._id}))
-		// 	}
-		// 	navigate("/layout/WebContentLayout/movies/all");
-		// } catch (error) {
-		// 	console.log(error.message);
-		// }
+			navigate("/layout/WebContentLayout/movies/all");
+		} catch (error) {
+			console.log(error.message);
+		}
 	};
 
 	const editMovieHandler = (movie) => {

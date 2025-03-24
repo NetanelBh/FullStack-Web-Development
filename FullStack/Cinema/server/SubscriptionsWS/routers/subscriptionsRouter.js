@@ -18,6 +18,13 @@ router.get("/get", async (req, res) => {
     }
 });
 
-router.patch('/update', async (req, res) => {});
+router.patch('/update', async (req, res) => {
+    try {
+        const resp = await subscriptionsServices.updateSubscriptions(req.body);
+        res.send({status: true, data: resp});
+    } catch (error) {
+        res.send({status: false, data: error.message});
+    }
+});
 
 export default router;

@@ -16,8 +16,10 @@ const subscriptionsSlice = createSlice({
             state.subscriptions = state.subscriptions.filter((sub) => sub.memberId !== action.payload);
         },
 		update(state, action) {
-			// TODO: in payload I have movieId and the subscriptions list. find in the list who have the removed movie
-			// 		and update the moviesList of the subscriptions that watched this movie
+			action.payload.forEach((member) => {		
+				const index = state.subscriptions.findIndex((sub) => sub.memberId === member.memberId);
+				state.subscriptions[index] = member;
+			});
 		}
 	},
 });

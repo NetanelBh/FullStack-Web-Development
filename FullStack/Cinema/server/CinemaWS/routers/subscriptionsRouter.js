@@ -107,8 +107,19 @@ router.get("/subscriptions", async (req, res) => {
 	}
 });
 
-router.post('/subscription/update/:id', async (req, res) => {
+router.post('/subscription/update', async (req, res) => {
+	// The given subscriptions are a list of subscriptions that we want to update
 	const url = "http://localhost:3001/subscriptions/update";
+	try {
+		const resp = (await axios.patch(url, req.body.subscriptions)).data;
+		if (resp.status) {
+			res.send({status: true, data: resp.data});
+		} else {
+			res.send({status: false, data: "Failed to update subscriptions"});
+		}
+	} catch (error) {
+		res.send({status: false, data: "Failed to update subscriptions"})
+	}
 });
 
 export default router;

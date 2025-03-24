@@ -66,7 +66,7 @@ const AddMovie = () => {
 	return (
 		<>
 			{isAddPermissions && (
-				<form onSubmit={saveMovieHandler} className={styles.add_movie_form_container}>
+				<form id="form_container" onSubmit={saveMovieHandler}>
 					<Input title="Name" type="text" className="" value="" ref={movieNameRef} />
 					<Input title="Genres" type="text" className="" value="" ref={genresRef} />
 					<Input title="Image URL" type="text" className="" value="" ref={imageRef} />
