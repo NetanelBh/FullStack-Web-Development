@@ -85,3 +85,8 @@ form > p {
     margin-top: 1.5rem;
     margin-bottom: 2rem;
 }
+
+#no_permissin {
+    font-size: var(--label-font-size);
+    color: var(--focus-background-color);
+}

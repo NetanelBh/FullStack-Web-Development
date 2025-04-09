@@ -20,8 +20,3 @@
 .all_movies_search label {
     color: var(--labels-color);
 }
-
-.all_movies_no_movies {
-    font-size: var(--label-font-size);
-    color: var(--focus-background-color);
-}

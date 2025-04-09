@@ -172,7 +172,7 @@ const AllMovies = () => {
 
 			{!showMoviePermission && (
 				<div id="list_container">
-					<p className={styles.all_movies_no_movies}>No permission to show the movies</p>
+					<p id="no_permissin">No permission to show the movies</p>
 				</div>
 			)}
 		</>
