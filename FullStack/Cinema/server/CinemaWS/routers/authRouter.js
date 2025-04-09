@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
 	const { username, password, admin } = req.body;
-	const encryptedPassword = jwt.sign(password, process.env.HASH_KEY);
+	const encryptedPassword = await bcrypt.hash(password, 10);
 	const employee = { username, password: encryptedPassword, admin };
 
 	try {
@@ -41,8 +41,6 @@ http: router.post("/login", async (req, res) => {
 				// Create token to user
 				const token = jwt.sign(username, process.env.HASH_KEY);
 				// Return the employee's full name to show in every page he navigates in the cinema
-				req.session.user = { username, token };
-
 				const returnedData = { admin: employee.admin, token, fullName: employee.fullName, id: employee._id };
 				res.send({ status: true, data: returnedData });
 			} else res.send({ status: false, data: "Invalid password" });
@@ -55,7 +53,6 @@ http: router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-	req.session.destroy();
 	res.send({ status: true, data: "Logged out successfully" });
 });
 

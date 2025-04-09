@@ -7,7 +7,7 @@ import MainLayout from "../UI/layouts/mainLayout";
 import WebContentLayout from "../UI/layouts/WebContentLayout";
 
 import AddEmployee from "../pages/employees/addEmployee";
-import AllEmployees from "../pages/employees/AllEmployees";
+import AllEmployees from "../pages/employees/allEmployees";
 import EditEmployee from "../pages/employees/editEmployee";
 
 import AllMovies from "../pages/movies/allMovies";
