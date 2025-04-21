@@ -9,11 +9,11 @@ const WebContentLayout = () => {
 	let navTabs = [];
 
 	if (location.includes("movies")) {
-		navTabs = [...JSON.parse(sessionStorage.getItem("moviesHeaders")).headers];
+		navTabs = [...JSON.parse(localStorage.getItem("moviesHeaders")).headers];
 	} else if (location.includes("employees")) {
-		navTabs = [...JSON.parse(sessionStorage.getItem("employeesHeaders")).headers];
+		navTabs = [...JSON.parse(localStorage.getItem("employeesHeaders")).headers];
 	} else {
-		navTabs = [...JSON.parse(sessionStorage.getItem("subscriptionsHeaders")).headers];
+		navTabs = [...JSON.parse(localStorage.getItem("subscriptionsHeaders")).headers];
 	}
 
 	return (

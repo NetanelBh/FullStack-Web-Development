@@ -16,7 +16,6 @@ const Login = () => {
     const [isValidUser, setIsValidUser] = useState(true);
     const [isValidPassword, setIsValidPassword] = useState(true);
 
-    sessionStorage.clear();
     localStorage.clear();
 
     const submitHandler = async (event) => {
@@ -26,7 +25,7 @@ const Login = () => {
         setIsValidPassword(true);
 
         const username = usernameRef.current.value;
-        const password = passwordRef.current.value;
+        const password = passwordRef.current.value;        
 
         const url = "http://localhost:3000/auth/login";
         try {
@@ -39,10 +38,10 @@ const Login = () => {
                 return;
             } else {         
                 // If user authenticated, will save the token in local storage
-                sessionStorage.setItem("token", resp.data.token);
-                sessionStorage.setItem("username", username);
-                sessionStorage.setItem("fullName", resp.data.fullName);
-                sessionStorage.setItem("id", resp.data.id);
+                localStorage.setItem("token", resp.data.token);
+                localStorage.setItem("username", username);
+                localStorage.setItem("fullName", resp.data.fullName);
+                localStorage.setItem("id", resp.data.id);
 
                 // Create the navigations bar headers for the main layout component
                 const mainHeadersBar = {
@@ -61,7 +60,7 @@ const Login = () => {
                 }
 
                 // Store the headers to use them in the generic layout component to create navigations bar
-                sessionStorage.setItem("mainHeaders", JSON.stringify(mainHeadersBar));
+                localStorage.setItem("mainHeaders", JSON.stringify(mainHeadersBar));
 
                 // Create the movies navigations bar headers for the content layout component
                 const moviesHeadersBar = {
@@ -87,9 +86,9 @@ const Login = () => {
                     ],
                 };
 
-                sessionStorage.setItem("moviesHeaders", JSON.stringify(moviesHeadersBar));
-                sessionStorage.setItem("subscriptionsHeaders", JSON.stringify(subscriptionsHeadersBar));
-                sessionStorage.setItem("employeesHeaders", JSON.stringify(employeesHeadersBar));
+                localStorage.setItem("moviesHeaders", JSON.stringify(moviesHeadersBar));
+                localStorage.setItem("subscriptionsHeaders", JSON.stringify(subscriptionsHeadersBar));
+                localStorage.setItem("employeesHeaders", JSON.stringify(employeesHeadersBar));
 
                 navigate("/layout/WebContentLayout/movies/all");
             }

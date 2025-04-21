@@ -48,7 +48,7 @@ const EditEmployee = () => {
 			createdDate: clickedEmployee.createdDate,
 			permissions: clickedEmployee.permissions,
 			sessionTimeOut: sessionTimeoutRef.current.value,
-		}
+		};
 
 		// URL to update the emploee with the new data entered by the admin
 		const url = "http://localhost:3000/employees/update";
@@ -63,7 +63,11 @@ const EditEmployee = () => {
 		};
 
 		// Get back all the updated data
-		const resp = await axios.put(url, { employee: updatedEmployee });
+		const resp = await axios.put(
+			url,
+			{ employee: updatedEmployee },
+			{ headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+		);
 
 		// If the username changed by the admin, will read the new updated data from the DB
 		if (resp.status && clickedEmployee.username !== usernameRef.current.value) {
@@ -99,52 +103,52 @@ const EditEmployee = () => {
 
 	return (
 		<>
-		<h1 id={styles.header}>Edit Employees:</h1>
-		<form id="form_container" onSubmit={submitHandler}>
-			<Input
-				title="First Name "
-				type="text"
-				className={styles.edit_employee_input}
-				value={firstName}
-				ref={firstNameRef}
-			/>
-			<Input
-				title="Last Name "
-				type="text"
-				className={styles.edit_employee_input}
-				value={lastName}
-				ref={lastNameRef}
-			/>
-			<Input
-				title="Username "
-				type="text"
-				className={styles.edit_employee_input}
-				value={clickedEmployee.username}
-				ref={usernameRef}
-			/>
-			<Input
-				title="Session Time Out (Minutes) "
-				type="number"
-				className={styles.edit_employee_input}
-				value={clickedEmployee.sessionTimeOut}
-				ref={sessionTimeoutRef}
-			/>
-
-			<p>Created Date : {createdDate}</p>
-
-			<p>Permissions :</p>
-			<PermissionsList userPermissions={clickedEmployee.permissions} onChange={checkboxClickHandler} />
-
-			<div id="action_buttons" className={styles.edit_employee_actions}>
-				<Button className={styles.edit_employee_action_buttons} text="Update" type="submit" />
-				<Button
-					className={styles.edit_employee_action_buttons}
-					text="Cancel"
-					type="button"
-					onClick={cancelHandler}
+			<h1 id={styles.header}>Edit Employees:</h1>
+			<form id="form_container" onSubmit={submitHandler}>
+				<Input
+					title="First Name "
+					type="text"
+					className={styles.edit_employee_input}
+					value={firstName}
+					ref={firstNameRef}
 				/>
-			</div>
-		</form>
+				<Input
+					title="Last Name "
+					type="text"
+					className={styles.edit_employee_input}
+					value={lastName}
+					ref={lastNameRef}
+				/>
+				<Input
+					title="Username "
+					type="text"
+					className={styles.edit_employee_input}
+					value={clickedEmployee.username}
+					ref={usernameRef}
+				/>
+				<Input
+					title="Session Time Out (Minutes) "
+					type="number"
+					className={styles.edit_employee_input}
+					value={clickedEmployee.sessionTimeOut}
+					ref={sessionTimeoutRef}
+				/>
+
+				<p>Created Date : {createdDate}</p>
+
+				<p>Permissions :</p>
+				<PermissionsList userPermissions={clickedEmployee.permissions} onChange={checkboxClickHandler} />
+
+				<div id="action_buttons" className={styles.edit_employee_actions}>
+					<Button className={styles.edit_employee_action_buttons} text="Update" type="submit" />
+					<Button
+						className={styles.edit_employee_action_buttons}
+						text="Cancel"
+						type="button"
+						onClick={cancelHandler}
+					/>
+				</div>
+			</form>
 		</>
 	);
 };

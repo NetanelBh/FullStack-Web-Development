@@ -7,12 +7,11 @@ import NavigationBar from '../navigateBar/navBar';
 const MainLayout = () => {
     const navigate = useNavigate();
 
-    const navButtons = JSON.parse(sessionStorage.getItem("mainHeaders")).headers;
-    const employeeName = sessionStorage.getItem("fullName");
+    const navButtons = JSON.parse(localStorage.getItem("mainHeaders")).headers;
+    const employeeName = localStorage.getItem("fullName");
 
     const logoutHandler = () => {
         // Clear the session storage
-        sessionStorage.clear();
         localStorage.clear();
 
         navigate("/");

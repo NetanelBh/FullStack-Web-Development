@@ -12,6 +12,7 @@ import { employeesActions } from "../../store/slices/employeesSlice";
 import { subscriptionsActions } from "../../store/slices/subscriptionsSlice";
 
 import { isShowPermission } from "../../utils/moviesPermissions";
+import { useNavigate } from "react-router-dom";
 
 const DB_EMPLOYEES_URL = "http://localhost:3000/employees/db";
 const PERMISSIONS_FILE_URL = "http://localhost:3000/permissions";
@@ -24,6 +25,7 @@ const AllMovies = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [searchCharacters, setSearchCharacters] = useState("");
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const movies = useSelector((state) => state.movies.movies);
 	const members = useSelector((state) => state.members.members);
@@ -74,9 +76,15 @@ const AllMovies = () => {
 			const fetchEmployeesData = async () => {
 				try {
 					setIsLoading(true);
-					const empResp = axios.get(DB_EMPLOYEES_URL);
-					const permResp = axios.get(PERMISSIONS_FILE_URL);
-					const employeeDataResp = axios.get(EMP_DATA_FILE_URL);
+					const empResp = axios.get(DB_EMPLOYEES_URL, {
+						headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+					});
+					const permResp = axios.get(PERMISSIONS_FILE_URL, {
+						headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+					});
+					const employeeDataResp = axios.get(EMP_DATA_FILE_URL, {
+						headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+					});
 
 					// Waiting for all requests to get their responses
 					const [employees, permissions, employeeData] = await Promise.all([
@@ -84,15 +92,20 @@ const AllMovies = () => {
 						permResp,
 						employeeDataResp,
 					]);
-
+				
 					// Create the employees list to store in redux only if all the requested url returned with corrrect data
-					if (employees.status && permissions.status && employeeData.status) {
+					if (employees.data.status && permissions.data.status && employeeData.data.status) {
 						createEmployeesList(employees.data, permissions.data, employeeData.data);
+					} else {
+						// If No token privided, navigate to login page
+						// navigate("/");
 					}
+
+					setIsLoading(false);
 				} catch (error) {
-					console.log(error.message);
+					// If No token is expired, navigate to login page
+					navigate("/");
 				}
-				setIsLoading(false);
 			};
 
 			fetchEmployeesData();
@@ -103,17 +116,23 @@ const AllMovies = () => {
 	const fetchSubscriptionsData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const moviesResp = (await axios.get(MOVIES_URL)).data;
+			const moviesResp = (await axios.get(MOVIES_URL, {
+				headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+			})).data;
 
 			if (moviesResp.status) {
 				dispatch(moviesActions.load(moviesResp.data));
 			}
-			const membersResp = (await axios.get(MEMBERS_URL)).data;
-			
+			const membersResp = (await axios.get(MEMBERS_URL, {
+				headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+			})).data;
+
 			if (membersResp.status) {
 				dispatch(membersActions.load(membersResp.data));
 			}
-			const subscriptionsResp = (await axios.get(SUBSCRIPTIONS_URL)).data;
+			const subscriptionsResp = (await axios.get(SUBSCRIPTIONS_URL, {
+				headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+			})).data;
 
 			if (subscriptionsResp.status) {
 				dispatch(subscriptionsActions.load(subscriptionsResp.data));
@@ -121,7 +140,7 @@ const AllMovies = () => {
 
 			setIsLoading(false);
 		} catch (error) {
-			console.log(error.message);
+			alert(error);
 		}
 	}, []);
 
@@ -146,7 +165,7 @@ const AllMovies = () => {
 	}
 
 	// Get the id of the loged in user from the local storage
-	const employeeId = sessionStorage.getItem("id");
+	const employeeId = localStorage.getItem("id");
 	const viewPermission = "View Movies";
 	// Check if there is permission to user to see the movies list with the registered subscriptions
 	const showMoviePermission = isShowPermission(allEmployees, employeeId, viewPermission);

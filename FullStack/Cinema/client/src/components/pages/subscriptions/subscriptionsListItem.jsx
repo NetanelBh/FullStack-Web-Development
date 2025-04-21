@@ -1,8 +1,9 @@
 import styles from './subscriptionsListItem.module.css';
 
-const SubscriptionsListItem = (subscription) => {
+const SubscriptionsListItem = ({subscription}) => {
+    
   return (
-    <li>SubscriptionsListItem</li>
+    <li>{subscription._id}</li>
   )
 }
 

@@ -1,0 +1,7 @@
+.all_subscriptions_list_ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    color: var(--labels-color);
+	padding: 5px;
+}

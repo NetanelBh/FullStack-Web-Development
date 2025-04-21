@@ -34,10 +34,14 @@ const AddMovie = () => {
 			image: imageRef.current.value,
 			premiered: premieredRef.current.value,
 		};
-		
+
 		// Save the movie in DB
 		try {
-			const resp = (await axios.post("http://localhost:3000/subscriptions/movie/add", movie)).data.data;
+			const resp = (
+				await axios.post("http://localhost:3000/subscriptions/movie/add", movie, {
+					headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+				})
+			).data.data;
 
 			if (resp.status) {
 				setShowDialog(true);
@@ -59,7 +63,7 @@ const AddMovie = () => {
 	};
 
 	// Get the id of the loged in user from the local storage
-	const employeeId = sessionStorage.getItem("id");
+	const employeeId = localStorage.getItem("id");
 	const addPermission = "Create Movies";
 	const isAddPermissions = isShowPermission(employees, employeeId, addPermission);
 

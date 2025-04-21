@@ -9,7 +9,7 @@ const AllSubscriptions = () => {
 	const allEmployees = useSelector((state) => state.employees.employees);
 	const allSubscriptions = useSelector((state) => state.subscriptions.subscriptions);
 
-	const employeeId = sessionStorage.getItem("id");
+	const employeeId = localStorage.getItem("id");
 	const viewPermission = "View Subscription";
 	const showSubsPermission = isShowPermission(allEmployees, employeeId, viewPermission);
 

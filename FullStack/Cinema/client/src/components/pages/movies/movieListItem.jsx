@@ -61,7 +61,7 @@ const MovieListItem = ({ movie }) => {
 		navigate("/layout/editMovie");
 	};
 
-	const employeeId = sessionStorage.getItem("id");
+	const employeeId = localStorage.getItem("id");
 	const editPermission = "Update Movie";
 	const deletePermission = "Delete Movies";
 
