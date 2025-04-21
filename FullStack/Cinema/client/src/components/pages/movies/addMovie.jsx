@@ -18,6 +18,7 @@ const AddMovie = () => {
 	const imageRef = useRef();
 	const premieredRef = useRef();
 	const [showDialog, setShowDialog] = useState(false);
+	const [dialogText, setDialogText] = useState("");
 	const dispatch = useDispatch();
 
 	const employees = useSelector((state) => state.employees.employees);
@@ -43,8 +44,12 @@ const AddMovie = () => {
 				})
 			).data.data;
 
-			if (resp.status) {
+			if (resp === "Expired token") {
 				setShowDialog(true);
+				setDialogText("Session expired, please login again");
+			} else if (resp.status) {
+				setShowDialog(true);
+				setDialogText("Movie Added Successfully");
 				// Store the movie also in redux to prevent redundant re-read from DB(keep the redux up to date as the DB)
 				dispatch(moviesActions.add(resp.data));
 			}
@@ -55,7 +60,14 @@ const AddMovie = () => {
 
 	const ConfirmHandler = () => {
 		setShowDialog(false);
-		navigate("/layout/WebContentLayout/movies/all");
+		// If the token expired, navigate to the login page
+		if (dialogText === "Session expired, please login again") {
+			setDialogText("");
+			navigate("/");
+		} else if (dialogText === "Movie Added Successfully") {
+			setDialogText("");
+			navigate("/layout/WebContentLayout/movies/all");
+		}
 	};
 
 	const cancelHandler = () => {
@@ -96,7 +108,7 @@ const AddMovie = () => {
 
 			<CustomDialog
 				title="Add Movie"
-				text="Movie Added Successfully"
+				text={dialogText}
 				buttonsArray={[{ text: "OK", onClick: ConfirmHandler }]}
 				open={showDialog}
 			/>
