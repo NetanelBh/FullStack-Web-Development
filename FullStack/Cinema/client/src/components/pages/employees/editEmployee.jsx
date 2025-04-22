@@ -1,6 +1,6 @@
 import styles from "./editEmployee.module.css";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { employeesActions } from "../../store/slices/employeesSlice";
@@ -9,10 +9,13 @@ import axios from "axios";
 import Input from "../../genericComp/input";
 import Button from "../../UI/button/button";
 import PermissionsList from "./permissionsList";
+import CustomDialog from "../../genericComp/dialog";
 
 import updatedPermissionsCheckboxes from "../../utils/updatedPermissionsCheckboxes";
 
 const EditEmployee = () => {
+	const [showDialog, setShowDialog] = useState(false);
+	const [dialogText, setDialogText] = useState("");
 	const firstNameRef = useRef();
 	const lastNameRef = useRef();
 	const usernameRef = useRef();
@@ -69,10 +72,15 @@ const EditEmployee = () => {
 			{ headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
 		);
 
+		if (resp.data.data === "Expired token") {
+			setShowDialog(true);
+			setDialogText("Session expired, please login again");
+		}
 		// If the username changed by the admin, will read the new updated data from the DB
-		if (resp.status && clickedEmployee.username !== usernameRef.current.value) {
+		else if (resp.status && clickedEmployee.username !== usernameRef.current.value) {
 			dispatch(employeesActions.userNameChange());
-			// If the username not changed by the admin, will store the changes in redux
+			navigate("/layout/WebContentLayout/employees/all");
+		// If the username not changed by the admin, will store the changes in redux
 		} else {
 			const reduxEmployee = {
 				...basicEmployee,
@@ -85,9 +93,8 @@ const EditEmployee = () => {
 					employee: reduxEmployee,
 				})
 			);
+			navigate("/layout/WebContentLayout/employees/all");
 		}
-
-		navigate("/layout/WebContentLayout/employees/all");
 	};
 
 	const checkboxClickHandler = (clickedOption) => {
@@ -99,6 +106,12 @@ const EditEmployee = () => {
 				permissions: updatedPermissions,
 			})
 		);
+	};
+
+	const closeDialog = () => {
+		setShowDialog(false);
+		setDialogText("");
+		navigate("/");
 	};
 
 	return (
@@ -149,6 +162,13 @@ const EditEmployee = () => {
 					/>
 				</div>
 			</form>
+
+			<CustomDialog
+				title="Edit Employee"
+				text={dialogText}
+				buttonsArray={[{ text: "OK", onClick: closeDialog }]}
+				open={showDialog}
+			/>
 		</>
 	);
 };

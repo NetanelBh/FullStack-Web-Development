@@ -98,12 +98,12 @@ const AllMovies = () => {
 						createEmployeesList(employees.data, permissions.data, employeeData.data);
 					} else {
 						// If No token privided, navigate to login page
-						// navigate("/");
+						navigate("/");
 					}
 
 					setIsLoading(false);
 				} catch (error) {
-					// If No token is expired, navigate to login page
+					// If token is expired, navigate to login page
 					navigate("/");
 				}
 			};

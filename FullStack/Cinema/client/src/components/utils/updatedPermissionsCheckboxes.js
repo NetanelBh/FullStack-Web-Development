@@ -47,7 +47,7 @@ const updatedPermissionsCheckboxes = (clickedOption, current_employee_permission
 		// Check if one of the conditional permissions is checked to check the view permission automatically
 		if (CONDITIONAL_SUBSCRIPTION_PERMISSIONS.includes(clickedOption.permission)) {
 			if (!current_employee_permissions.includes(viewSubscription)) {
-				updatedPermissions.push(vie);
+				updatedPermissions.push(viewSubscription);
 			}
 		} else if (CONDITIONAL_MOVIE_PERMISSIONS.includes(clickedOption.permission)) {
 			if (!current_employee_permissions.includes(viewMovies)) {

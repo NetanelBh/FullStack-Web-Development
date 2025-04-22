@@ -12,7 +12,7 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
 	const { username, password, admin } = req.body;
 	const encryptedPassword = await bcrypt.hash(password, 10);
-	const employee = { username, password: encryptedPassword, admin };
+	const employee = { username, password: encryptedPassword};
 
 	try {
 		const resp = await authServices.register(employee);

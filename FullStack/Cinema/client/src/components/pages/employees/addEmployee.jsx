@@ -14,7 +14,8 @@ import updatedPermissionsCheckboxes from "../../utils/updatedPermissionsCheckbox
 import { employeesActions } from "../../store/slices/employeesSlice";
 
 const AddEmployee = () => {
-	const [isEmployeeAdded, setIsEmployeeAdded] = useState(false);
+	const [showDialog, setShowDialog] = useState(false);
+	const [dialogText, setDialogText] = useState("");
 	const firstNameRef = useRef();
 	const lastNameRef = useRef();
 	const usernameRef = useRef();
@@ -48,11 +49,18 @@ const AddEmployee = () => {
 
 		const url = "http://localhost:3000/employees/add";
 		try {
-			const resp = await axios.post(url, employee);
-      
+			const resp = await axios.post(url, employee, {
+				headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+			});
+
+			if(resp.data.data === "Expired token"){
+				setShowDialog(true);
+				setDialogText("Session expired, please login again");
+			} 
 			// Update the redux property(read from DB) only if the employee successfully added
-			if (resp.status) {
-				setIsEmployeeAdded(true);
+			else if (resp.status) {
+				setShowDialog(true);
+				setDialogText("Employee Successfully Created!");
 				dispatch(employeesActions.add());
 			}
 		} catch (error) {
@@ -61,9 +69,14 @@ const AddEmployee = () => {
 	};
 
 	const closeDialog = () => {
-		setIsEmployeeAdded(false);
-
-		navigate("/layout/WebContentLayout/employees/all");
+		setShowDialog(false);
+		if (dialogText === "Session expired, please login again") {
+			setDialogText("");
+			navigate("/");
+		} else {
+			setDialogText("");
+			navigate("/layout/WebContentLayout/employees/all");
+		}
 	};
 
 	return (
@@ -95,9 +108,9 @@ const AddEmployee = () => {
 
 			<CustomDialog
 				title="New Employee"
-				text="Employee Successfully Created!"
+				text= {dialogText}
 				buttonsArray={[{ text: "OK", onClick: closeDialog }]}
-				open={isEmployeeAdded}
+				open={showDialog}
 			/>
 		</div>
 	);

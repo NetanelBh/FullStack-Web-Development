@@ -1,16 +1,20 @@
 import styles from "./editMovie.module.css";
 import axios from "axios";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import Input from "../../genericComp/input";
 import Button from "../../UI/button/button";
+import CustomDialog from "../../genericComp/dialog";
 
 import { moviesActions } from "../../store/slices/moviesSlice";
 
 const EditMovie = () => {
+	const [showDialog, setShowDialog] = useState(false);
+	const [dialogText, setDialogText] = useState("");
+
 	const movieNameRef = useRef();
 	const genresRef = useRef();
 	const imageRef = useRef();
@@ -40,12 +44,29 @@ const EditMovie = () => {
 		};
 
 		try {
-			const resp = (await axios.put(url, updatedMovie)).data.data;
-			if (resp.status) {
+			const resp = (
+				await axios.put(url, updatedMovie, {
+					headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+				})
+			).data.data;
+
+			if (resp === "Expired token") {
+				setShowDialog(true);
+				setDialogText("Session expired, please login again");
+			} else if (resp.status) {
 				dispatch(moviesActions.edit(resp.data));
 				navigate("/layout/WebContentLayout/movies/all");
 			}
-		} catch (error) {}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const ConfirmHandler = () => {
+		// The dialog is shown only when the token expired
+		setShowDialog(false);
+		setDialogText("");
+		navigate("/");
 	};
 
 	// The clicked movie to edit
@@ -65,6 +86,13 @@ const EditMovie = () => {
 					<Button className={styles.edit_movie_button} text="Cancle" type="button" onClick={cancelHandler} />
 				</div>
 			</form>
+
+			<CustomDialog
+				title="Add Movie"
+				text={dialogText}
+				buttonsArray={[{ text: "OK", onClick: ConfirmHandler }]}
+				open={showDialog}
+			/>
 		</>
 	);
 };

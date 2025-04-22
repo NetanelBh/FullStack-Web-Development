@@ -1,1 +1,18 @@
-{"employees":[{"id":"6786901daf1d3c8a003ce1e1","firstName":"Netanel","lastName":"Ben Hamo","createdDate":"14/1/2025","sessionTimeOut":"10"},{"id":"67ce103932c5d8cc01ad2638","firstName":"Sagi","lastName":"Levi","createdDate":"10/3/2025","sessionTimeOut":"1"}]}
+{
+	"employees": [
+		{
+			"id": "6786901daf1d3c8a003ce1e1",
+			"firstName": "Netanel",
+			"lastName": "Ben Hamo",
+			"createdDate": "14/1/2025",
+			"sessionTimeOut": "0.5"
+		},
+		{
+			"id": "68078cab2801bb76c17ac04f",
+			"firstName": "Sagi",
+			"lastName": "Levi",
+			"createdDate": "22/4/2025",
+			"sessionTimeOut": "1"
+		}
+	]
+}

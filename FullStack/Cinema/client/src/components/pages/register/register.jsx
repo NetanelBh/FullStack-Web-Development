@@ -26,6 +26,7 @@ const Register = () => {
         setValidUser((lastState) => {
             return {...lastState, valid: true, message: ""};
         });
+        console.log("CHANGE GHE REGISTER TO BE THROUGH AUTH AND NOT EMPLOYEES(TO AVOID THE TOKEN CHECK)");
         
         const url = "http://localhost:3000/employees/register";
         try {
