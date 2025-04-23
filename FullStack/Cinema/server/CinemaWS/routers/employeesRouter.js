@@ -48,29 +48,6 @@ router.post("/add", async (req, res) => {
 	}
 });
 
-// During the register process, if the employee exists in DB, will update his password.
-router.patch("/register", async (req, res) => {
-	const { username, password } = req.body;
-
-	try {
-		const employee = await employeesServices.getEmployeeFromDbByUsername(username);
-		// Let the employee set password only if it's the first time the employee register to system.
-		if (employee && employee.password !== "") {
-			res.send({ status: false, data: "User already exists in system" });
-			return;
-		}
-
-		const resp = await employeesServices.updateEmployeePassword(username, password);
-		if (resp) {
-			res.send({ status: true, data: resp });
-		} else {
-			res.send({ status: false, data: "User doesn't exist in system" });
-		}
-	} catch (error) {
-		res.send({ status: false, data: error.message });
-	}
-});
-
 // Update employee tada in database and json files(employees.json and permissions.json)
 router.put("/update", async (req, res) => {
 	const { employee } = req.body;

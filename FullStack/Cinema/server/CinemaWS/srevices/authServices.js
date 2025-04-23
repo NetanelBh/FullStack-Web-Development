@@ -1,8 +1,4 @@
-import { addEmployeeToDb, getEmployeeFromFileById, getEmployeeFromDbByUsername } from './employeesServices.js';
-
-export const register = (employee) => { 
-    return addEmployeeToDb(employee);
-};
+import { getEmployeeFromFileById, getEmployeeFromDbByUsername } from './employeesServices.js';
 
 export const login = async (username) => {     
     try {

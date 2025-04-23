@@ -34,17 +34,27 @@ export const getEmployeeFromDbByUsername = (username) => {
 export const updateEmployeePassword = async (username, password) => {
 	try {
 		const employee = await getEmployeeFromDbByUsername(username);
-
-		if (employee) {
-			const salt = await bcrypt.genSalt(10);
-			const encryptedPassword = await bcrypt.hash(password, salt);
-
-			return employeesDbRepo.updateEmployeePassword(username, encryptedPassword);
+		// If employee doens't exist in DB
+		if (!employee) {
+			return { status: false, data: "User doesn't exist in the system" };
+		} 
+		
+		// If the employee exists in DB and he set the password already in the past, return corresponding message.	
+		if (employee && employee.password !== "") {
+			return { status: false, data: "User already exists in the system" };
 		}
 
-		return employee;
+		const salt = await bcrypt.genSalt(10);
+		const encryptedPassword = await bcrypt.hash(password, salt);
+		const updatedEmployee = await employeesDbRepo.updateEmployeePassword(username, encryptedPassword);
+		if (updatedEmployee) {
+			return { status: true, data: updatedEmployee };
+		} else {
+			return { status: false, data: "Failed to register employee" };
+		}
+		
 	} catch (error) {
-		return undefined;
+		return {status: false, data: error.message};
 	}
 };
 

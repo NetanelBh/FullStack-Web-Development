@@ -23,7 +23,8 @@ export const updateEmployeePassword = (userName, encryptedPassword) => {
     // Option to return the updated document rather than the original one.
     const options = { new: true };
     
-    return employeesModel.findOneAndUpdate(condition, data, options);
+    // Return the employee without the password field
+    return employeesModel.findOneAndUpdate(condition, data, options).select("-password");
 };
 
 export const updateUsername = (userName, updatedUsername) => {
