@@ -24,7 +24,7 @@ const MovieListItem = ({ movie }) => {
 	const employees = useSelector((state) => state.employees.employees);
 	const subscriptions = useSelector((state) => state.subscriptions.subscriptions);
 
-	const deleteMovieHandler = async (movie) => {
+	const deleteMovieHandler = async () => {		
 		// When delete the movie, will delete also the subscriptions that watched the movie
 		const deleteUrl = `http://localhost:3000/subscriptions/movie/delete/${movie._id}`;
 		const updateUrl = `http://localhost:3000/subscriptions/subscription/update`;
@@ -75,7 +75,7 @@ const MovieListItem = ({ movie }) => {
 		}
 	};
 
-	const editMovieHandler = (movie) => {
+	const editMovieHandler = () => {
 		localStorage.setItem("movieId", movie._id);
 		navigate("/layout/editMovie");
 	};
@@ -121,7 +121,7 @@ const MovieListItem = ({ movie }) => {
 						className={isEditPermission ? styles.all_movies_list_item_actions_edit : styles.no_permission}
 						text="Edit"
 						type="button"
-						onClick={editMovieHandler.bind(null, movie)}
+						onClick={editMovieHandler}
 					/>
 					<Button
 						className={
@@ -129,7 +129,7 @@ const MovieListItem = ({ movie }) => {
 						}
 						text="Delete"
 						type="button"
-						onClick={deleteMovieHandler.bind(null, movie)}
+						onClick={deleteMovieHandler}
 					/>
 				</div>
 			</li>

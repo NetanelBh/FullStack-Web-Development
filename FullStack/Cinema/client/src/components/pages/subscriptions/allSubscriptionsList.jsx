@@ -13,12 +13,10 @@ const AllSubscriptionsList = ({ subscriptions }) => {
 			{subscriptions.map((subscription) => {
 				const member = allMembers.find((member) => member._id === subscription.memberId);
 				const subscriptionData = {...member, movies: subscription.movies};
-				console.log(subscriptionData);
-				
 				
 				return (
-					<Card key={subscription._id} className="general_card">
-						<SubscriptionsListItem subscription={subscription} />
+					<Card key={subscription._id} className="generic_card">
+						<SubscriptionsListItem subscription={subscriptionData} />
 					</Card>
 				);
 			})}
