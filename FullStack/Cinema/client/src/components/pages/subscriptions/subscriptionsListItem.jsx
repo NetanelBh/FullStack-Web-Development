@@ -1,27 +1,35 @@
 import styles from "./subscriptionsListItem.module.css";
 
 import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import Card from "../../UI/card/card";
 import Button from "../../UI/button/button";
 import { isShowPermission } from "../../utils/moviesPermissions";
 
 const SubscriptionsListItem = ({ subscription }) => {
-    console.log(subscription);
-    
 	const allEmployees = useSelector((state) => state.employees.employees);
+	const allMovies = useSelector((state) => state.movies.movies);
+    const navigate = useNavigate();
 
-    const employeeId = localStorage.getItem("id");
-    const editPermission = "Update Subscription";
+	const employeeId = localStorage.getItem("id");
+	const editPermission = "Update Subscription";
 	const deletePermission = "Delete Subscriptions";
 
-    const editSubscriptionHandler = () => {};
+    const newMovieSubscriptionHandler = () => {
+        // TODO: CREATE A SECTION FOR NEW SUBSCRIPTION MOVIES
+    };
+	
+    const editSubscriptionHandler = () => {
+        localStorage.setItem("subscriptionId", subscription._id);
+        navigate("/layout/editSubscription");
+    };
 
-    const deleteSubscriptionHandler = () => {};
+	const deleteSubscriptionHandler = () => {};
 
-    // Determine whether the employee has the permissin to edit or remove movies
-        const isEditPermission = isShowPermission(allEmployees, employeeId, editPermission);
-        const isDeletePermission = isShowPermission(allEmployees, employeeId, deletePermission);
+	// Determine whether the employee has the permissin to edit or remove movies
+	const isEditPermission = isShowPermission(allEmployees, employeeId, editPermission);
+	const isDeletePermission = isShowPermission(allEmployees, employeeId, deletePermission);
 
 	return (
 		<li className={styles.all_subs_list_item}>
@@ -44,9 +52,29 @@ const SubscriptionsListItem = ({ subscription }) => {
 				/>
 			</div>
 
-            <Card className={`generic_card ${styles.all_subs_list_item_movies_card}`}>
-                <p className={styles.all_subs_list_item_movies_header}>Movies Watched</p>
-            </Card>
+			<Card className={`generic_card ${styles.all_subs_list_item_movies_card}`}>
+				<p className={styles.all_subs_list_item_movies_header}>Watched Movies</p>
+
+				<Button
+					className={styles.all_subs_list_item_movie_subscribe_button}
+					text="Subscribe To New Movies"
+					type="button"
+					onClick={newMovieSubscriptionHandler}
+				></Button>
+
+				<ul className={styles.all_subs_list_item_movies_list}>
+					{subscription.movies.map((movie) => {
+						const movieName = allMovies.find((m) => m._id === movie.movieId).name;
+						return (
+							<li key={movie.movieId}>
+								<NavLink to="/layout/WebContentLayout/movies/all" state={{ selectedMovie: movieName }}>
+									{movieName}, {movie.date}
+								</NavLink>
+							</li>
+						);
+					})}
+				</ul>
+			</Card>
 		</li>
 	);
 };

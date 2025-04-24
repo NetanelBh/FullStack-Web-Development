@@ -1,8 +1,9 @@
 import styles from "./allMovies.module.css";
 
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import AllMoviesList from "./allMoviesList";
 import PacmanLoading from "../../UI/loading/pacmanLoading";
@@ -12,7 +13,6 @@ import { employeesActions } from "../../store/slices/employeesSlice";
 import { subscriptionsActions } from "../../store/slices/subscriptionsSlice";
 
 import { isShowPermission } from "../../utils/moviesPermissions";
-import { useNavigate } from "react-router-dom";
 
 const DB_EMPLOYEES_URL = "http://localhost:3000/employees/db";
 const PERMISSIONS_FILE_URL = "http://localhost:3000/permissions";
@@ -21,11 +21,14 @@ const MOVIES_URL = "http://localhost:3000/subscriptions/movies";
 const MEMBERS_URL = "http://localhost:3000/subscriptions/members";
 const SUBSCRIPTIONS_URL = "http://localhost:3000/subscriptions/subscriptions";
 
+// Get movieName as prop
 const AllMovies = () => {
 	const [isLoading, setIsLoading] = useState(false);
+	// If we reached to this page from the subscriptions page, we need to show only the clicked movie
 	const [searchCharacters, setSearchCharacters] = useState("");
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const movies = useSelector((state) => state.movies.movies);
 	const members = useSelector((state) => state.members.members);
@@ -36,6 +39,18 @@ const AllMovies = () => {
 	localStorage.removeItem("movieId");
 	// Remove the last saved subscriptionId(if we come back to this page from the edit subscriptions when click on back)
 	localStorage.removeItem("subscriptionId");
+
+	// When navigate back from other page, remove the characters from the search bar(when delete it will no find it)
+		// And also if we are didn't arrive to this page from the subscriptions page
+	useEffect(() => {
+		const { selectedMovie } = location.state || false;
+
+		if (selectedMovie) {
+			setSearchCharacters((prevState) => selectedMovie.toLocaleLowerCase());
+		} else {
+			setSearchCharacters("");
+		}
+	}, [movies.length]);
 
 	const createEmployeesList = useCallback((employees, permissions, employeeData) => {
 		const employeesList = employees.data.map((emp) => {
@@ -67,11 +82,6 @@ const AllMovies = () => {
 	}, []);
 
 	useEffect(() => {
-		// When navigate back from other page, remove the characters from the search bar(when delete it will no find it)
-		setSearchCharacters("");
-	}, [movies.length]);
-
-	useEffect(() => {
 		if (allEmployees.length === 0 || allEmployees.readFromDb) {
 			const fetchEmployeesData = async () => {
 				try {
@@ -92,7 +102,7 @@ const AllMovies = () => {
 						permResp,
 						employeeDataResp,
 					]);
-				
+
 					// Create the employees list to store in redux only if all the requested url returned with corrrect data
 					if (employees.data.status && permissions.data.status && employeeData.data.status) {
 						createEmployeesList(employees.data, permissions.data, employeeData.data);
@@ -116,23 +126,29 @@ const AllMovies = () => {
 	const fetchSubscriptionsData = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			const moviesResp = (await axios.get(MOVIES_URL, {
-				headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-			})).data;
+			const moviesResp = (
+				await axios.get(MOVIES_URL, {
+					headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+				})
+			).data;
 
 			if (moviesResp.status) {
 				dispatch(moviesActions.load(moviesResp.data));
 			}
-			const membersResp = (await axios.get(MEMBERS_URL, {
-				headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-			})).data;
+			const membersResp = (
+				await axios.get(MEMBERS_URL, {
+					headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+				})
+			).data;
 
 			if (membersResp.status) {
 				dispatch(membersActions.load(membersResp.data));
 			}
-			const subscriptionsResp = (await axios.get(SUBSCRIPTIONS_URL, {
-				headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-			})).data;
+			const subscriptionsResp = (
+				await axios.get(SUBSCRIPTIONS_URL, {
+					headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+				})
+			).data;
 
 			if (subscriptionsResp.status) {
 				dispatch(subscriptionsActions.load(subscriptionsResp.data));

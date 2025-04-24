@@ -45,10 +45,37 @@
 }
 
 .all_subs_list_item_movies_card {
+    display: flex;
+    flex-direction: column;
     margin: 1rem 1rem 0.5rem 0;
     padding-top: 0;
 }
 
 .all_subs_list_item_movies_header {
+    font-size: var(--label-font-size);
+    text-align: center;
+}
+
+.all_subs_list_item_movie_subscribe_button {
+    border-radius: 10px;;
+    margin-bottom: 1rem;
     font-size: var(--input-font-size);
+}
+
+.all_subs_list_item_movie_subscribe_button:hover {
+    background-color: var(--focus-background-color);
+    border-color: var(--focus-background-color);
+}
+
+.all_subs_list_item_movies_list {
+    list-style: decimal;
+    padding: 5px 5px 5px 15px;
+}
+
+.all_subs_list_item_movies_list li {
+    margin-bottom: 0.5rem;
+}
+
+.all_subs_list_item_movies_list a {
+    color: var(--focus-background-color);
 }
