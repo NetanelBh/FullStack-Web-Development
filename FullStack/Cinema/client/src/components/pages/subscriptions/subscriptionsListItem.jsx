@@ -1,15 +1,22 @@
 import styles from "./subscriptionsListItem.module.css";
 
-import { useSelector } from "react-redux";
+import axios from "axios";
+
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import Card from "../../UI/card/card";
 import Button from "../../UI/button/button";
 import { isShowPermission } from "../../utils/moviesPermissions";
 
+import { membersActions } from "../../store/slices/membersSlice";
+import { subscriptionsActions } from "../../store/slices/subscriptionsSlice";
+import { useState } from "react";
+
 const SubscriptionsListItem = ({ subscription }) => {
 	const allEmployees = useSelector((state) => state.employees.employees);
 	const allMovies = useSelector((state) => state.movies.movies);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const employeeId = localStorage.getItem("id");
@@ -21,15 +28,23 @@ const SubscriptionsListItem = ({ subscription }) => {
 	};
 
 	const deleteSubscriptionHandler = async () => {
-		// const url = `http://localhost:3000/subscriptions/member/delete/${subscription._id}`;
-		const url = `http://localhost:3000/subscriptions/member/delete/680e4fb12ce40a2885cf9451`;
-        try {
-            const resp = (await axios.delete(url)).data;
-            console.log(resp);
-            
-        } catch (error) {
-            console.error("Error deleting subscription:", error);
-        }
+		const deleteMemberUrl = `http://localhost:3000/subscriptions/member/delete/${subscription._id}`;
+		const deleteSubscriptionUrl = `http://localhost:3000/subscriptions/subscription/delete/${subscription._id}`;
+		const headers = { authorization: `Bearer ${localStorage.getItem("token")}` };
+
+		try {
+			const deleteMemberResp = (await axios.delete(deleteMemberUrl, { headers })).data;
+			if (deleteMemberResp.status) {
+				dispatch(membersActions.remove(subscription._id));
+			}
+
+			const deleteSubscriptionResp = (await axios.delete(deleteSubscriptionUrl, { headers })).data;
+			if (deleteSubscriptionResp.status) {
+				dispatch(subscriptionsActions.remove(subscription._id));
+			}
+		} catch (error) {
+			console.error("Error deleting subscription:", error);
+		}
 	};
 
 	const editSubscriptionHandler = () => {

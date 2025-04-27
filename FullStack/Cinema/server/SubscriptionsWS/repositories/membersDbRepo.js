@@ -15,5 +15,5 @@ export const updateMembers = (filter, member) => {
 };
 
 export const deleteMember = (id) => {
-  // REMOVE THE MEMBER FROM THE MEMBERS COLLECTION IN DB
+  return membersModel.findByIdAndDelete(id);
 };

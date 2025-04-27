@@ -11,3 +11,9 @@ export const getSubscriptions = () => {
 export const updateSubscriptions = (subscriptionsList) => {     
     return subscriptionsDbRepo.updateSubscriptions(subscriptionsList);
 };
+
+export const deleteSubscription = (id) => {
+	// Here I need to set filter because I need to find the memberId and not the id that created by MongoDB
+	const filter = { memberId: id };
+	return subscriptionsDbRepo.deleteSubscription(filter);
+};

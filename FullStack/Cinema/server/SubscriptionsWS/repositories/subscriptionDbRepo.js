@@ -19,3 +19,8 @@ export const updateSubscriptions = (subscriptions) => {
   const res = Promise.all(updatedSubscriptions);
   return res;
 };
+
+    export const deleteSubscription = (filter) => {
+      // I need here the filter because I want to remove the line by the memberId and not the id that created by MongoDB
+      return subscriptionModel.deleteOne(filter);
+    };

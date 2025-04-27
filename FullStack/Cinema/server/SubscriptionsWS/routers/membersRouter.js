@@ -36,7 +36,13 @@ router.put('/update', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
     const id = req.params.id;
-    const resp = membersServices.deleteMember(id);
+    try {
+        await membersServices.deleteMember(id);
+        res.send({status: true, data: 'Member deleted successfully'});
+    } catch (error) {
+        res.send({status: false, data: error.message});
+    }
+    
 });
 
 export default router;

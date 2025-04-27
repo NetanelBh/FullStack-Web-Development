@@ -14,6 +14,9 @@ const membersSlice = createSlice({
             if (index!== -1) {
                 state.members[index] = action.payload;
             }
+        },
+        remove(state, action) {            
+            state = state.members.filter((member) => member.memberId !== action.payload);
         }
     },
 });

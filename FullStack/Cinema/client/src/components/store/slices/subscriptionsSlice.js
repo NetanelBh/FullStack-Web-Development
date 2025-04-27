@@ -12,7 +12,7 @@ const subscriptionsSlice = createSlice({
 		add(state, action) {
 			state.subscriptions.push(action.payload);
 		},
-		remove(state, action) {
+		remove(state, action) {			
             state.subscriptions = state.subscriptions.filter((sub) => sub.memberId !== action.payload);
         },
 		update(state, action) {

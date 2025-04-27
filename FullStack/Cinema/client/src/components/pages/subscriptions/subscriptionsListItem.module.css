@@ -12,7 +12,7 @@
 
 .all_subs_list_item_details {
     margin: 0.2rem 0 0.2rem 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: var(--labels-color);
 } 
 
@@ -23,12 +23,12 @@
 }
 
 .all_subs_list_item_actions_edit {
-	font-size: var(--input-font-size);
+	font-size: 1.2rem;
     border-radius: 5px;
 }
 
 .all_subs_list_item_actions_delete {
-    font-size: var(--input-font-size);
+    font-size: 1.2rem;
     border-radius: 5px;
 }
 
@@ -74,4 +74,5 @@
 
 .all_subs_list_item_movies_list a {
     color: var(--focus-background-color);
+    font-size: 1.2rem;
 }

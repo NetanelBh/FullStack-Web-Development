@@ -27,4 +27,14 @@ router.patch('/update', async (req, res) => {
     }
 });
 
+router.delete('/delete/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await subscriptionsServices.deleteSubscription(id);
+        res.send({status: true, data: 'Subscription deleted successfully'});
+    } catch (error) {
+        res.send({status: false, data: error.message});
+    }
+});
+
 export default router;
