@@ -17,7 +17,7 @@ const AllSubscriptions = () => {
 		<>
 			{!showSubsPermission && (
 				<div id="list_container">
-					<p id="no_permissin">No permission to show the Subscriptions</p>
+					<p id="no_permission">No permission to show the Subscriptions</p>
 				</div>
 			)}
 

@@ -28,20 +28,16 @@
 }
 
 .all_subs_list_item_actions_delete {
-	font-size: var(--input-font-size);
+    font-size: var(--input-font-size);
     border-radius: 5px;
-}
-
-.all_subs_list_item_actions_delete:hover {
-    background-color: var(--delete-button-hover-color);
 }
 
 .all_subs_list_item_actions_edit:hover {
     background-color: var(--focus-background-color);
 }
 
-.no_permission {
-	display: none;
+.all_subs_list_item_actions_delete:hover {
+    background-color: var(--delete-button-hover-color);
 }
 
 .all_subs_list_item_movies_card {

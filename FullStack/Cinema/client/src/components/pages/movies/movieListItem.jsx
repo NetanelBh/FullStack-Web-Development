@@ -24,7 +24,7 @@ const MovieListItem = ({ movie }) => {
 	const employees = useSelector((state) => state.employees.employees);
 	const subscriptions = useSelector((state) => state.subscriptions.subscriptions);
 
-	const deleteMovieHandler = async () => {		
+	const deleteMovieHandler = async () => {
 		// When delete the movie, will delete also the subscriptions that watched the movie
 		const deleteUrl = `http://localhost:3000/subscriptions/movie/delete/${movie._id}`;
 		const updateUrl = `http://localhost:3000/subscriptions/subscription/update`;
@@ -116,22 +116,27 @@ const MovieListItem = ({ movie }) => {
 					</div>
 				</div>
 
-				<div className={styles.all_movies_list_item_actions}>
-					<Button
-						className={isEditPermission ? styles.all_movies_list_item_actions_edit : styles.no_permission}
-						text="Edit"
-						type="button"
-						onClick={editMovieHandler}
-					/>
-					<Button
-						className={
-							isDeletePermission ? styles.all_movies_list_item_actions_delete : styles.no_permission
-						}
-						text="Delete"
-						type="button"
-						onClick={deleteMovieHandler}
-					/>
-				</div>
+				{(isEditPermission || isDeletePermission) && (
+					<div className={styles.all_movies_list_item_actions}>
+						{isEditPermission && (
+							<Button
+								className={styles.all_movies_list_item_actions_edit}
+								text="Edit"
+								type="button"
+								onClick={editMovieHandler}
+							/>
+						)}
+
+						{isDeletePermission && (
+							<Button
+								className={styles.all_movies_list_item_actions_delete}
+								text="Delete"
+								type="button"
+								onClick={deleteMovieHandler}
+							/>
+						)}
+					</div>
+				)}
 			</li>
 
 			<CustomDialog

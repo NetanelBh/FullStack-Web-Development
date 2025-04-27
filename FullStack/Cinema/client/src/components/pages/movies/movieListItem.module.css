@@ -74,7 +74,3 @@
 .all_movies_list_item_actions_edit:hover {
     background-color: var(--focus-background-color);
 }
-
-.no_permission {
-	display: none;
-}

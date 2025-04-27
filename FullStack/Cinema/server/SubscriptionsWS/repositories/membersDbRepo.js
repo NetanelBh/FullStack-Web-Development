@@ -13,3 +13,7 @@ export const getMembers = () => {
 export const updateMembers = (filter, member) => {  
   return membersModel.findOneAndReplace(filter, member, { new: true });
 };
+
+export const deleteMember = (id) => {
+  // REMOVE THE MEMBER FROM THE MEMBERS COLLECTION IN DB
+};

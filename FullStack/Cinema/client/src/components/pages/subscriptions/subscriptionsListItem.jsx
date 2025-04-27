@@ -10,22 +10,32 @@ import { isShowPermission } from "../../utils/moviesPermissions";
 const SubscriptionsListItem = ({ subscription }) => {
 	const allEmployees = useSelector((state) => state.employees.employees);
 	const allMovies = useSelector((state) => state.movies.movies);
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const employeeId = localStorage.getItem("id");
 	const editPermission = "Update Subscription";
 	const deletePermission = "Delete Subscriptions";
 
-    const newMovieSubscriptionHandler = () => {
-        // TODO: CREATE A SECTION FOR NEW SUBSCRIPTION MOVIES
-    };
-	
-    const editSubscriptionHandler = () => {
-        localStorage.setItem("subscriptionId", subscription._id);
-        navigate("/layout/editSubscription");
-    };
+	const newMovieSubscriptionHandler = () => {
+		// TODO: CREATE A SECTION FOR NEW SUBSCRIPTION MOVIES
+	};
 
-	const deleteSubscriptionHandler = () => {};
+	const deleteSubscriptionHandler = async () => {
+		// const url = `http://localhost:3000/subscriptions/member/delete/${subscription._id}`;
+		const url = `http://localhost:3000/subscriptions/member/delete/680e4fb12ce40a2885cf9451`;
+        try {
+            const resp = (await axios.delete(url)).data;
+            console.log(resp);
+            
+        } catch (error) {
+            console.error("Error deleting subscription:", error);
+        }
+	};
+
+	const editSubscriptionHandler = () => {
+		localStorage.setItem("subscriptionId", subscription._id);
+		navigate("/layout/editSubscription");
+	};
 
 	// Determine whether the employee has the permissin to edit or remove movies
 	const isEditPermission = isShowPermission(allEmployees, employeeId, editPermission);
@@ -37,20 +47,27 @@ const SubscriptionsListItem = ({ subscription }) => {
 			<p className={styles.all_subs_list_item_details}>{subscription.email}</p>
 			<p className={styles.all_subs_list_item_details}>{subscription.city}</p>
 
-			<div className={styles.all_subs_list_item_actions}>
-				<Button
-					className={isEditPermission ? styles.all_subs_list_item_actions_edit : styles.no_permission}
-					text="Edit"
-					type="button"
-					onClick={editSubscriptionHandler}
-				/>
-				<Button
-					className={isDeletePermission ? styles.all_subs_list_item_actions_delete : styles.no_permission}
-					text="Delete"
-					type="button"
-					onClick={deleteSubscriptionHandler}
-				/>
-			</div>
+			{(isEditPermission || isDeletePermission) && (
+				<div className={styles.all_subs_list_item_actions}>
+					{isEditPermission && (
+						<Button
+							className={styles.all_subs_list_item_actions_edit}
+							text="Edit"
+							type="button"
+							onClick={editSubscriptionHandler}
+						/>
+					)}
+
+					{isDeletePermission && (
+						<Button
+							className={styles.all_subs_list_item_actions_delete}
+							text="Delete"
+							type="button"
+							onClick={deleteSubscriptionHandler}
+						/>
+					)}
+				</div>
+			)}
 
 			<Card className={`generic_card ${styles.all_subs_list_item_movies_card}`}>
 				<p className={styles.all_subs_list_item_movies_header}>Watched Movies</p>

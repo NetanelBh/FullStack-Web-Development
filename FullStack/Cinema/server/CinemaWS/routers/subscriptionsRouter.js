@@ -92,6 +92,21 @@ router.put("/member/update", async (req, res) => {
 	}
 });
 
+router.delete("/member/delete/:id", async (req, res) => {
+	const id = req.params.id;
+	const url = `http://localhost:3001/members/delete/${id}`;
+	try {
+		const resp = (await axios.delete(url)).data;
+		if (resp.status) {
+			res.send({...resp, data: "Member deleted successfully"});
+		} else {
+			res.send({...resp, data: "Failed to delete member"});
+		}
+	} catch (error) {
+		res.send({status: false, data: error.message});
+	}
+});
+
 router.get("/subscriptions", async (req, res) => {
 	const url = "http://localhost:3001/subscriptions/get";
 

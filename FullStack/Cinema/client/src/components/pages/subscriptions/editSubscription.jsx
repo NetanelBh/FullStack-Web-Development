@@ -12,11 +12,12 @@ import CustomDialog from "../../genericComp/dialog";
 
 const EditSubscription = () => {
 	const [showDialog, setShowDialog] = useState(false);
+	const [dialogText, setDialogText] = useState("");
 	const subscriptionId = localStorage.getItem("subscriptionId");
 
 	const dispatch = useDispatch();
 	const members = useSelector((state) => state.members.members);
-	
+
 	const navigate = useNavigate();
 
 	const clickedSubscription = members.find((member) => member._id === subscriptionId);
@@ -37,9 +38,20 @@ const EditSubscription = () => {
 		};
 
 		try {
-			const resp = (await axios.put(url, updatedMember)).data;
+			const resp = (
+				await axios.put(url, updatedMember, {
+					headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+				})
+			).data;
+			
+			if (resp.data === "Expired token") {
+				setShowDialog(true);
+				setDialogText("Session expired, please login again");
+			}
+
 			if (resp.status) {
 				setShowDialog(true);
+				setDialogText("Member updated successfully!");
 				dispatch(membersActions.update(resp.data));
 			}
 		} catch (error) {
@@ -56,7 +68,14 @@ const EditSubscription = () => {
 		// Update the state back to false to avoid automatic dialog popup in the next page's visit
 		setShowDialog(false);
 
-		navigate("/layout/WebContentLayout/subscriptions/all");
+		if (dialogText === "Session expired, please login again") {
+			setDialogText("");
+			navigate("/");
+		} else {
+			setDialogText("");
+			navigate("/layout/WebContentLayout/subscriptions/all");
+		}
+
 	};
 
 	return (

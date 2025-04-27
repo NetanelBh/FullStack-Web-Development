@@ -18,3 +18,7 @@ export const updateMember = (member) => {
 
     return membersDbRepo.updateMembers(idFilter, member);
 };
+
+export const deleteMember = (id) => {
+    return membersDbRepo.deleteMember(id);
+};

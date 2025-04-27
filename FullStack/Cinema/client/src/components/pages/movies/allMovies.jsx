@@ -207,7 +207,7 @@ const AllMovies = () => {
 
 			{!showMoviePermission && (
 				<div id="list_container">
-					<p id="no_permissin">No permission to show the movies</p>
+					<p id="no_permission">No permission to show the movies</p>
 				</div>
 			)}
 		</>
