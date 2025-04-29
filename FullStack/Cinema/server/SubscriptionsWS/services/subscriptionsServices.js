@@ -8,6 +8,10 @@ export const getSubscriptions = () => {
 	return subscriptionsDbRepo.getSubscriptions();
 };
 
+export const getSubscriptionById = (id) => {
+	return subscriptionsDbRepo.getSubscriptionById(id);
+};
+
 export const updateSubscriptions = (subscriptionsList) => {     
     return subscriptionsDbRepo.updateSubscriptions(subscriptionsList);
 };

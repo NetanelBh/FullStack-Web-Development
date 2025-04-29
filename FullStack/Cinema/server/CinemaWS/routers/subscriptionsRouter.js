@@ -74,6 +74,17 @@ router.get("/members", async (req, res) => {
 	}
 });
 
+router.post("/member/add", async (req, res) => {
+	const member = req.body;
+	const url = "http://localhost:3001/members/add";
+	try {
+		const resp = (await axios.post(url, member)).data;
+		res.send(resp);
+	} catch (error) {
+		res.send({ status: false, data: error.message });
+	}
+});
+
 router.put("/member/update", async (req, res) => {
 	const url = "http://localhost:3001/members/update";
 	const member = req.body;
@@ -113,6 +124,33 @@ router.get("/subscriptions", async (req, res) => {
 		}
 	} catch (error) {
 		res.send();
+	}
+});
+
+router.get("/subscription/:id", async (req, res) => {
+	const id = req.params.id;
+	const url = `http://localhost:3001/subscriptions/get/${id}`;
+	try {
+		const resp = (await axios.get(url)).data;
+		if (resp.status) {
+			res.send({ status: resp.status, data: resp });
+		} else {
+			res.send({ status: resp.status, data: "No subscriptions found" });
+		}
+	} catch (error) {
+		res.send({ status: false, data: error.message });
+	}
+});
+
+router.post("/subscription/add", async (req, res) => {
+	const url = "http://localhost:3001/subscriptions/add";
+	const subscription = req.body;
+
+	try {
+		const resp = (await axios.post(url, subscription)).data;
+		res.send(resp);
+	} catch (error) {
+		res.send({ status: false, data: error.message });
 	}
 });
 

@@ -9,6 +9,9 @@ const membersSlice = createSlice({
         load(state, action) {   
             state.members = action.payload.data;
         },
+        add(state, action) {            
+            state.members.push(action.payload);
+        },
         update(state, action) {
             const index = state.members.findIndex((member) => member._id === action.payload._id);
             if (index!== -1) {

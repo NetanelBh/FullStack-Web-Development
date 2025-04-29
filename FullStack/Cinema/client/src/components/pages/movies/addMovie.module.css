@@ -5,7 +5,7 @@
 }
 
 .add_movie_button {
-    font-size: var(--font-size);
+    font-size: var(--input-font-size);
     border-radius: 5px;
 }
 
@@ -14,6 +14,6 @@
 }
 
 .add_movie_no_permission {
-    font-size: var(--font-size);
+    font-size: var(--input-font-size);
     color: var(--focus-background-color);
 }

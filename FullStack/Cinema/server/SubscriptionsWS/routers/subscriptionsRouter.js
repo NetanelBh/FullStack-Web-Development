@@ -18,9 +18,32 @@ router.get("/get", async (req, res) => {
     }
 });
 
-router.patch('/update', async (req, res) => {
-    console.log(req.body);
+router.get("/get/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        const resp = await subscriptionsServices.getSubscriptionById(id);
+        if (resp) {
+            res.send({status: true, data: resp});
+        } else {
+            res.send({status: false, data: "No subscriptions found."});
+        }
+    } catch (error) {
+        res.send({status: false, data: error.message});
+    }
+});
+
+router.post('/add', async (req, res) => {
+    const subscription = req.body;
     
+    try {
+        const resp = await subscriptionsServices.addSubscription(subscription);
+        res.send({status: true, data: resp});
+    } catch (error) {
+        res.send({status: false, data: error.message});
+    }
+});
+
+router.patch('/update', async (req, res) => {
     try {
         const resp = await subscriptionsServices.updateSubscriptions(req.body);
         res.send({status: true, data: resp});

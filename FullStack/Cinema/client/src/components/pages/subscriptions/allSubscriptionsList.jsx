@@ -10,12 +10,17 @@ const AllSubscriptionsList = ({ subscriptions }) => {
 
 	return (
 		<ul className={styles.all_subscriptions_list_ul}>
-			{subscriptions.map((subscription) => {
-				const member = allMembers.find((member) => member._id === subscription.memberId);
-				const subscriptionData = {...member, movies: subscription.movies};
+			{allMembers.map((member) => {
+				// Per each member, find the corresponding subscription(if exists)
+				const watchedMovies = subscriptions.find((subscription) => member._id === subscription.memberId);
+				
+				const subscriptionData = {...member, movies: []};
+				if (watchedMovies !== undefined) {
+					subscriptionData['movies'] = watchedMovies.movies;
+				}
 				
 				return (
-					<Card key={subscription._id} className="generic_card">
+					<Card key={member._id} className="generic_card">
 						<SubscriptionsListItem subscription={subscriptionData} />
 					</Card>
 				);

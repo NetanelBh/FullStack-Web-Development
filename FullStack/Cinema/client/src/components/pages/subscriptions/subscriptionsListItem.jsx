@@ -61,22 +61,28 @@ const SubscriptionsListItem = ({ subscription }) => {
 		event.preventDefault();
 
 		if (selectedMovie !== "") {
-			const url = "http://localhost:3000/subscriptions/subscription/update";
+			const isMemberExistUrl = `http://localhost:3000/subscriptions/subscription/${subscription._id}`;
+			
 			const currentDate = new Date().toISOString().split("T")[0];
 			const selectedMovieId = allMovies.find((movie) => movie.name === selectedMovie)._id;
             const headers = { authorization: `Bearer ${localStorage.getItem("token")}` };
-
+			
 			const updatedSubscription = {
 				memberId: subscription._id,
 				movies: [...subscription.movies, { date: currentDate, movieId: selectedMovieId }],
 			};
 			
             try {
-                const resp = (await axios.post(url, {subscriptions: [updatedSubscription]}, {headers})).data;
-                if (resp.status) {
+				// First check if the member already exists in the database(if not, create it in subscriptions)
+				const isExist = (await axios.get(isMemberExistUrl, { headers })).data;				
+                if (isExist.status) {
+					const url = "http://localhost:3000/subscriptions/subscription/update";
+					const resp = (await axios.post(url, {subscriptions: [updatedSubscription]}, {headers})).data;
                     dispatch(subscriptionsActions.update(resp.data));
                 } else {
-                    console.log("Failed to update subscription:", resp.data);
+                    const url = "http://localhost:3000/subscriptions/subscription/add";
+					const resp = (await axios.post(url, updatedSubscription, { headers })).data;
+					dispatch(subscriptionsActions.add(resp.data));
                 }
             } catch (error) {
                 console.log("Error adding subscription:", error);
@@ -92,12 +98,12 @@ const SubscriptionsListItem = ({ subscription }) => {
 	let dateOffer = undefined;
 	let filteredMovies = undefined;
 	if (isAddSubscription) {
-		dateOffer = new Date().toISOString().split("T")[0];
+		dateOffer = (new Date().toLocaleDateString()).replaceAll(".", "/");
 		const watchedMoviesId = subscription.movies.map((movie) => movie.movieId);
 
 		filteredMovies = allMovies.filter((movie) => !watchedMoviesId.includes(movie._id));
 	}
-
+	
 	return (
 		<li className={styles.all_subs_list_item}>
 			<p className={styles.all_subs_list_item_name}>{subscription.name}</p>
@@ -151,7 +157,7 @@ const SubscriptionsListItem = ({ subscription }) => {
 										);
 									})}
 								</select>
-								<input id="date" type="date" defaultValue={dateOffer} readOnly />
+								<input id="date" type="text" defaultValue={dateOffer}/>
 							</div>
 							<Button
 								className={styles.all_subs_list_item_new_subs_button}
