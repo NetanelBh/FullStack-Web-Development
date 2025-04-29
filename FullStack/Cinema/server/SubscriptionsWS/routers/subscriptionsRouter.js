@@ -19,6 +19,8 @@ router.get("/get", async (req, res) => {
 });
 
 router.patch('/update', async (req, res) => {
+    console.log(req.body);
+    
     try {
         const resp = await subscriptionsServices.updateSubscriptions(req.body);
         res.send({status: true, data: resp});

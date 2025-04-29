@@ -14,19 +14,18 @@ import { subscriptionsActions } from "../../store/slices/subscriptionsSlice";
 import { useState } from "react";
 
 const SubscriptionsListItem = ({ subscription }) => {
-	const allEmployees = useSelector((state) => state.employees.employees);
-	const allMovies = useSelector((state) => state.movies.movies);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
 	const [isAddSubscription, setIsAddSubscription] = useState(false);
+	const [selectedMovie, setSelectedMovie] = useState("");
+
+	const allEmployees = useSelector((state) => state.employees.employees);
+	const allMovies = useSelector((state) => state.movies.movies);
 
 	const employeeId = localStorage.getItem("id");
 	const editPermission = "Update Subscription";
 	const deletePermission = "Delete Subscriptions";
-
-	const newMovieSubscriptionHandler = () => {
-		setIsAddSubscription((prevState) => !prevState);
-	};
 
 	const deleteSubscriptionHandler = async () => {
 		const deleteMemberUrl = `http://localhost:3000/subscriptions/member/delete/${subscription._id}`;
@@ -53,10 +52,37 @@ const SubscriptionsListItem = ({ subscription }) => {
 		navigate("/layout/editSubscription");
 	};
 
-	const addSubscriptionHandler = (event) => {
+	const newMovieSubscriptionHandler = () => {
+		setIsAddSubscription((prevState) => !prevState);
+		setSelectedMovie("");
+	};
+
+	const addSubscriptionHandler = async (event) => {
 		event.preventDefault();
 
-        // TODO: Implement the logic to add a new movie subscription
+		if (selectedMovie !== "") {
+			const url = "http://localhost:3000/subscriptions/subscription/update";
+			const currentDate = new Date().toISOString().split("T")[0];
+			const selectedMovieId = allMovies.find((movie) => movie.name === selectedMovie)._id;
+            const headers = { authorization: `Bearer ${localStorage.getItem("token")}` };
+
+			const updatedSubscription = {
+				memberId: subscription._id,
+				movies: [...subscription.movies, { date: currentDate, movieId: selectedMovieId }],
+			};
+			
+            try {
+                const resp = (await axios.post(url, {subscriptions: [updatedSubscription]}, {headers})).data;
+                if (resp.status) {
+                    dispatch(subscriptionsActions.update(resp.data));
+                } else {
+                    console.log("Failed to update subscription:", resp.data);
+                }
+            } catch (error) {
+                console.log("Error adding subscription:", error);
+                
+            }
+		}
 	};
 
 	// Determine whether the employee has the permissin to edit or remove movies
@@ -115,7 +141,8 @@ const SubscriptionsListItem = ({ subscription }) => {
 						<Card className={`generic_card ${styles.all_subs_list_item_new_subs_card}`}>
 							<h2>Add a new movie</h2>
 							<div className={styles.all_subs_list_item_movies_subs_data}>
-								<select id="select">
+								<select id="select" onChange={(e) => setSelectedMovie(e.target.value)}>
+									<option value="">Select a movie</option>
 									{filteredMovies.map((movie) => {
 										return (
 											<option key={movie._id} value={movie.name}>

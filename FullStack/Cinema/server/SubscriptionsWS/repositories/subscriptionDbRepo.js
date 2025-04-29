@@ -11,6 +11,8 @@ export const getSubscriptions = () => {
 };
 
 export const updateSubscriptions = (subscriptions) => {
+  console.log(subscriptions);
+  
    // Per each subscription create an update query to wait for all of them to finish when update the DB in the repo
 	const updatedSubscriptions = subscriptions.map((sub) =>
 		subscriptionModel.findOneAndUpdate({ memberId: sub.memberId }, { movies: sub.movies }, {new: true})
