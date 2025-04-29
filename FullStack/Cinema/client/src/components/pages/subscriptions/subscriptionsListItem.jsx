@@ -55,13 +55,23 @@ const SubscriptionsListItem = ({ subscription }) => {
 
 	const addSubscriptionHandler = (event) => {
 		event.preventDefault();
+
+        // TODO: Implement the logic to add a new movie subscription
 	};
 
 	// Determine whether the employee has the permissin to edit or remove movies
 	const isEditPermission = isShowPermission(allEmployees, employeeId, editPermission);
 	const isDeletePermission = isShowPermission(allEmployees, employeeId, deletePermission);
 
-	const dateOffer = new Date().toISOString().split("T")[0];
+	let dateOffer = undefined;
+	let filteredMovies = undefined;
+	if (isAddSubscription) {
+		dateOffer = new Date().toISOString().split("T")[0];
+		const watchedMoviesId = subscription.movies.map((movie) => movie.movieId);
+
+		filteredMovies = allMovies.filter((movie) => !watchedMoviesId.includes(movie._id));
+	}
+
 	return (
 		<li className={styles.all_subs_list_item}>
 			<p className={styles.all_subs_list_item_name}>{subscription.name}</p>
@@ -106,10 +116,13 @@ const SubscriptionsListItem = ({ subscription }) => {
 							<h2>Add a new movie</h2>
 							<div className={styles.all_subs_list_item_movies_subs_data}>
 								<select id="select">
-									{allMovies.filter((movie) => {
-                                        // filter the movies to be without the watched movies
-                                        // Then map the filtered array
-                                    })}
+									{filteredMovies.map((movie) => {
+										return (
+											<option key={movie._id} value={movie.name}>
+												{movie.name}
+											</option>
+										);
+									})}
 								</select>
 								<input id="date" type="date" defaultValue={dateOffer} readOnly />
 							</div>

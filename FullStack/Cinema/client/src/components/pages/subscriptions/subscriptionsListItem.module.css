@@ -46,7 +46,7 @@
     flex-direction: column;
     margin: 1rem 1rem 0.5rem 0;
     padding-top: 0;
-    width: 70%;
+    width: 80%;
 }
 
 .all_subs_list_item_movies_header {
@@ -86,17 +86,21 @@
 }
 
 .all_subs_list_item_movies_subs_data select {
-    flex: 60%;
-    font-size: var(--input-font-size);
+    width: 70%;
+    font-size: 1rem;
 }
 
 .all_subs_list_item_movies_subs_data input {
-    flex: 40%;
+    width: 30%;
 }
 
 .all_subs_list_item_new_subs_button {
-    border-radius: 3px;
+    border-radius: 5px;
     font-size: var(--input-font-size);
+}
+
+.all_subs_list_item_new_subs_button:hover {
+    border-color: white;
 }
 
 .all_subs_list_item_movies_list {
