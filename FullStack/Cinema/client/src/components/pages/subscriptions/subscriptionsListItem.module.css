@@ -2,6 +2,7 @@
     padding: 5px 5px 10px 5px;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .all_subs_list_item_name {
@@ -45,6 +46,7 @@
     flex-direction: column;
     margin: 1rem 1rem 0.5rem 0;
     padding-top: 0;
+    width: 70%;
 }
 
 .all_subs_list_item_movies_header {
@@ -54,13 +56,47 @@
 
 .all_subs_list_item_movie_subscribe_button {
     border-radius: 10px;;
-    margin-bottom: 1rem;
+    margin: 0 auto 1rem auto;
     font-size: var(--input-font-size);
+    width: 80%;
 }
 
 .all_subs_list_item_movie_subscribe_button:hover {
     background-color: var(--focus-background-color);
     border-color: var(--focus-background-color);
+}
+
+.all_subs_list_item_new_subs_card {
+    flex-direction: column;
+    padding-bottom: 10px;
+    width: 80%;    
+    margin: 0.5rem auto 1rem auto;
+}
+
+.all_subs_list_item_new_subs h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.all_subs_list_item_movies_subs_data {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.all_subs_list_item_movies_subs_data select {
+    flex: 60%;
+    font-size: var(--input-font-size);
+}
+
+.all_subs_list_item_movies_subs_data input {
+    flex: 40%;
+}
+
+.all_subs_list_item_new_subs_button {
+    border-radius: 3px;
+    font-size: var(--input-font-size);
 }
 
 .all_subs_list_item_movies_list {

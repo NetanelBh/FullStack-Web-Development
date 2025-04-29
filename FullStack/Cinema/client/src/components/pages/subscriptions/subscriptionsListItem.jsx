@@ -18,13 +18,14 @@ const SubscriptionsListItem = ({ subscription }) => {
 	const allMovies = useSelector((state) => state.movies.movies);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const [isAddSubscription, setIsAddSubscription] = useState(false);
 
 	const employeeId = localStorage.getItem("id");
 	const editPermission = "Update Subscription";
 	const deletePermission = "Delete Subscriptions";
 
 	const newMovieSubscriptionHandler = () => {
-		// TODO: CREATE A SECTION FOR NEW SUBSCRIPTION MOVIES
+		setIsAddSubscription((prevState) => !prevState);
 	};
 
 	const deleteSubscriptionHandler = async () => {
@@ -52,10 +53,15 @@ const SubscriptionsListItem = ({ subscription }) => {
 		navigate("/layout/editSubscription");
 	};
 
+	const addSubscriptionHandler = (event) => {
+		event.preventDefault();
+	};
+
 	// Determine whether the employee has the permissin to edit or remove movies
 	const isEditPermission = isShowPermission(allEmployees, employeeId, editPermission);
 	const isDeletePermission = isShowPermission(allEmployees, employeeId, deletePermission);
 
+	const dateOffer = new Date().toISOString().split("T")[0];
 	return (
 		<li className={styles.all_subs_list_item}>
 			<p className={styles.all_subs_list_item_name}>{subscription.name}</p>
@@ -93,6 +99,28 @@ const SubscriptionsListItem = ({ subscription }) => {
 					type="button"
 					onClick={newMovieSubscriptionHandler}
 				></Button>
+
+				{isAddSubscription && (
+					<form onSubmit={addSubscriptionHandler}>
+						<Card className={`generic_card ${styles.all_subs_list_item_new_subs_card}`}>
+							<h2>Add a new movie</h2>
+							<div className={styles.all_subs_list_item_movies_subs_data}>
+								<select id="select">
+									{allMovies.filter((movie) => {
+                                        // filter the movies to be without the watched movies
+                                        // Then map the filtered array
+                                    })}
+								</select>
+								<input id="date" type="date" defaultValue={dateOffer} readOnly />
+							</div>
+							<Button
+								className={styles.all_subs_list_item_new_subs_button}
+								text="Subscribe"
+								type="submit"
+							/>
+						</Card>
+					</form>
+				)}
 
 				<ul className={styles.all_subs_list_item_movies_list}>
 					{subscription.movies.map((movie) => {
